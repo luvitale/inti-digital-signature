@@ -1,6 +1,10 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 
+try {
+  require('electron-reloader')(module)
+} catch (_) {}
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
