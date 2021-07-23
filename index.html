@@ -6,31 +6,38 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src *; script-src 'self'"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src *; script-src 'self'"
     />
   </head>
   <body>
     <h1>INTI Digital Signature</h1>
     
-    <button id="generate-private-key">Generar clave privada</button>
-    <br><br>
-    <input id="private-key-to-derivate" type="file">
-    <button id="generate-public-key">Generar clave pública</button>
-    <br><br>
-    <input id="private-key-to-sign" type="file">
-    <input id="file-to-sign" type="file">
-    <button id="sign">Firmar</button>
-    <br><br>
-    <input id="public-key-to-verify" type="file">
-    <input id="file-to-verify" type="file">
-    <input id="original-file" type="file">
-    <button id="verify">Verificar</button>
-
+    <form id="generate-private-key-form">
+      <input id="generate-private-key" type="submit" value="Generar clave privada">
+    </form>
+    
+    <form id="generate-public-key-form">
+      <input id="private-key-to-derivate" type="file">
+      <input id="generate-public-key" type="submit" value="Generar clave pública">
+    </form>
+    
+    <form id="sign-form">
+      <input id="private-key-to-sign" type="file">
+      <input id="file-to-sign" type="file">
+      <input id="sign" type="submit" value="Firmar">
+    </form>
+    
+    <form id="verify-form">
+      <input id="public-key-to-verify" type="file">
+      <input id="file-to-verify" type="file">
+      <input id="original-file" type="file">
+      <input id="verify" type="submit" value="Verificar">
+    </form>
+    
     <script src="./dist/renderer.js"></script>
-    <script src="./dist/digital-signature.js"></script>
   </body>
 </html>
