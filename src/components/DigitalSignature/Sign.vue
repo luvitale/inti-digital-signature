@@ -25,7 +25,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" depressed @click="sign"> Firmar </v-btn>
+        <v-btn color="success" depressed class="text-none" @click="sign"> Firmar </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

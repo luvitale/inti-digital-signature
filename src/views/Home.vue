@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Landing msg="INTI Digital Signature" />
+    <Landing msg="Firma Digital INTI" />
   </div>
 </template>
 

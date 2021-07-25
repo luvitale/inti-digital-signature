@@ -32,7 +32,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" depressed @click="verify"> Verificar </v-btn>
+        <v-btn color="success" depressed class="text-none" @click="verify"> Verificar </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

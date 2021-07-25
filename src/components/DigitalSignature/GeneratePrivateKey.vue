@@ -8,7 +8,7 @@
       <v-divider></v-divider>
 
       <v-form>
-        <v-btn class="ma-2" outlined @click="generatePrivateKey">
+        <v-btn outlined color="success" class="text-none" depressed @click="generatePrivateKey">
           Generar clave privada
         </v-btn>
       </v-form>

@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, screen } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import path from "path";
@@ -13,12 +13,18 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
-async function createWindow() {
+async function createWindow(dimensions) {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: dimensions.width,
+    height: dimensions.height,
+    minWidth: parseInt(dimensions.width * 0.8),
+    minHeight: parseInt(dimensions.height * 0.8),
+    maxWidth: dimensions.width,
+    maxHeight: dimensions.height,
     webPreferences: {
+      devTools: false,
+
       // Required for Spectron testing
       enableRemoteModule: !!process.env.IS_TEST,
 
@@ -33,6 +39,9 @@ async function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    win.setTitle("Firma Digital INTI");
+    win.setMenu(null)
+    win.removeMenu()
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
     createProtocol("app");
@@ -68,7 +77,10 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-  createWindow();
+
+  const display = screen.getPrimaryDisplay();
+  const dimensions = display.workAreaSize;
+  createWindow(dimensions);
 });
 
 // Exit cleanly on request from parent process in development mode.
