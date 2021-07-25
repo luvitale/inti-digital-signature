@@ -37,6 +37,8 @@ import mixin from "./mixin"
 export default {
   name: "SignComponent",
 
+  mixins: [mixin],
+
   data: function () {
     return {
       privateKeyFile: [],
@@ -50,7 +52,7 @@ export default {
       window.ipcRenderer.send("sign", {privateKeyPath, fileToSignPath});
       window.ipcRenderer.receive("sign", signedFile => {
         const defaultFilename = "firma.bin"
-        mixin.methods.saveAsFile(signedFile, defaultFilename)
+        this.saveAsFile(signedFile, defaultFilename)
       });
     },
   },

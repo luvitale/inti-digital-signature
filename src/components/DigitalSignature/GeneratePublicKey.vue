@@ -27,6 +27,8 @@ import mixin from "./mixin"
 export default {
   name: "GeneratePublicKeyComponent",
 
+  mixins: [mixin],
+
   data: function () {
     return {
       privateKeyFile: []
@@ -38,7 +40,7 @@ export default {
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", publicKey => {
         const defaultFilename = "pub1.pem"
-        mixin.methods.saveAsFile(publicKey, defaultFilename)
+        this.saveAsFile(publicKey, defaultFilename)
       });
     }
   },
