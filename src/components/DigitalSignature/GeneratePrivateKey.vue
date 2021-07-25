@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import mixin from "./mixin"
+
 export default {
   name: "GeneratePrivateKeyComponent",
 
@@ -25,9 +27,10 @@ export default {
   },
   methods: {
     generatePrivateKey() {
-      window.ipcRenderer.send("generate-private-key", "ping");
-      window.ipcRenderer.receive("generate-private-key", (resp) => {
-        console.log(resp);
+      window.ipcRenderer.send("generate-private-key");
+      window.ipcRenderer.receive("generate-private-key", privateKey => {
+        const defaultFilename = "priv1.pem"
+        mixin.methods.saveAsFile(privateKey, defaultFilename)
       });
     }
   }

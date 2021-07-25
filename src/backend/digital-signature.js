@@ -5,26 +5,13 @@ export class DigitalSignature {
   constructor() {}
 
   generatePrivateKey() {
-    const command = "openssl";
-    const filePath = path.join("dist", "priv1.pem");
-    const args = [`genrsa -out ${filePath} 1024`];
+    return new Promise((resolve, reject) => {
+      child_process.exec("openssl genrsa 2048", (err, privateKey, stderr) => {
+        if (err) reject(err)
 
-    const child = child_process.spawn(command, args, {
-      shell: true,
-    });
-
-    child.stdout.setEncoding("utf8");
-    child.stdout.on("data", (data) => {
-      //Here is the output
-      data = data.toString();
-      console.log(data);
-    });
-
-    child.stderr.setEncoding("utf8");
-    child.stderr.on("data", (data) => {
-      //Here is the output from the command
-      console.log(data);
-    });
+        resolve(privateKey)
+      })
+    })
   }
 
   generatePublicKey(privKeyFile) {

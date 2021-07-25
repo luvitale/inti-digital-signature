@@ -4,9 +4,9 @@ import { DigitalSignature } from "./digital-signature";
 const digitalSignature = new DigitalSignature();
 
 ipcMain.on("generate-private-key", (event, arg) => {
-  console.log(arg);
-
-  event.reply("generate-private-key", "pong");
+  digitalSignature.generatePrivateKey()
+    .then(privateKey => event.reply("generate-private-key", privateKey))
+    .catch(error => console.log(error))
 });
 
 ipcMain.on("generate-public-key", (event, arg) => {
