@@ -1,26 +1,41 @@
 # INTI Digital Signature
 
-## To Use
+## Project setup
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-git clone https://github.com/luvitale/inti-digital-signature
-# Go into the repository
-cd electron-quick-start-typescript
-# Install dependencies
+```
 npm install
-# Run the app
-npm start
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+### Compiles and hot-reloads for development
 
-## Re-compile automatically
-
-To recompile automatically and to allow using [electron-reload](https://github.com/yan-foto/electron-reload), run this in a separate terminal:
-
-```bash
-npm run watch
 ```
+npm run electron:serve
+```
+
+### Compiles and minifies for production
+
+```
+npm run electron:build
+```
+
+### Run your unit tests
+
+```
+npm run test:unit
+```
+
+### Run your end-to-end tests
+
+```
+npm run test:e2e
+```
+
+### Lints and fixes files
+
+```
+npm run lint
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
