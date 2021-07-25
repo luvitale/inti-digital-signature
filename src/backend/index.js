@@ -6,7 +6,7 @@ const digitalSignature = new DigitalSignature();
 ipcMain.on("generate-private-key", (event, arg) => {
   digitalSignature.generatePrivateKey()
     .then(privateKey => event.reply("generate-private-key", privateKey))
-    .catch(error => console.log(e.toString()))
+    .catch(e => console.log(e.toString()))
 });
 
 ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
@@ -18,8 +18,10 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
   }
 });
 
-ipcMain.on("sign", (event, arg) => {
-  console.log(arg);
+ipcMain.on("sign", (event, {privateKeyPath, fileToSignPath}) => {
+  digitalSignature.sign(privateKeyPath, fileToSignPath)
+    .then(signedFile => event.reply("sign", signedFile))
+    .catch(e => console.log(e.toString()))
 
   event.reply("sign", "pong");
 });

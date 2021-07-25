@@ -12,12 +12,14 @@
           label="Seleccioná la clave privada"
           prepend-icon="mdi-message-text"
           outlined
+          v-model="privateKeyFile"
         />
 
         <v-file-input
           label="Seleccioná el archivo a firmar"
           prepend-icon="mdi-message-text"
           outlined
+          v-model="fileToSign"
         />
       </v-form>
 
@@ -30,17 +32,25 @@
 </template>
 
 <script>
+import mixin from "./mixin"
+
 export default {
   name: "SignComponent",
 
   data: function () {
-    return {};
+    return {
+      privateKeyFile: [],
+      fileToSign: []
+    };
   },
   methods: {
     sign() {
-      window.ipcRenderer.send("sign", "ping");
-      window.ipcRenderer.receive("sign", (resp) => {
-        console.log(resp);
+      const privateKeyPath = this.privateKeyFile.path
+      const fileToSignPath = this.fileToSign.path
+      window.ipcRenderer.send("sign", {privateKeyPath, fileToSignPath});
+      window.ipcRenderer.receive("sign", signedFile => {
+        const defaultFilename = "firma.bin"
+        mixin.methods.saveAsFile(signedFile, defaultFilename)
       });
     },
   },
