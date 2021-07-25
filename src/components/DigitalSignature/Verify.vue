@@ -12,18 +12,21 @@
           label="Seleccioná la clave pública"
           prepend-icon="mdi-message-text"
           outlined
+          v-model="publicKeyFile"
         />
 
         <v-file-input
           label="Seleccioná el archivo a verificar"
           prepend-icon="mdi-message-text"
           outlined
+          v-model="fileToVerify"
         />
 
         <v-file-input
           label="Seleccioná el archivo original"
           prepend-icon="mdi-message-text"
           outlined
+          v-model="originalFile"
         />
       </v-form>
 
@@ -40,12 +43,21 @@ export default {
   name: "VerifyComponent",
 
   data: function () {
-    return {};
+    return {
+      publicKeyFile: [],
+      fileToVerify: [],
+      originalFile: []
+    };
   },
   methods: {
     verify() {
-      window.ipcRenderer.send("verify", "ping");
-      window.ipcRenderer.receive("verify", (resp) => {
+      const publicKeyPath = this.publicKeyFile.path
+      const fileToVerifyPath = this.fileToVerify.path
+      const originalFilePath = this.originalFile.path
+      window.ipcRenderer.send("verify", {
+        publicKeyPath, fileToVerifyPath, originalFilePath
+      });
+      window.ipcRenderer.receive("verify", resp => {
         console.log(resp);
       });
     },

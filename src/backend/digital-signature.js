@@ -29,36 +29,24 @@ export class DigitalSignature {
   sign(privateKeyPath, fileToSignPath) {
     return new Promise((resolve, reject) => {
       const signCommand = `openssl dgst -sha1 -sign "${privateKeyPath}" "${fileToSignPath}"`
-      child_process.exec(signCommand, (err, publicKey, stderr) => {
+      child_process.exec(signCommand, (err, signedFile, stderr) => {
         if (err) reject(err)
 
-        resolve(publicKey)
+        resolve(signedFile)
       })
     })
   }
 
-  verify(pubKeyFile, fileToVerify, originalFile) {
-    const command = "openssl";
+  verify(publicKeyPath, fileToVerifyPath, originalFilePath) {
+    return new Promise((resolve, reject) => {
+      const verifyCommand = `openssl dgst -sha1 -verify "${publicKeyPath}" -signature "${fileToVerifyPath}" "${originalFilePath}"`
+      child_process.exec(verifyCommand, (err, result, stderr) => {
+        if (err) reject(err)
 
-    const args = [
-      `dgst -sha1 -verify "${pubKeyFile}" -signature "${fileToVerify}" "${originalFile}"`,
-    ];
+        resolve(result)
+      })
+    })
 
-    const child = child_process.spawn(command, args, {
-      shell: true,
-    });
 
-    child.stdout.setEncoding("utf8");
-    child.stdout.on("data", (data) => {
-      //Here is the output
-      data = data.toString();
-      console.log(data);
-    });
-
-    child.stderr.setEncoding("utf8");
-    child.stderr.on("data", (data) => {
-      //Here is the output from the command
-      console.log(data);
-    });
   }
 }

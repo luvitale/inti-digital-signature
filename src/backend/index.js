@@ -22,12 +22,10 @@ ipcMain.on("sign", (event, {privateKeyPath, fileToSignPath}) => {
   digitalSignature.sign(privateKeyPath, fileToSignPath)
     .then(signedFile => event.reply("sign", signedFile))
     .catch(e => console.log(e.toString()))
-
-  event.reply("sign", "pong");
 });
 
-ipcMain.on("verify", (event, arg) => {
-  console.log(arg);
-
-  event.reply("verify", "pong");
+ipcMain.on("verify", (event, {publicKeyPath, fileToVerifyPath, originalFilePath}) => {
+  digitalSignature.verify(publicKeyPath, fileToVerifyPath, originalFilePath)
+    .then(result => event.reply(result))
+    .catch(e => console.log(e.toString()))
 });
