@@ -1,6 +1,7 @@
 {
   "name": "inti-digital-signature",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "INTI Digital Signature",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,16 +14,20 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
+  "author": "Luciano Nahuel Vitale",
+  "license": "CC0-1.0",
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
     "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-e2e-webdriverio": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-plugin-unit-mocha": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",

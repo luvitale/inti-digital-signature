@@ -1,26 +1,35 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>INTI Digital Signature</v-toolbar-title>
-    </v-app-bar>
-    <v-main>
-      <DigitalSignature />
-    </v-main>
-  </v-app>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Inicio</router-link> |
+      <router-link to="/generate-private-key">Generar clave privada</router-link> |
+      <router-link to="/generate-public-key">Generar clave pública</router-link> |
+      <router-link to="/sign">Firmar</router-link> |
+      <router-link to="/verify">Verificar</router-link>
+    </div>
+    <router-view />
+  </div>
 </template>
 
-<script>
-import DigitalSignature from "./components/DigitalSignature";
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: "App",
+#nav {
+  padding: 30px;
 
-  components: {
-    DigitalSignature,
-  },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  data: () => ({
-    //
-  }),
-};
-</script>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
