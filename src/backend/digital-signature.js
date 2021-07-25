@@ -6,7 +6,8 @@ export class DigitalSignature {
 
   generatePrivateKey() {
     return new Promise((resolve, reject) => {
-      child_process.exec("openssl genrsa 2048", (err, privateKey, stderr) => {
+      const generatePrivateKeyCommand = `openssl genrsa 2048`
+      child_process.exec(generatePrivateKeyCommand, (err, privateKey, stderr) => {
         if (err) reject(err)
 
         resolve(privateKey)
@@ -14,27 +15,15 @@ export class DigitalSignature {
     })
   }
 
-  generatePublicKey(privKeyFile) {
-    const command = "openssl";
-    const pubKeyPath = path.join("dist", "pub1.pem");
-    const args = [`rsa -in "${privKeyFile}" -pubout -out "${pubKeyPath}"`];
+  generatePublicKey(privateKeyPath) {
+    return new Promise((resolve, reject) => {
+      const generatePublicKeyCommand = `openssl rsa -in ${privateKeyPath} -pubout`
+      child_process.exec(generatePublicKeyCommand, (err, publicKey, stderr) => {
+        if (err) reject(err)
 
-    const child = child_process.spawn(command, args, {
-      shell: true,
-    });
-
-    child.stdout.setEncoding("utf8");
-    child.stdout.on("data", (data) => {
-      //Here is the output
-      data = data.toString();
-      console.log(data);
-    });
-
-    child.stderr.setEncoding("utf8");
-    child.stderr.on("data", (data) => {
-      //Here is the output from the command
-      console.log(data);
-    });
+        resolve(publicKey)
+      })
+    })
   }
 
   sign(privKeyFile, fileToSign) {

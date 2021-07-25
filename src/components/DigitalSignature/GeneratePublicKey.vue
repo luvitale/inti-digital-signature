@@ -13,6 +13,7 @@
           prepend-icon="mdi-message-text"
           outlined
           append-outer-icon="mdi-send"
+          v-model="privateKeyFile"
           @click:append-outer="generatePublicKey"
         />
       </v-form>
@@ -21,17 +22,23 @@
 </template>
 
 <script>
+import mixin from "./mixin"
+
 export default {
   name: "GeneratePublicKeyComponent",
 
   data: function () {
-    return {};
+    return {
+      privateKeyFile: []
+    };
   },
   methods: {
     generatePublicKey() {
-      window.ipcRenderer.send("generate-public-key", "ping");
-      window.ipcRenderer.receive("generate-public-key", (resp) => {
-        console.log(resp);
+      const privateKeyPath = this.privateKeyFile.path
+      window.ipcRenderer.send("generate-public-key", privateKeyPath);
+      window.ipcRenderer.receive("generate-public-key", publicKey => {
+        const defaultFilename = "pub1.pem"
+        mixin.methods.saveAsFile(publicKey, defaultFilename)
       });
     }
   },

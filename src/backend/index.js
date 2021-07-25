@@ -6,13 +6,16 @@ const digitalSignature = new DigitalSignature();
 ipcMain.on("generate-private-key", (event, arg) => {
   digitalSignature.generatePrivateKey()
     .then(privateKey => event.reply("generate-private-key", privateKey))
-    .catch(error => console.log(error))
+    .catch(error => console.log(e.toString()))
 });
 
-ipcMain.on("generate-public-key", (event, arg) => {
-  console.log(arg);
-
-  event.reply("generate-public-key", "pong");
+ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
+  try {
+    const publicKey = await digitalSignature.generatePublicKey(privateKeyPath)
+    event.reply("generate-public-key", publicKey)
+  } catch(e) {
+    console.log(e.toString())
+  }
 });
 
 ipcMain.on("sign", (event, arg) => {
