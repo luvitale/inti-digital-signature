@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Logo del INTI" src="../assets/logo.png" />
     <Landing msg="INTI Digital Signature" />
   </div>
 </template>
