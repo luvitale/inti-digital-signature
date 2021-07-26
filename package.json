@@ -1,7 +1,7 @@
 {
   "name": "inti-digital-signature",
-  "version": "1.0.0",
-  "description": "INTI Digital Signature",
+  "version": "1.0.1",
+  "description": "Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL",
   "homepage": "https://github.com/luvitale/inti-digital-signature",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "author": "Luciano Nahuel Vitale",
+  "author": "Luciano Nahuel Vitale <lucianonahuelvitale@gmail.com>",
   "license": "CC0-1.0",
   "main": "background.js",
   "dependencies": {
