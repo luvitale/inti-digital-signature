@@ -30,9 +30,8 @@ export default {
   methods: {
     generatePrivateKey() {
       window.ipcRenderer.send("generate-private-key");
-      window.ipcRenderer.receive("generate-private-key", privateKey => {
-        const defaultFilename = "priv1.pem"
-        this.saveAsFile(privateKey, defaultFilename)
+      window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
+        console.log("Clave privada generada correctamente")
       });
     }
   }

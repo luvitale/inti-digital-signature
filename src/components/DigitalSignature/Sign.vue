@@ -50,9 +50,8 @@ export default {
       const privateKeyPath = this.privateKeyFile.path
       const fileToSignPath = this.fileToSign.path
       window.ipcRenderer.send("sign", {privateKeyPath, fileToSignPath});
-      window.ipcRenderer.receive("sign", signedFile => {
-        const defaultFilename = "firma.bin"
-        this.saveAsFile(signedFile, defaultFilename)
+      window.ipcRenderer.receive("sign", (/* signedFile */) => {
+        console.log("Firmado archivo correctamente")
       });
     },
   },

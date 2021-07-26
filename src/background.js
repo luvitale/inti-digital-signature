@@ -23,8 +23,6 @@ async function createWindow(dimensions) {
     maxWidth: dimensions.width,
     maxHeight: dimensions.height,
     webPreferences: {
-      devTools: false,
-
       // Required for Spectron testing
       enableRemoteModule: !!process.env.IS_TEST,
 

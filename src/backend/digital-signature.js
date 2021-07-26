@@ -26,9 +26,9 @@ export class DigitalSignature {
     })
   }
 
-  sign(privateKeyPath, fileToSignPath) {
+  sign(privateKeyPath, fileToSignPath, defaultFilename) {
     return new Promise((resolve, reject) => {
-      const signCommand = `openssl dgst -sha1 -sign "${privateKeyPath}" "${fileToSignPath}"`
+      const signCommand = `openssl dgst -sha1 -sign "${privateKeyPath}" -out "${defaultFilename}" "${fileToSignPath}"`
       child_process.exec(signCommand, (err, signedFile, stderr) => {
         if (err) reject(err)
 
@@ -46,7 +46,5 @@ export class DigitalSignature {
         resolve(result)
       })
     })
-
-
   }
 }

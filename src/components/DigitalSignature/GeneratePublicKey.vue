@@ -38,9 +38,8 @@ export default {
     generatePublicKey() {
       const privateKeyPath = this.privateKeyFile.path
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
-      window.ipcRenderer.receive("generate-public-key", publicKey => {
-        const defaultFilename = "pub1.pem"
-        this.saveAsFile(publicKey, defaultFilename)
+      window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
+        console.log("Clave pública generada correctamente")
       });
     }
   },
