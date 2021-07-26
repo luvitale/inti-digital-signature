@@ -1,6 +1,6 @@
 {
   "name": "inti-digital-signature",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL",
   "homepage": "https://github.com/luvitale/inti-digital-signature",
   "private": true,
