@@ -2,7 +2,6 @@ appId: "ar.gob.inti.digitalsignature"
 productName: "Firma Digital INTI"
 
 win:
-  asar: false
   target:
     - zip
     - nsis
