@@ -2,6 +2,7 @@
   "name": "inti-digital-signature",
   "version": "1.0.0",
   "description": "INTI Digital Signature",
+  "homepage": "https://github.com/luvitale/inti-digital-signature",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

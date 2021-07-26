@@ -1,4 +1,3 @@
-import path from "path";
 import child_process from "child_process";
 
 export class DigitalSignature {
