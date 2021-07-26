@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import mixin from "./mixin"
+import mixin from "./mixin";
 
 export default {
   name: "GeneratePublicKeyComponent",
@@ -31,17 +31,17 @@ export default {
 
   data: function () {
     return {
-      privateKeyFile: []
+      privateKeyFile: [],
     };
   },
   methods: {
     generatePublicKey() {
-      const privateKeyPath = this.privateKeyFile.path
+      const privateKeyPath = this.privateKeyFile.path;
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
-        console.log("Clave pública generada correctamente")
+        console.log("Clave pública generada correctamente");
       });
-    }
+    },
   },
 };
 </script>

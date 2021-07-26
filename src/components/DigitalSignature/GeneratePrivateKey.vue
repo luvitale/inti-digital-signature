@@ -8,7 +8,13 @@
       <v-divider></v-divider>
 
       <v-form>
-        <v-btn outlined color="success" class="text-none" depressed @click="generatePrivateKey">
+        <v-btn
+          outlined
+          color="success"
+          class="text-none"
+          depressed
+          @click="generatePrivateKey"
+        >
           Generar clave privada
         </v-btn>
       </v-form>
@@ -17,7 +23,7 @@
 </template>
 
 <script>
-import mixin from "./mixin"
+import mixin from "./mixin";
 
 export default {
   name: "GeneratePrivateKeyComponent",
@@ -31,10 +37,10 @@ export default {
     generatePrivateKey() {
       window.ipcRenderer.send("generate-private-key");
       window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
-        console.log("Clave privada generada correctamente")
+        console.log("Clave privada generada correctamente");
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

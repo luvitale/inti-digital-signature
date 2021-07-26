@@ -1,16 +1,6 @@
 appId: "ar.gob.inti.digitalsignature"
 productName: "Firma Digital INTI"
 
-win:
-  target:
-    - zip
-    - nsis
-
-# Config for the windows installer
-nsis:
-  oneClick: true
-  perMachine: true
-
 # Linux configuration
 linux:
   category: Development

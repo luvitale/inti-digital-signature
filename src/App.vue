@@ -2,9 +2,12 @@
   <v-app id="app">
     <div id="nav">
       <router-link to="/">Inicio</router-link> |
-      <router-link to="/generate-private-key">Generar clave privada</router-link> |
-      <router-link to="/generate-public-key">Generar clave pública</router-link> |
-      <router-link to="/sign">Firmar</router-link> |
+      <router-link to="/generate-private-key"
+        >Generar clave privada</router-link
+      >
+      |
+      <router-link to="/generate-public-key">Generar clave pública</router-link>
+      | <router-link to="/sign">Firmar</router-link> |
       <router-link to="/verify">Verificar</router-link>
     </div>
     <v-img
@@ -13,7 +16,8 @@
       alt="Logo del INTI"
       src="./assets/logo.png"
       max-width="300px"
-      max-height="300px" />
+      max-height="300px"
+    />
     <router-view />
   </v-app>
 </template>

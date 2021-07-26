@@ -25,14 +25,16 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" depressed class="text-none" @click="sign"> Firmar </v-btn>
+        <v-btn color="success" depressed class="text-none" @click="sign">
+          Firmar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import mixin from "./mixin"
+import mixin from "./mixin";
 
 export default {
   name: "SignComponent",
@@ -42,16 +44,16 @@ export default {
   data: function () {
     return {
       privateKeyFile: [],
-      fileToSign: []
+      fileToSign: [],
     };
   },
   methods: {
     sign() {
-      const privateKeyPath = this.privateKeyFile.path
-      const fileToSignPath = this.fileToSign.path
-      window.ipcRenderer.send("sign", {privateKeyPath, fileToSignPath});
+      const privateKeyPath = this.privateKeyFile.path;
+      const fileToSignPath = this.fileToSign.path;
+      window.ipcRenderer.send("sign", { privateKeyPath, fileToSignPath });
       window.ipcRenderer.receive("sign", (/* signedFile */) => {
-        console.log("Firmado archivo correctamente")
+        console.log("Firmado archivo correctamente");
       });
     },
   },

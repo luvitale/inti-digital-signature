@@ -3,71 +3,79 @@ import fs from "fs";
 
 const save = (data, defaultFilename) => {
   return new Promise((resolve, reject) => {
-    const dialogTitle = "Seleccioná la ubicación del archivo a guardar"
+    const dialogTitle = "Seleccioná la ubicación del archivo a guardar";
 
-    dialog.showSaveDialog({
-      title: dialogTitle,
-      defaultPath: defaultFilename,
-      buttonLabel: 'Guardar',
-      filters: [
+    dialog
+      .showSaveDialog({
+        title: dialogTitle,
+        defaultPath: defaultFilename,
+        buttonLabel: "Guardar",
+        filters: [
           {
-              name: 'Archivos PEM (.pem)',
-              extensions: ['pem']
-          }, ],
-      properties: []
-    }).then(file => {
-      if (!file.canceled) {
-        const dest = file.filePath.toString()
+            name: "Archivos PEM (.pem)",
+            extensions: ["pem"],
+          },
+        ],
+        properties: [],
+      })
+      .then((file) => {
+        if (!file.canceled) {
+          const dest = file.filePath.toString();
 
-        console.log(dest);
-          
-        fs.writeFile(dest, data, err => {
+          console.log(dest);
+
+          fs.writeFile(dest, data, (err) => {
             if (err) reject(err);
 
-            console.log('Guardado');
-            resolve(dest)
-        });
-      }
-    }).catch(err => {
-        reject(err)
-    });
-  })
-}
+            console.log("Guardado");
+            resolve(dest);
+          });
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 
 const move = (source, defaultDestPath) => {
   return new Promise((resolve, reject) => {
-    const dialogTitle = "Seleccioná la ubicación del archivo a guardar"
+    const dialogTitle = "Seleccioná la ubicación del archivo a guardar";
 
-    dialog.showSaveDialog({
-      title: dialogTitle,
-      defaultPath: defaultDestPath,
-      buttonLabel: 'Guardar',
-      filters: [
+    dialog
+      .showSaveDialog({
+        title: dialogTitle,
+        defaultPath: defaultDestPath,
+        buttonLabel: "Guardar",
+        filters: [
           {
-              name: 'Firmas (.bin)',
-              extensions: ['bin']
-          }, ],
-      properties: []
-    }).then(file => {
-      if (!file.canceled) {
-          const dest = file.filePath.toString()
+            name: "Firmas (.bin)",
+            extensions: ["bin"],
+          },
+        ],
+        properties: [],
+      })
+      .then((file) => {
+        if (!file.canceled) {
+          const dest = file.filePath.toString();
 
-          fs.rename(source, dest, err => {
-              if (err) reject(err);
+          fs.rename(source, dest, (err) => {
+            if (err) reject(err);
 
-              console.log('Guardado');
-              resolve(dest)
+            console.log("Guardado");
+            resolve(dest);
           });
-      }
-    }).catch(err => {
-        reject(err)
-    });
-  })
-}
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 
 const dialogFileTransfer = {
   save,
-  move
-}
+  move,
+};
 
-export default dialogFileTransfer
+export default dialogFileTransfer;

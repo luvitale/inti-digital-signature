@@ -32,7 +32,9 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" depressed class="text-none" @click="verify"> Verificar </v-btn>
+        <v-btn color="success" depressed class="text-none" @click="verify">
+          Verificar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -46,18 +48,20 @@ export default {
     return {
       publicKeyFile: [],
       fileToVerify: [],
-      originalFile: []
+      originalFile: [],
     };
   },
   methods: {
     verify() {
-      const publicKeyPath = this.publicKeyFile.path
-      const fileToVerifyPath = this.fileToVerify.path
-      const originalFilePath = this.originalFile.path
+      const publicKeyPath = this.publicKeyFile.path;
+      const fileToVerifyPath = this.fileToVerify.path;
+      const originalFilePath = this.originalFile.path;
       window.ipcRenderer.send("verify", {
-        publicKeyPath, fileToVerifyPath, originalFilePath
+        publicKeyPath,
+        fileToVerifyPath,
+        originalFilePath,
       });
-      window.ipcRenderer.receive("verify", resp => {
+      window.ipcRenderer.receive("verify", (resp) => {
         console.log(resp);
       });
     },
