@@ -26,7 +26,6 @@ jobs:
         with:
           # Log in to Snap Store
           snapcraft_token: ${{ secrets.snapcraft_token }}
-          skip_install: true # optional, if already installed in an earlier step
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
