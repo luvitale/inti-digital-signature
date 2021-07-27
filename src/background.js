@@ -18,10 +18,8 @@ async function createWindow(dimensions) {
   const win = new BrowserWindow({
     width: dimensions.width,
     height: dimensions.height,
-    minWidth: parseInt(dimensions.width * 0.8),
-    minHeight: parseInt(dimensions.height * 0.8),
-    maxWidth: dimensions.width,
-    maxHeight: dimensions.height,
+    minWidth: parseInt(dimensions.width * 0.75),
+    minHeight: parseInt(dimensions.height * 0.75),
     webPreferences: {
       // Required for Spectron testing
       enableRemoteModule: !!process.env.IS_TEST,

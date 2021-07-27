@@ -1,6 +1,7 @@
-import { ipcMain } from "electron";
+import { app, ipcMain } from "electron";
 import { DigitalSignature } from "./digital-signature";
 import dialogFileTransfer from "./dialog-file-transfer";
+import path from "path";
 
 const digitalSignature = new DigitalSignature();
 
@@ -36,7 +37,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 });
 
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
-  const initialFilePath = `/tmp/firma${getActualDateString()}.bin`;
+  const initialFilePath = path.join(app.getPath("temp"), `firma${getActualDateString()}.bin`);
   const defaultPath = "firma.bin";
 
   try {

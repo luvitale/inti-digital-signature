@@ -1,5 +1,7 @@
 # INTI Digital Signature
 
+Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL
+
 ## Project setup
 
 ```
