@@ -15,6 +15,7 @@ linux:
     - snap
     - AppImage
     - deb
+    - rpm
 
 deb:
   depends:
