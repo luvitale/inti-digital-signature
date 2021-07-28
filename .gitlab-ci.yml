@@ -1,0 +1,13 @@
+image: node:14
+
+services:
+  - 4tqrgqe5yrgfd/electron:latest
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  script:
+    - npm install
+    - npm run electron:build
