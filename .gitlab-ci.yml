@@ -1,6 +1,7 @@
 image: node:14
 
-services: 4tqrgqe5yrgfd/electron:latest
+services:
+  - 4tqrgqe5yrgfd/electron:latest
 
 cache:
   paths:
