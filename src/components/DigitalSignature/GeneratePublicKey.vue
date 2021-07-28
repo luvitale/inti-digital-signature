@@ -39,7 +39,16 @@ export default {
       const privateKeyPath = this.privateKeyFile.path;
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
-        console.log("Clave pública generada correctamente");
+        this.$root.Toast.show({
+          message: "Clave pública generada correctamente",
+          color: "success"
+        });
+      });
+      window.ipcRenderer.receive("error", msg => {
+        this.$root.Toast.show({
+          message: msg,
+          color: "warning"
+        });
       });
     },
   },

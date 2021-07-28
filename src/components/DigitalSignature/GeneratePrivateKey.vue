@@ -37,8 +37,16 @@ export default {
     generatePrivateKey() {
       window.ipcRenderer.send("generate-private-key");
       window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
-        console.log("Clave privada generada correctamente");
+        this.$root.Toast.show({
+          message: "Clave privada generada correctamente"
+        });
       });
+      window.ipcRenderer.receive("error", msg => {
+        this.$root.Toast.show({
+          message: msg,
+          color: "warning"
+        })
+      })
     },
   },
 };

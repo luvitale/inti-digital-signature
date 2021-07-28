@@ -14,7 +14,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
   receive: (channel, func) => {
     let validChannels = [
-      'generate-private-key', 'generate-public-key', 'sign', 'verify'
+      'generate-private-key', 'generate-public-key', 'sign', 'verify', "error"
     ]
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`

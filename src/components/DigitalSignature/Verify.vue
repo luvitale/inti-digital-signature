@@ -16,7 +16,7 @@
         />
 
         <v-file-input
-          label="Seleccioná el archivo a verificar"
+          label="Seleccioná el archivo firmado"
           prepend-icon="mdi-message-text"
           outlined
           v-model="fileToVerify"
@@ -61,8 +61,17 @@ export default {
         fileToVerifyPath,
         originalFilePath,
       });
-      window.ipcRenderer.receive("verify", (resp) => {
-        console.log(resp);
+      window.ipcRenderer.receive("verify", (/* verification */) => {
+        this.$root.Toast.show({
+          message: "Verificación correcta",
+          color: "success"
+        });
+      });
+      window.ipcRenderer.receive("error", msg => {
+        this.$root.Toast.show({
+          message: msg,
+          color: "error"
+        });
       });
     },
   },

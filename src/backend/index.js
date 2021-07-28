@@ -17,6 +17,7 @@ ipcMain.on("generate-private-key", async (event) => {
     event.reply("generate-private-key", savedPrivateKeyPath);
   } catch (e) {
     console.log(e.toString());
+    event.reply("error", "La clave privada no se pudo generar")
   }
 });
 
@@ -33,6 +34,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
     event.reply("generate-public-key", savedPublicKeyPath);
   } catch (e) {
     console.log(e.toString());
+    event.reply("error", "La clave pública no se pudo generar")
   }
 });
 
@@ -54,6 +56,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
     event.reply("sign", savedSignedFilePath);
   } catch (e) {
     console.log(e.toString());
+    event.reply("error", "No se pudo firmar el archivo")
   }
 });
 
@@ -68,7 +71,8 @@ ipcMain.on(
       );
       event.reply("verify", result);
     } catch (e) {
-      event.reply("verify", e.toString());
+      console.log(e.toString());
+      event.reply("error", "Verificación incorrecta")
     }
   }
 );

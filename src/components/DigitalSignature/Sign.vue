@@ -52,8 +52,17 @@ export default {
       const privateKeyPath = this.privateKeyFile.path;
       const fileToSignPath = this.fileToSign.path;
       window.ipcRenderer.send("sign", { privateKeyPath, fileToSignPath });
-      window.ipcRenderer.receive("sign", (/* signedFile */) => {
-        console.log("Firmado archivo correctamente");
+      window.ipcRenderer.receive("sign", (/* signature */) => {
+        this.$root.Toast.show({
+          message: "Archivo firmado correctamente",
+          color: "success"
+        });
+      });
+      window.ipcRenderer.receive("error", msg => {
+        this.$root.Toast.show({
+          message: msg,
+          color: "error"
+        });
       });
     },
   },

@@ -19,6 +19,7 @@
       max-height="300px"
     />
     <router-view />
+    <Toast ref="Toast" />
   </v-app>
 </template>
 
@@ -44,3 +45,17 @@
   }
 }
 </style>
+
+<script>
+import Toast from "@/components/Toast"
+
+export default {
+  name: "App",
+  components: {
+    Toast
+  },
+  mounted() {
+    this.$root.Toast = this.$refs.Toast
+  },
+}
+</script>
