@@ -9,6 +9,8 @@ cache:
 
 build:
   script:
+    - apt update
+    - apt -y install rpm
     - npm install
     - npm run electron:build
   artifacts:
@@ -16,3 +18,4 @@ build:
       - dist_electron/*.AppImage
       - dist_electron/*.snap
       - dist_electron/*.deb
+      - dist_electron/*.rpm
