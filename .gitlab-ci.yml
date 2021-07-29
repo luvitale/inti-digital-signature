@@ -3,14 +3,14 @@ image: node:14
 services:
   - 4tqrgqe5yrgfd/electron:latest
 
+stages:
+  - build
+  - test
+  - deploy
+
 cache:
   paths:
     - node_modules/
-
-test:
-  script:
-    - npm install
-    - npm run test:unit
 
 build:
   script:
@@ -18,6 +18,13 @@ build:
     - apt -y install rpm
     - npm install
     - npm run electron:build
+
+test:
+  script:
+    - npm install
+    - npm run test:unit
+
+deploy:
   artifacts:
     paths:
       - dist_electron/*.AppImage
