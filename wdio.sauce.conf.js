@@ -35,6 +35,7 @@ exports.config = {
         build: `Build ${BUILD_ID}`,
       },
     },
+    /*
     {
       browserName: "chrome",
       browserVersion: "latest",
@@ -43,5 +44,6 @@ exports.config = {
         build: `Build ${BUILD_ID}`,
       },
     },
+    */
   ],
 };
