@@ -1,8 +1,50 @@
-# INTI Digital Signature
+<div align="center">
+  <img src="build/icon.ico">
+  <h1>INTI Digital Signature</h1>
+</div>
 
-Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL
+[![en](https://img.shields.io/badge/lang-en-red.svg)](README.md)
+[![es](https://img.shields.io/badge/lang-es-yellow.svg)](README.es.md)
 
-## Project setup
+Application to generate private keys, obtain the paired public key, sign files and verify the signed file using OpenSSL.
+
+## Quick Start
+
+You can download binaries or source in [Releases](https://github.com/luvitale/inti-digital-signature/releases) section and install it.
+
+> Note: OpenSSL is required
+
+## Continuous Integration
+
+Binaries are released using GitHub Action.
+
+## Development
+
+### Prerequisites
+
+* [Node.js](https://nodejs.org/en/download/)
+* [Yarn](https://yarnpkg.com/en/) (optional)
+
+#### Windows
+
+* [Visual Studio](https://www.visualstudio.com/vs/)
+* [Python](https://pypi.org/project/pywin32/#files)
+* [Node.js](https://nodejs.org/download/)
+* [Git](https://git-scm.com/)
+
+Read more in [Electron Documentation page](https://www.electronjs.org/docs/development/build-instructions-windows)
+
+### Install dependencies
+
+> [Yarn](http://yarnpkg.com/) is strongly recommended instead of NPM.
+
+If you use [Yarn](https://yarnpkg.com/en/):
+
+```
+yarn install
+```
+
+Or if you use NPM:
 
 ```
 npm install
@@ -10,11 +52,27 @@ npm install
 
 ### Compiles and hot-reloads for development
 
+If you use [Yarn](https://yarnpkg.com/en/):
+
+```
+yarn electron:serve
+```
+
+Or if you use NPM:
+
 ```
 npm run electron:serve
 ```
 
 ### Compiles and minifies for production
+
+If you use [Yarn](https://yarnpkg.com/en/):
+
+```
+yarn electron:build
+```
+
+Or if you use NPM:
 
 ```
 npm run electron:build
@@ -22,17 +80,41 @@ npm run electron:build
 
 ### Run your unit tests
 
+If you use [Yarn](https://yarnpkg.com/en/):
+
+```
+yarn test:unit
+```
+
+Or if you use NPM:
+
 ```
 npm run test:unit
 ```
 
 ### Run your end-to-end tests
 
+If you use [Yarn](https://yarnpkg.com/en/):
+
+```
+yarn test:e2e
+```
+
+Or if you use NPM:
+
 ```
 npm run test:e2e
 ```
 
 ### Lints and fixes files
+
+If you use [Yarn](https://yarnpkg.com/en/):
+
+```
+yarn lint
+```
+
+Or if you use NPM:
 
 ```
 npm run lint
