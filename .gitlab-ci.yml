@@ -4,7 +4,6 @@ services:
   - 4tqrgqe5yrgfd/electron:latest
 
 stages:
-  - build
   - test
   - deploy
 
@@ -12,19 +11,17 @@ cache:
   paths:
     - node_modules/
 
-build:
-  script:
-    - apt update
-    - apt -y install rpm
-    - npm install
-    - npm run electron:build
-
 test:
   script:
     - npm install
     - npm run test:unit
 
 deploy:
+  script:
+    - apt update
+    - apt -y install rpm
+    - npm install
+    - npm run electron:build
   artifacts:
     paths:
       - dist_electron/*.AppImage
