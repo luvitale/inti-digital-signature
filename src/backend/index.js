@@ -17,7 +17,7 @@ ipcMain.on("generate-private-key", async (event) => {
     event.reply("generate-private-key", savedPrivateKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "La clave privada no se pudo generar")
+    event.reply("error", "La clave privada no se pudo generar");
   }
 });
 
@@ -34,12 +34,15 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
     event.reply("generate-public-key", savedPublicKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "La clave pública no se pudo generar")
+    event.reply("error", "La clave pública no se pudo generar");
   }
 });
 
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
-  const initialFilePath = path.join(app.getPath("temp"), `firma${getActualDateString()}.bin`);
+  const initialFilePath = path.join(
+    app.getPath("temp"),
+    `firma${getActualDateString()}.bin`
+  );
   const defaultPath = "firma.bin";
 
   try {
@@ -56,7 +59,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
     event.reply("sign", savedSignedFilePath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "No se pudo firmar el archivo")
+    event.reply("error", "No se pudo firmar el archivo");
   }
 });
 
@@ -72,7 +75,7 @@ ipcMain.on(
       event.reply("verify", result);
     } catch (e) {
       console.log(e.toString());
-      event.reply("error", "Verificación incorrecta")
+      event.reply("error", "{{ $t('wrong-verification') }}");
     }
   }
 );

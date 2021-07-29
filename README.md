@@ -120,6 +120,8 @@ Or if you use NPM:
 npm run lint
 ```
 
-### Customize configuration
+### Additional information
+
+This program was translated using [Vue i18n](https://github.com/intlify/vue-cli-plugin-i18n)
 
 See [Configuration Reference](https://cli.vuejs.org/config/).

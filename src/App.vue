@@ -1,19 +1,19 @@
 <template>
   <v-app id="app">
     <div id="nav">
-      <router-link to="/">Inicio</router-link> |
+      <router-link to="/">{{ $t("home") }}</router-link> |
       <router-link to="/generate-private-key"
-        >Generar clave privada</router-link
+        >{{ $t("generate-private-key") }}</router-link
       >
       |
-      <router-link to="/generate-public-key">Generar clave pública</router-link>
-      | <router-link to="/sign">Firmar</router-link> |
-      <router-link to="/verify">Verificar</router-link>
+      <router-link to="/generate-public-key">{{ $t('generate-public-key') }}</router-link>
+      | <router-link to="/sign">{{ $t('sign') }}</router-link> |
+      <router-link to="/verify">{{ $t('verify') }}</router-link>
     </div>
     <v-img
       class="mx-auto"
       id="inti-logo"
-      alt="Logo del INTI"
+      alt="{{ $t('inti-logo') }}"
       src="./assets/logo.png"
       max-width="300px"
       max-height="300px"
@@ -47,15 +47,15 @@
 </style>
 
 <script>
-import Toast from "@/components/Toast"
+import Toast from "@/components/Toast";
 
 export default {
   name: "App",
   components: {
-    Toast
+    Toast,
   },
   mounted() {
-    this.$root.Toast = this.$refs.Toast
+    this.$root.Toast = this.$refs.Toast;
   },
-}
+};
 </script>

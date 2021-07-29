@@ -9,21 +9,21 @@
 
       <v-form>
         <v-file-input
-          label="Seleccioná la clave pública"
+          label="{{ $t('select-public-key') }}"
           prepend-icon="mdi-message-text"
           outlined
           v-model="publicKeyFile"
         />
 
         <v-file-input
-          label="Seleccioná el archivo firmado"
+          label="{{ $t('select-signature') }}"
           prepend-icon="mdi-message-text"
           outlined
           v-model="fileToVerify"
         />
 
         <v-file-input
-          label="Seleccioná el archivo original"
+          label="{{ $t('select-original-file') }}"
           prepend-icon="mdi-message-text"
           outlined
           v-model="originalFile"
@@ -33,7 +33,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="success" depressed class="text-none" @click="verify">
-          Verificar
+          {{ $t('verify') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -63,14 +63,14 @@ export default {
       });
       window.ipcRenderer.receive("verify", (/* verification */) => {
         this.$root.Toast.show({
-          message: "Verificación correcta",
-          color: "success"
+          message: "{{ $t('correct-verification') }}",
+          color: "success",
         });
       });
-      window.ipcRenderer.receive("error", msg => {
+      window.ipcRenderer.receive("error", (msg) => {
         this.$root.Toast.show({
           message: msg,
-          color: "error"
+          color: "error",
         });
       });
     },

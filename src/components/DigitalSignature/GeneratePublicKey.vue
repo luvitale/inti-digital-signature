@@ -2,14 +2,14 @@
   <v-container fluid>
     <v-card>
       <v-toolbar flat color="blue" dark>
-        <v-toolbar-title>Clave pública</v-toolbar-title>
+        <v-toolbar-title>{{ $t('public-key') }}</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
 
       <v-form>
         <v-file-input
-          label="Seleccioná la clave privada y generá la clave pública"
+          label="{{ $t('select-private-key-to-generate-public-key-label') }}"
           prepend-icon="mdi-message-text"
           outlined
           append-outer-icon="mdi-send"
@@ -40,14 +40,14 @@ export default {
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
         this.$root.Toast.show({
-          message: "Clave pública generada correctamente",
-          color: "success"
+          message: "{{ $t('successfully-generated-public-key') }}",
+          color: "success",
         });
       });
-      window.ipcRenderer.receive("error", msg => {
+      window.ipcRenderer.receive("error", (msg) => {
         this.$root.Toast.show({
           message: msg,
-          color: "warning"
+          color: "warning",
         });
       });
     },

@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-toolbar flat color="blue" dark>
-        <v-toolbar-title>Clave privada</v-toolbar-title>
+        <v-toolbar-title>{{ $t('private-key') }}</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
@@ -15,7 +15,7 @@
           depressed
           @click="generatePrivateKey"
         >
-          Generar clave privada
+          {{ $t('generate-private-key') }}
         </v-btn>
       </v-form>
     </v-card>
@@ -38,15 +38,15 @@ export default {
       window.ipcRenderer.send("generate-private-key");
       window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
         this.$root.Toast.show({
-          message: "Clave privada generada correctamente"
+          message: "{{ $t('successfully-generated-private-key') }}",
         });
       });
-      window.ipcRenderer.receive("error", msg => {
+      window.ipcRenderer.receive("error", (msg) => {
         this.$root.Toast.show({
           message: msg,
-          color: "warning"
-        })
-      })
+          color: "warning",
+        });
+      });
     },
   },
 };

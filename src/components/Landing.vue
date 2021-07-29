@@ -5,8 +5,7 @@
         <h1 class="display-2 font-weight-bold mb-3">{{ msg }}</h1>
 
         <p class="subheading font-weight-regular">
-          Usá OpenSSL para crear claves privadas, obtener la clave pública
-          emparejada, firmar archivos y verificar el archivo firmado
+          {{ $t('inti-digital-signature-description') }}
         </p>
       </v-col>
     </v-row>
