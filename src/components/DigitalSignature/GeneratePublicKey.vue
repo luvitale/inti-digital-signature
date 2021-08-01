@@ -40,7 +40,7 @@ export default {
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
         this.$root.Toast.show({
-          message: this.$t('successfully-generated-public-key'),
+          message: this.$t("successfully-generated-public-key"),
           color: "success",
         });
       });

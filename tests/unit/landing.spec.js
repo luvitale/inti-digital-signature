@@ -11,6 +11,6 @@ describe("Landing.vue", () => {
     });
     expect(wrapper.text()).to.include(msg);
     */
-   expect(true).to.be.true;
+    expect(true).to.be.true;
   });
 });

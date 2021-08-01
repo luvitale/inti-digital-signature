@@ -4,11 +4,12 @@
       <router-link to="/">{{ $t("home") }}</router-link> |
       <router-link to="/generate-private-key">{{
         $t("generate-private-key")
-      }}</router-link> |
+      }}</router-link>
+      |
       <router-link to="/generate-public-key">{{
         $t("generate-public-key")
-      }}</router-link> |
-      <router-link to="/sign">{{ $t("sign") }}</router-link> |
+      }}</router-link>
+      | <router-link to="/sign">{{ $t("sign") }}</router-link> |
       <router-link to="/verify">{{ $t("verify") }}</router-link>
     </div>
     <LocaleChanger />
@@ -50,7 +51,7 @@
 
 <script>
 import Toast from "@/components/Toast";
-import LocaleChanger from "@/components/LocaleChanger"
+import LocaleChanger from "@/components/LocaleChanger";
 
 export default {
   name: "App",

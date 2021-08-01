@@ -18,7 +18,7 @@ ipcMain.on("generate-private-key", async (event) => {
     event.reply("generate-private-key", savedPrivateKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", i18n.t('private-key-not-generated'));
+    event.reply("error", i18n.t("private-key-not-generated"));
   }
 });
 
@@ -35,7 +35,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
     event.reply("generate-public-key", savedPublicKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", i18n.t('public-key-not-generated'));
+    event.reply("error", i18n.t("public-key-not-generated"));
   }
 });
 
@@ -60,7 +60,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
     event.reply("sign", savedSignedFilePath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", i18n.t('file-not-signed'));
+    event.reply("error", i18n.t("file-not-signed"));
   }
 });
 
@@ -76,7 +76,7 @@ ipcMain.on(
       event.reply("verify", result);
     } catch (e) {
       console.log(e.toString());
-      event.reply("error", i18n.t('wrong-verification'));
+      event.reply("error", i18n.t("wrong-verification"));
     }
   }
 );

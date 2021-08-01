@@ -54,7 +54,7 @@ export default {
       window.ipcRenderer.send("sign", { privateKeyPath, fileToSignPath });
       window.ipcRenderer.receive("sign", (/* signature */) => {
         this.$root.Toast.show({
-          message: this.$t('successfully-signed-file'),
+          message: this.$t("successfully-signed-file"),
           color: "success",
         });
       });

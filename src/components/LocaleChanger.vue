@@ -1,17 +1,19 @@
 <template class="locale-changer">
-  <v-select class="locale-changer"
+  <v-select
+    class="locale-changer"
     v-model="$i18n.locale"
     :items="langs"
     :label="$t('language-label')"
     dense
     hide-details
-    menu-props="offset-y">
-      <template v-slot:selection='{ item }'>
-        {{ item }} - {{ $t(item + "-lang-description") }}
-      </template>
-      <template v-slot:item='{ item }'>
-        {{ item }} - {{ $t(item + "-lang-description") }}
-      </template>
+    menu-props="offset-y"
+  >
+    <template v-slot:selection="{ item }">
+      {{ item }} - {{ $t(item + "-lang-description") }}
+    </template>
+    <template v-slot:item="{ item }">
+      {{ item }} - {{ $t(item + "-lang-description") }}
+    </template>
   </v-select>
 </template>
 
@@ -26,9 +28,9 @@
 
 <script>
 export default {
-  name: 'LocaleChanger',
-  data () {
-    return { langs: ['en', 'es'] }
+  name: "LocaleChanger",
+  data() {
+    return { langs: ["en", "es"] };
   },
-}
+};
 </script>
