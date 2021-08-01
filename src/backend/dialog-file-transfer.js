@@ -1,75 +1,68 @@
 import { dialog } from "electron";
+import i18n from "../i18n";
 import fs from "fs";
 
 const save = (data, defaultFilename) => {
-  return new Promise((resolve, reject) => {
-    const dialogTitle = "{{ $t('select-file-location-to-save') }}";
-
-    dialog
-      .showSaveDialog({
-        title: dialogTitle,
+  return new Promise(async (resolve, reject) => {
+    try {
+      const file = await dialog.showSaveDialog({
+        title: i18n.t('select-file-location-to-save'),
         defaultPath: defaultFilename,
-        buttonLabel: "Guardar",
+        buttonLabel: i18n.t('save-file-button-label'),
         filters: [
           {
-            name: "Archivos PEM (.pem)",
+            name: i18n.t('pem-files-name'),
             extensions: ["pem"],
           },
         ],
         properties: [],
       })
-      .then((file) => {
-        if (file.canceled) reject("Guardado cancelado");
+    
+      if (file.canceled) reject(i18n.t('canceled-save-file'));
 
-        const dest = file.filePath.toString();
+      const dest = file.filePath.toString();
 
-        console.log(dest);
+      console.log(dest);
 
-        fs.writeFile(dest, data, (err) => {
-          if (err) reject(err);
+      await fs.promises.writeFile(dest, data);
 
-          console.log("Guardado");
-          resolve(dest);
-        });
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+      console.log(i18n.t('saved-file'));
+      
+      resolve(dest);
+    } catch(err) {
+      reject(err);
+    }
+  })
 };
 
 const move = (source, defaultDestPath) => {
-  return new Promise((resolve, reject) => {
-    const dialogTitle = "{{ $t('select-file-location-to-save') }}";
-
-    dialog
-      .showSaveDialog({
-        title: dialogTitle,
+  return new Promise(async (resolve, reject) => {
+    try {
+      const file = await dialog.showSaveDialog({
+        title: i18n.t('select-file-location-to-save'),
         defaultPath: defaultDestPath,
-        buttonLabel: "Guardar",
+        buttonLabel: i18n.t('save-file-button-label'),
         filters: [
           {
-            name: "Firmas (.bin)",
+            name: i18n.t('signature-files-name'),
             extensions: ["bin"],
           },
         ],
         properties: [],
       })
-      .then((file) => {
-        if (file.canceled) reject("Guardado cancelado");
+      
+      if (file.canceled) reject(i18n.t('canceled-save-file'));
 
-        const dest = file.filePath.toString();
+      const dest = file.filePath.toString();
 
-        fs.rename(source, dest, (err) => {
-          if (err) reject(err);
-
-          console.log("Guardado");
-          resolve(dest);
-        });
-      })
-      .catch((err) => {
-        reject(err);
-      });
+      await fs.promises.rename(source, dest);
+    
+      console.log(i18n.t('saved-file'));
+      
+      resolve(dest);
+    } catch(err) {
+      reject(err);
+    }
   });
 };
 

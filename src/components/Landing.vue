@@ -5,7 +5,7 @@
         <h1 class="display-2 font-weight-bold mb-3">{{ msg }}</h1>
 
         <p class="subheading font-weight-regular">
-          {{ $t('inti-digital-signature-description') }}
+          {{ $t("inti-digital-signature-description") }}
         </p>
       </v-col>
     </v-row>

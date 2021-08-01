@@ -20,5 +20,17 @@
   "correct-verification": "Correct verification",
   "inti-digital-signature-description": "Generate private keys, obtain the paired public key, sign files and verify the signed file with INTI Digital Signature, powered by OpenSSL",
   "wrong-verification": "Wrong verification",
-  "select-file-location-to-save": "Select file location to save"
+  "select-file-location-to-save": "Select file location to save",
+  "save-file-button-label": "Save",
+  "pem-files-name": "PEM files (.pem)",
+  "canceled-save-file": "Save canceled",
+  "saved-file": "Saved",
+  "signature-files-name": "Signatures (.bin)",
+  "private-key-not-generated": "Private key not generated",
+  "public-key-not-generated": "Public key not generated",
+  "file-not-signed": "File not signed",
+  "es-lang-description": "Spanish",
+  "en-lang-description": "English",
+  "language-label": "Language",
+  "select-public-key": "Select public key"
 }

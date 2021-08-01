@@ -20,5 +20,16 @@
   "correct-verification": "Verificación correcta",
   "inti-digital-signature-description": "Usá OpenSSL para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado",
   "wrong-verification": "Verificación incorrecta",
-  "select-file-location-to-save": "Seleccioná la ubicación del archivo a guardar"
+  "select-file-location-to-save": "Seleccioná la ubicación del archivo a guardar",
+  "file-not-signed": "No se pudo firmar el archivo",
+  "public-key-not-generated": "La clave pública no se pudo generar",
+  "private-key-not-generated": "La clave privada no se pudo generar",
+  "pem-files-name": "Archivos PEM (.pem)",
+  "save-file-button-label": "Guardar",
+  "canceled-save-file": "Guardado cancelado",
+  "saved-file": "Guardado",
+  "signature-files-name": "Firmas (.bin)",
+  "es-lang-description": "Español",
+  "en-lang-description": "Inglés",
+  "language-label": "Idioma"
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Landing msg="{{ $t('inti-digital-signature') }}" />
+    <Landing :msg="$t('inti-digital-signature')" />
   </div>
 </template>
 

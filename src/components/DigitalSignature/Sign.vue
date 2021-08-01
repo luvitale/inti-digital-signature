@@ -2,21 +2,21 @@
   <v-container fluid>
     <v-card>
       <v-toolbar flat color="blue" dark>
-        <v-toolbar-title>{{ $t('sign') }}</v-toolbar-title>
+        <v-toolbar-title>{{ $t("sign") }}</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
 
       <v-form>
         <v-file-input
-          label="{{ $t('select-private-key') }}"
+          :label="$t('select-private-key')"
           prepend-icon="mdi-message-text"
           outlined
           v-model="privateKeyFile"
         />
 
         <v-file-input
-          label="{{ $t('select-file-to-sign') }}"
+          :label="$t('select-file-to-sign')"
           prepend-icon="mdi-message-text"
           outlined
           v-model="fileToSign"
@@ -26,7 +26,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="success" depressed class="text-none" @click="sign">
-          {{ $t('sign') }}
+          {{ $t("sign") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -54,7 +54,7 @@ export default {
       window.ipcRenderer.send("sign", { privateKeyPath, fileToSignPath });
       window.ipcRenderer.receive("sign", (/* signature */) => {
         this.$root.Toast.show({
-          message: "{{ $t('successfully-signed-file') }}",
+          message: this.$t('successfully-signed-file'),
           color: "success",
         });
       });

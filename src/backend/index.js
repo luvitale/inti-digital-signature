@@ -1,6 +1,7 @@
 import { app, ipcMain } from "electron";
 import { DigitalSignature } from "./digital-signature";
 import dialogFileTransfer from "./dialog-file-transfer";
+import i18n from "../i18n";
 import path from "path";
 
 const digitalSignature = new DigitalSignature();
@@ -17,7 +18,7 @@ ipcMain.on("generate-private-key", async (event) => {
     event.reply("generate-private-key", savedPrivateKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "La clave privada no se pudo generar");
+    event.reply("error", i18n.t('private-key-not-generated'));
   }
 });
 
@@ -34,7 +35,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
     event.reply("generate-public-key", savedPublicKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "La clave pública no se pudo generar");
+    event.reply("error", i18n.t('public-key-not-generated'));
   }
 });
 
@@ -59,7 +60,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
     event.reply("sign", savedSignedFilePath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "No se pudo firmar el archivo");
+    event.reply("error", i18n.t('file-not-signed'));
   }
 });
 
@@ -75,7 +76,7 @@ ipcMain.on(
       event.reply("verify", result);
     } catch (e) {
       console.log(e.toString());
-      event.reply("error", "{{ $t('wrong-verification') }}");
+      event.reply("error", i18n.t('wrong-verification'));
     }
   }
 );
