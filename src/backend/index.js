@@ -40,20 +40,16 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 });
 
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
-  const initialFilePath = path.join(
-    app.getPath("temp"),
-    `firma${getActualDateString()}.bin`
-  );
   const defaultPath = "firma.bin";
 
   try {
-    const initialSignedFilePath = await digitalSignature.sign(
+    const signature = await digitalSignature.sign(
       privateKeyPath,
       fileToSignPath,
-      initialFilePath
     );
-    const savedSignedFilePath = await dialogFileTransfer.move(
-      initialSignedFilePath,
+
+    const savedSignedFilePath = await dialogFileTransfer.save(
+      signature,
       defaultPath
     );
 

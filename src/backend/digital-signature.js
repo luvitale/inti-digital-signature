@@ -1,36 +1,81 @@
-import child_process from "child_process";
+import fs from "fs"
+import crypto from "crypto"
 
 export class DigitalSignature {
   generatePrivateKey() {
     return new Promise((resolve, reject) => {
-      const generatePrivateKeyCommand = `openssl genrsa 2048`;
-      child_process.exec(generatePrivateKeyCommand, (err, privateKey) => {
-        if (err) reject(err);
+      try {
+        const rsaKeys = crypto.generateKeyPairSync('rsa', {
+          modulusLength: 2048,
+          publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+          },
+          privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
+          },
+        });
 
-        resolve(privateKey);
-      });
+        const privateKey = crypto.createPrivateKey({
+          key: rsaKeys.privateKey,
+          format: "pem"
+        })
+
+        resolve(privateKey.toString("base64"))
+      } catch(error) {
+        reject(error)
+      }
     });
   }
 
   generatePublicKey(privateKeyPath) {
     return new Promise((resolve, reject) => {
-      const generatePublicKeyCommand = `openssl rsa -in "${privateKeyPath}" -pubout`;
-      child_process.exec(generatePublicKeyCommand, (err, publicKey) => {
-        if (err) reject(err);
+      try {
+        const privateKey = fs.readFileSync(privateKeyPath)
 
-        resolve(publicKey);
-      });
+        const pubKeyObject = crypto.createPublicKey({
+            key: privateKey,
+            format: 'pem'
+        })
+
+        const publicKey = pubKeyObject.export({
+            format: 'pem'
+        })
+
+        resolve(publicKey.toString(base64))
+      } catch(error) {
+        reject(error)
+      }
     });
   }
 
-  sign(privateKeyPath, fileToSignPath, defaultFilename) {
+  sign(privateKeyPath, fileToSignPath) {
     return new Promise((resolve, reject) => {
-      const signCommand = `openssl dgst -sha1 -sign "${privateKeyPath}" -out "${defaultFilename}" "${fileToSignPath}"`;
-      child_process.exec(signCommand, (err) => {
-        if (err) reject(err);
+      try {
+        console.log("Reading File...\n");
+        // Reading file
+        const text = fs.readFileSync(fileToSignPath);
+        console.log(`File content: ${text}`);
 
-        resolve(defaultFilename);
-      });
+        // Convert string to buffer 
+        const data = Buffer.from(text);
+
+        const privateKey = fs.readFile(privateKeyPath)
+          
+        // Sign the data and returned signature in buffer 
+        const bufferSign = crypto.sign("SHA256", data , privateKey);
+          
+        // Convert returned buffer to base64
+        const signature = bufferSign.toString('base64');
+          
+        // Printing the signature 
+        console.log(`Signature:\n\n ${signature}`);
+
+        resolve(signature);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
