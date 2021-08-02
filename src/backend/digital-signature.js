@@ -1,8 +1,6 @@
 import child_process from "child_process";
 
 export class DigitalSignature {
-  constructor() {}
-
   generatePrivateKey() {
     return new Promise((resolve, reject) => {
       const generatePrivateKeyCommand = `openssl genrsa 2048`;
