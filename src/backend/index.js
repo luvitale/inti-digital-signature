@@ -48,7 +48,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
       fileToSignPath,
     );
 
-    const savedSignedFilePath = await dialogFileTransfer.save(
+    const savedSignedFilePath = await dialogFileTransfer.saveBin(
       signature,
       defaultPath
     );

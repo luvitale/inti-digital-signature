@@ -1,5 +1,6 @@
 import fs from "fs"
 import crypto from "crypto"
+import child_process from "child_process"
 
 export class DigitalSignature {
   generatePrivateKey() {
@@ -17,12 +18,7 @@ export class DigitalSignature {
           },
         });
 
-        const privateKey = crypto.createPrivateKey({
-          key: rsaKeys.privateKey,
-          format: "pem"
-        })
-
-        resolve(privateKey.toString("base64"))
+        resolve(rsaKeys.privateKey)
       } catch(error) {
         reject(error)
       }
@@ -34,16 +30,23 @@ export class DigitalSignature {
       try {
         const privateKey = fs.readFileSync(privateKeyPath)
 
+        console.log(privateKey)
+
         const pubKeyObject = crypto.createPublicKey({
             key: privateKey,
             format: 'pem'
         })
 
+        console.log(pubKeyObject)
+
         const publicKey = pubKeyObject.export({
-            format: 'pem'
+            format: 'pem',
+            type: 'spki'
         })
 
-        resolve(publicKey.toString(base64))
+        console.log(publicKey)
+
+        resolve(publicKey.toString("base64"))
       } catch(error) {
         reject(error)
       }
@@ -61,14 +64,14 @@ export class DigitalSignature {
         // Convert string to buffer 
         const data = Buffer.from(text);
 
-        const privateKey = fs.readFile(privateKeyPath)
+        const privateKey = fs.readFileSync(privateKeyPath)
           
         // Sign the data and returned signature in buffer 
-        const bufferSign = crypto.sign("SHA256", data , privateKey);
+        const bufferSign = crypto.sign("SHA1", data , privateKey);
           
         // Convert returned buffer to base64
-        const signature = bufferSign.toString('base64');
-          
+        const signature = bufferSign.toString('binary');
+
         // Printing the signature 
         console.log(`Signature:\n\n ${signature}`);
 
