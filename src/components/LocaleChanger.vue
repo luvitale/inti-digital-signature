@@ -9,10 +9,10 @@
     menu-props="offset-y"
   >
     <template v-slot:selection="{ item }">
-      {{ item }} - {{ $t(item + "-lang-description") }}
+      {{ item }} - {{ $t(`lang-description-${item}`) }}
     </template>
     <template v-slot:item="{ item }">
-      {{ item }} - {{ $t(item + "-lang-description") }}
+      {{ item }} - {{ $t(`lang-description-${item}`) }}
     </template>
   </v-select>
 </template>
@@ -30,7 +30,7 @@
 export default {
   name: "LocaleChanger",
   data() {
-    return { langs: ["en", "es"] };
+    return { langs: ["en", "es", "pt"] };
   },
 };
 </script>
