@@ -1,8 +1,7 @@
-import { app, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import { DigitalSignature } from "./digital-signature";
 import dialogFileTransfer from "./dialog-file-transfer";
 import i18n from "../i18n";
-import path from "path";
 
 const digitalSignature = new DigitalSignature();
 
@@ -11,7 +10,8 @@ ipcMain.on("generate-private-key", async (event) => {
 
   try {
     const privateKey = await digitalSignature.generatePrivateKey();
-    const savedPrivateKeyPath = await dialogFileTransfer.save(
+
+    const savedPrivateKeyPath = await dialogFileTransfer.savePEM(
       privateKey,
       defaultPath
     );
@@ -27,7 +27,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 
   try {
     const publicKey = await digitalSignature.generatePublicKey(privateKeyPath);
-    const savedPublicKeyPath = await dialogFileTransfer.save(
+    const savedPublicKeyPath = await dialogFileTransfer.savePEM(
       publicKey,
       defaultPath
     );
@@ -40,24 +40,20 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 });
 
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
-  const initialFilePath = path.join(
-    app.getPath("temp"),
-    `firma${getActualDateString()}.bin`
-  );
   const defaultPath = "firma.bin";
 
   try {
-    const initialSignedFilePath = await digitalSignature.sign(
+    const signature = await digitalSignature.sign(
       privateKeyPath,
-      fileToSignPath,
-      initialFilePath
+      fileToSignPath
     );
-    const savedSignedFilePath = await dialogFileTransfer.move(
-      initialSignedFilePath,
+
+    const savedSignatureFilePath = await dialogFileTransfer.saveSignature(
+      signature,
       defaultPath
     );
 
-    event.reply("sign", savedSignedFilePath);
+    event.reply("sign", savedSignatureFilePath);
   } catch (e) {
     console.log(e.toString());
     event.reply("error", i18n.t("file-not-signed"));
@@ -66,11 +62,11 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
 
 ipcMain.on(
   "verify",
-  async (event, { publicKeyPath, fileToVerifyPath, originalFilePath }) => {
+  async (event, { publicKeyPath, signatureFilePath, originalFilePath }) => {
     try {
       const result = await digitalSignature.verify(
         publicKeyPath,
-        fileToVerifyPath,
+        signatureFilePath,
         originalFilePath
       );
       event.reply("verify", result);
@@ -80,8 +76,3 @@ ipcMain.on(
     }
   }
 );
-
-const getActualDateString = () => {
-  const date = new Date();
-  return `${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
-};

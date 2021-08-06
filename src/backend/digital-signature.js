@@ -1,47 +1,110 @@
-import child_process from "child_process";
+import fs from "fs";
+import crypto from "crypto";
 
 export class DigitalSignature {
+  constructor(
+    hash = "SHA1",
+    modulusLength = 2048,
+    cypher = "rsa",
+    keyFormat = "pem"
+  ) {
+    this.hash = hash;
+    this.modulusLength = modulusLength;
+    this.cypher = cypher;
+    this.keyFormat = keyFormat;
+  }
+
   generatePrivateKey() {
     return new Promise((resolve, reject) => {
-      const generatePrivateKeyCommand = `openssl genrsa 2048`;
-      child_process.exec(generatePrivateKeyCommand, (err, privateKey) => {
-        if (err) reject(err);
+      try {
+        const rsaKeys = crypto.generateKeyPairSync(this.cypher, {
+          modulusLength: this.modulusLength,
+          publicKeyEncoding: {
+            type: "spki",
+            format: this.keyFormat,
+          },
+          privateKeyEncoding: {
+            type: "pkcs8",
+            format: this.keyFormat,
+          },
+        });
 
-        resolve(privateKey);
-      });
+        resolve(rsaKeys.privateKey);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
   generatePublicKey(privateKeyPath) {
     return new Promise((resolve, reject) => {
-      const generatePublicKeyCommand = `openssl rsa -in "${privateKeyPath}" -pubout`;
-      child_process.exec(generatePublicKeyCommand, (err, publicKey) => {
-        if (err) reject(err);
+      try {
+        const privateKey = fs.readFileSync(privateKeyPath);
 
-        resolve(publicKey);
-      });
+        const pubKeyObject = crypto.createPublicKey({
+          key: privateKey,
+          format: this.keyFormat,
+        });
+
+        const publicKey = pubKeyObject.export({
+          type: "spki",
+          format: this.keyFormat,
+        });
+
+        resolve(publicKey.toString("base64"));
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
-  sign(privateKeyPath, fileToSignPath, defaultFilename) {
+  sign(privateKeyPath, fileToSignPath) {
     return new Promise((resolve, reject) => {
-      const signCommand = `openssl dgst -sha1 -sign "${privateKeyPath}" -out "${defaultFilename}" "${fileToSignPath}"`;
-      child_process.exec(signCommand, (err) => {
-        if (err) reject(err);
+      try {
+        const privateKey = fs.readFileSync(privateKeyPath);
 
-        resolve(defaultFilename);
-      });
+        // File/Document to be signed
+        const document = fs.readFileSync(fileToSignPath);
+
+        // Signing
+        const signer = crypto.createSign(this.hash);
+        signer.write(document);
+        signer.end();
+
+        // Returns the signature in binary output_format
+        const signature = signer.sign(privateKey, "binary");
+
+        resolve(signature);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
-  verify(publicKeyPath, fileToVerifyPath, originalFilePath) {
+  verify(publicKeyPath, signatureFilePath, originalFilePath) {
     return new Promise((resolve, reject) => {
-      const verifyCommand = `openssl dgst -sha1 -verify "${publicKeyPath}" -signature "${fileToVerifyPath}" "${originalFilePath}"`;
-      child_process.exec(verifyCommand, (err, result) => {
-        if (err) reject(err);
+      try {
+        const publicKey = fs.readFileSync(publicKeyPath);
 
-        resolve(result);
-      });
+        const signature = fs.readFileSync(signatureFilePath, "binary");
+
+        const document = fs.readFileSync(originalFilePath);
+
+        // Signing
+        const verifier = crypto.createVerify(this.hash);
+        verifier.write(document);
+        verifier.end();
+
+        // Verify binary file signature
+        const result = verifier.verify(publicKey, signature, "binary");
+
+        console.log("Digital Signature Verification: " + result);
+
+        if (result === true) resolve("Verified OK\n");
+        else reject(result);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 }
