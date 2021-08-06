@@ -69,6 +69,7 @@ ipcMain.on(
         signatureFilePath,
         originalFilePath
       );
+      console.log(result);
       event.reply("verify", result);
     } catch (e) {
       console.log(e.toString());

@@ -12,7 +12,7 @@
       | <router-link to="/sign">{{ $t("sign") }}</router-link> |
       <router-link to="/verify">{{ $t("verify") }}</router-link>
     </div>
-    <LocaleChanger />
+
     <v-img
       class="mx-auto"
       id="inti-logo"
@@ -51,13 +51,11 @@
 
 <script>
 import Toast from "@/components/Toast";
-import LocaleChanger from "@/components/LocaleChanger";
 
 export default {
   name: "App",
   components: {
     Toast,
-    LocaleChanger,
   },
   mounted() {
     this.$root.Toast = this.$refs.Toast;

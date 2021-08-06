@@ -19,7 +19,7 @@
           :label="$t('select-signature')"
           prepend-icon="mdi-message-text"
           outlined
-          v-model="fileToVerify"
+          v-model="signatureFilePath"
         />
 
         <v-file-input
@@ -47,18 +47,18 @@ export default {
   data: function () {
     return {
       publicKeyFile: [],
-      fileToVerify: [],
+      signatureFilePath: [],
       originalFile: [],
     };
   },
   methods: {
     verify() {
       const publicKeyPath = this.publicKeyFile.path;
-      const fileToVerifyPath = this.fileToVerify.path;
+      const signatureFilePath = this.signatureFilePath.path;
       const originalFilePath = this.originalFile.path;
       window.ipcRenderer.send("verify", {
         publicKeyPath,
-        fileToVerifyPath,
+        signatureFilePath,
         originalFilePath,
       });
       window.ipcRenderer.receive("verify", (/* verification */) => {
