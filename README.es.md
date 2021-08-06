@@ -1,10 +1,11 @@
 <div align="center">
-  <img src="build/icon.ico">
+  <img src="build/icons/256x256.png">
   <h1>Firma Digital INTI</h1>
 </div>
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](README.md)
 [![es](https://img.shields.io/badge/lang-es-yellow.svg)](README.es.md)
+[![pt](https://img.shields.io/badge/lang-pt-green.svg)](README.pt.md)
 
 Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL
 
