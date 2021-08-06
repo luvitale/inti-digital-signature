@@ -1,7 +1,7 @@
 import fs from "fs";
 import crypto from "crypto";
 
-export class DigitalSignature {
+export default class DigitalSignature {
   constructor(
     hash = "SHA1",
     modulusLength = 2048,

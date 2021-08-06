@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { DigitalSignature } from "./digital-signature";
+import DigitalSignature from "./digital-signature";
 import dialogFileTransfer from "./dialog-file-transfer";
 import i18n from "../i18n";
 

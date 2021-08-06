@@ -1,4 +1,8 @@
-image: node:14
+default:
+  image: node:14
+  before_script:
+    - apt update
+    - yarn install
 
 services:
   - 4tqrgqe5yrgfd/electron:latest
@@ -13,15 +17,13 @@ cache:
 
 test:
   script:
-    - npm install
-    - npm run test:unit
+    - yarn test:unit
 
 deploy:
   script:
-    - apt update
     - apt -y install rpm
-    - npm install
-    - npm run electron:build
+    - snap install snapcraft --classic
+    - yarn electron:build
   artifacts:
     paths:
       - dist_electron/*.AppImage

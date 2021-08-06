@@ -12,8 +12,6 @@ Application to generate private keys, obtain the paired public key, sign files a
 
 You can download binaries or source in [Releases](https://github.com/luvitale/inti-digital-signature/releases) section and install it.
 
-> Note: OpenSSL is required
-
 ## Continuous Integration
 
 Binaries are released using GitHub Action.

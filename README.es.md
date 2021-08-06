@@ -12,8 +12,6 @@ Programa para crear claves privadas, obtener la clave pública emparejada, firma
 
 Los archivos binarios o el código fuente está disponible para la descarga e instalación en la sección [Releases](https://github.com/luvitale/inti-digital-signature/releases).
 
-> Nota: OpenSSL es requerido
-
 ## Integración continua
 
 Los binarios son lanzados utilizando GitHub Action.

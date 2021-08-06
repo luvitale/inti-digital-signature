@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import path from "path";
-import { DigitalSignature } from "@/backend/digital-signature";
+import DigitalSignature from "@/backend/digital-signature";
 import fs from "fs";
 
 describe("DigitalSignature", () => {
