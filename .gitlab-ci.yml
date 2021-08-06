@@ -22,8 +22,6 @@ test:
 deploy:
   script:
     - apt -y install rpm
-    - apt -y install snapd
-    - snap install snapcraft --classic
     - yarn electron:build
   artifacts:
     paths:
