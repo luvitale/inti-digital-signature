@@ -1,26 +1,37 @@
-import fs from "fs"
-import crypto from "crypto"
-import child_process from "child_process"
+import fs from "fs";
+import crypto from "crypto";
 
 export class DigitalSignature {
+  constructor(
+    hash = "SHA1",
+    modulusLength = 2048,
+    cypher = "rsa",
+    keyFormat = "pem"
+  ) {
+    this.hash = hash;
+    this.modulusLength = modulusLength;
+    this.cypher = cypher;
+    this.keyFormat = keyFormat;
+  }
+
   generatePrivateKey() {
     return new Promise((resolve, reject) => {
       try {
-        const rsaKeys = crypto.generateKeyPairSync('rsa', {
-          modulusLength: 2048,
+        const rsaKeys = crypto.generateKeyPairSync(this.cypher, {
+          modulusLength: this.modulusLength,
           publicKeyEncoding: {
-            type: 'spki',
-            format: 'pem',
+            type: "spki",
+            format: this.keyFormat,
           },
           privateKeyEncoding: {
-            type: 'pkcs8',
-            format: 'pem',
+            type: "pkcs8",
+            format: this.keyFormat,
           },
         });
 
-        resolve(rsaKeys.privateKey)
-      } catch(error) {
-        reject(error)
+        resolve(rsaKeys.privateKey);
+      } catch (error) {
+        reject(error);
       }
     });
   }
@@ -28,27 +39,21 @@ export class DigitalSignature {
   generatePublicKey(privateKeyPath) {
     return new Promise((resolve, reject) => {
       try {
-        const privateKey = fs.readFileSync(privateKeyPath)
-
-        console.log(privateKey)
+        const privateKey = fs.readFileSync(privateKeyPath);
 
         const pubKeyObject = crypto.createPublicKey({
-            key: privateKey,
-            format: 'pem'
-        })
-
-        console.log(pubKeyObject)
+          key: privateKey,
+          format: this.keyFormat,
+        });
 
         const publicKey = pubKeyObject.export({
-            format: 'pem',
-            type: 'spki'
-        })
+          type: "spki",
+          format: this.keyFormat,
+        });
 
-        console.log(publicKey)
-
-        resolve(publicKey.toString("base64"))
-      } catch(error) {
-        reject(error)
+        resolve(publicKey.toString("base64"));
+      } catch (error) {
+        reject(error);
       }
     });
   }
@@ -56,24 +61,18 @@ export class DigitalSignature {
   sign(privateKeyPath, fileToSignPath) {
     return new Promise((resolve, reject) => {
       try {
-        console.log("Reading File...\n");
-        // Reading file
-        const text = fs.readFileSync(fileToSignPath);
-        console.log(`File content: ${text}`);
+        const privateKey = fs.readFileSync(privateKeyPath);
 
-        // Convert string to buffer 
-        const data = Buffer.from(text);
+        // File/Document to be signed
+        const document = fs.readFileSync(fileToSignPath);
 
-        const privateKey = fs.readFileSync(privateKeyPath)
-          
-        // Sign the data and returned signature in buffer 
-        const bufferSign = crypto.sign("SHA1", data , privateKey);
-          
-        // Convert returned buffer to base64
-        const signature = bufferSign.toString('binary');
+        // Signing
+        const signer = crypto.createSign(this.hash);
+        signer.write(document);
+        signer.end();
 
-        // Printing the signature 
-        console.log(`Signature:\n\n ${signature}`);
+        // Returns the signature in binary output_format
+        const signature = signer.sign(privateKey, "binary");
 
         resolve(signature);
       } catch (error) {
@@ -82,14 +81,30 @@ export class DigitalSignature {
     });
   }
 
-  verify(publicKeyPath, fileToVerifyPath, originalFilePath) {
+  verify(publicKeyPath, signatureFilePath, originalFilePath) {
     return new Promise((resolve, reject) => {
-      const verifyCommand = `openssl dgst -sha1 -verify "${publicKeyPath}" -signature "${fileToVerifyPath}" "${originalFilePath}"`;
-      child_process.exec(verifyCommand, (err, result) => {
-        if (err) reject(err);
+      try {
+        const publicKey = fs.readFileSync(publicKeyPath);
 
-        resolve(result);
-      });
+        const signature = fs.readFileSync(signatureFilePath, "binary");
+
+        const document = fs.readFileSync(originalFilePath);
+
+        // Signing
+        const verifier = crypto.createVerify(this.hash);
+        verifier.write(document);
+        verifier.end();
+
+        // Verify binary file signature
+        const result = verifier.verify(publicKey, signature, "binary");
+
+        console.log("Digital Signature Verification: " + result);
+
+        if (result === true) resolve("Verified OK\n");
+        else reject(result);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 }
