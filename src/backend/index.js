@@ -40,7 +40,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 });
 
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
-  const defaultPath = "firma.bin";
+  const defaultPath = `${i18n.t("default-signature-filename")}.bin`;
 
   try {
     const signature = await digitalSignature.sign(

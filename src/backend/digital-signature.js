@@ -1,4 +1,4 @@
-import fs from "fs";
+import { promises as fsPromises } from "fs";
 import crypto from "crypto";
 
 export default class DigitalSignature {
@@ -14,10 +14,11 @@ export default class DigitalSignature {
     this.keyFormat = keyFormat;
   }
 
-  generatePrivateKey() {
+  async generatePrivateKey() {
     return new Promise((resolve, reject) => {
-      try {
-        const rsaKeys = crypto.generateKeyPairSync(this.cypher, {
+      crypto.generateKeyPair(
+        this.cypher,
+        {
           modulusLength: this.modulusLength,
           publicKeyEncoding: {
             type: "spki",
@@ -27,48 +28,46 @@ export default class DigitalSignature {
             type: "pkcs8",
             format: this.keyFormat,
           },
-        });
+        },
+        (error, _publicKey, privateKey) => {
+          if (error) reject(error);
 
-        resolve(rsaKeys.privateKey);
-      } catch (error) {
-        reject(error);
-      }
+          resolve(privateKey);
+        }
+      );
     });
   }
 
-  generatePublicKey(privateKeyPath) {
+  async generatePublicKey(privateKeyPath) {
     return new Promise((resolve, reject) => {
-      try {
-        const privateKey = fs.readFileSync(privateKeyPath);
-
-        const pubKeyObject = crypto.createPublicKey({
-          key: privateKey,
-          format: this.keyFormat,
-        });
-
-        const publicKey = pubKeyObject.export({
-          type: "spki",
-          format: this.keyFormat,
-        });
-
-        resolve(publicKey.toString("base64"));
-      } catch (error) {
-        reject(error);
-      }
+      fsPromises
+        .readFile(privateKeyPath)
+        .then((privateKey) =>
+          crypto.createPublicKey({
+            key: privateKey,
+            format: this.keyFormat,
+          })
+        )
+        .then((pubKeyObject) =>
+          pubKeyObject.export({
+            type: "spki",
+            format: this.keyFormat,
+          })
+        )
+        .then((publicKey) => resolve(publicKey.toString("base64")))
+        .catch((error) => reject(error));
     });
   }
 
-  sign(privateKeyPath, fileToSignPath) {
+  async sign(privateKeyPath, fileToSignPath) {
+    const privateKey = await fsPromises.readFile(privateKeyPath);
+    const fileToSign = await fsPromises.readFile(fileToSignPath);
+
     return new Promise((resolve, reject) => {
       try {
-        const privateKey = fs.readFileSync(privateKeyPath);
-
-        // File/Document to be signed
-        const document = fs.readFileSync(fileToSignPath);
-
         // Signing
         const signer = crypto.createSign(this.hash);
-        signer.write(document);
+        signer.write(fileToSign);
         signer.end();
 
         // Returns the signature in binary output_format
@@ -81,18 +80,15 @@ export default class DigitalSignature {
     });
   }
 
-  verify(publicKeyPath, signatureFilePath, originalFilePath) {
+  async verify(publicKeyPath, signatureFilePath, originalFilePath) {
+    const publicKey = await fsPromises.readFile(publicKeyPath);
+    const signature = await fsPromises.readFile(signatureFilePath);
+    const originalFile = await fsPromises.readFile(originalFilePath);
+
     return new Promise((resolve, reject) => {
       try {
-        const publicKey = fs.readFileSync(publicKeyPath);
-
-        const signature = fs.readFileSync(signatureFilePath, "binary");
-
-        const document = fs.readFileSync(originalFilePath);
-
-        // Signing
         const verifier = crypto.createVerify(this.hash);
-        verifier.write(document);
+        verifier.write(originalFile);
         verifier.end();
 
         // Verify binary file signature

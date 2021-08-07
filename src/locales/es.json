@@ -32,5 +32,6 @@
   "successfully-generated-public-key": "Clave pública generada correctamente",
   "successfully-signed-file": "Archivo firmado correctamente",
   "verify": "Verificar",
-  "wrong-verification": "Verificación incorrecta"
+  "wrong-verification": "Verificación incorrecta",
+  "default-signature-filename": "firma"
 }

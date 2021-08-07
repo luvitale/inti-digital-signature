@@ -1,6 +1,6 @@
 import { dialog } from "electron";
 import i18n from "../i18n";
-import fs from "fs";
+import { promises as fs } from "fs";
 
 const savePEM = async (data, defaultFilename) => {
   const file = await dialog.showSaveDialog({
@@ -22,7 +22,7 @@ const savePEM = async (data, defaultFilename) => {
 
   console.log(dest);
 
-  await fs.promises.writeFile(dest, data);
+  await fs.writeFile(dest, data);
 
   console.log(i18n.t("saved-file"));
 };
@@ -47,7 +47,7 @@ const saveSignature = async (data, defaultFilename) => {
 
   console.log(dest);
 
-  await fs.promises.writeFile(dest, data, "binary");
+  await fs.writeFile(dest, data, "binary");
 
   console.log(i18n.t("saved-file"));
 };

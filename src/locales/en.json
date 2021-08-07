@@ -33,5 +33,6 @@
   "successfully-generated-public-key": "Successfully generated public key",
   "successfully-signed-file": "Successfully signed file",
   "verify": "Verify",
-  "wrong-verification": "Wrong verification"
+  "wrong-verification": "Wrong verification",
+  "default-signature-filename": "sign"
 }

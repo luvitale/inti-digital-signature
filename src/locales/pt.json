@@ -25,5 +25,6 @@
   "select-private-key": "Selecione a chave privada",
   "select-private-key-to-generate-public-key-label": "Selecione a chave privada e gere a chave pública",
   "select-public-key": "Selecione a chave pública",
-  "select-signature": "Selecione o arquivo de assinatura"
+  "select-signature": "Selecione o arquivo de assinatura",
+  "default-signature-filename": "assdig"
 }
