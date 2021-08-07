@@ -47,6 +47,23 @@
     }
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  #app {
+    background-color: #121212;
+    color: #fff;
+  }
+
+  #nav {
+    a {
+      color: turquoise;
+
+      &.router-link-exact-active {
+        color: lightblue;
+      }
+    }
+  }
+}
 </style>
 
 <script>

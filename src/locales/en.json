@@ -1,8 +1,8 @@
 {
   "canceled-save-file": "Save canceled",
   "correct-verification": "Correct verification",
+  "default-signature-filename": "sign",
   "file-not-signed": "File not signed",
-  "generate_private_key": "Generate private key",
   "generate-private-key": "Generate private key",
   "generate-public-key": "Generate public key",
   "home": "Home",
@@ -10,6 +10,7 @@
   "inti-digital-signature-description": "Generate private keys, obtain the paired public key, sign files and verify the signed file with INTI Digital Signature, powered by OpenSSL",
   "inti-logo": "INTI logo",
   "lang-description-en": "English",
+  "lang-description-eo": "Esperanto",
   "lang-description-es": "Spanish",
   "lang-description-pt": "Portuguese",
   "language-label": "Language",
@@ -33,6 +34,5 @@
   "successfully-generated-public-key": "Successfully generated public key",
   "successfully-signed-file": "Successfully signed file",
   "verify": "Verify",
-  "wrong-verification": "Wrong verification",
-  "default-signature-filename": "sign"
+  "wrong-verification": "Wrong verification"
 }

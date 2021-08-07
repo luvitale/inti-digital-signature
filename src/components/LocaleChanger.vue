@@ -30,7 +30,7 @@
 export default {
   name: "LocaleChanger",
   data() {
-    return { langs: ["en", "es", "pt"] };
+    return { langs: ["en", "eo", "es", "pt"] };
   },
 };
 </script>

@@ -1,6 +1,7 @@
 {
   "canceled-save-file": "Guardado cancelado",
   "correct-verification": "Verificación correcta",
+  "default-signature-filename": "firma",
   "file-not-signed": "No se pudo firmar el archivo",
   "generate-private-key": "Generar clave privada",
   "generate-public-key": "Generar clave pública",
@@ -9,6 +10,7 @@
   "inti-digital-signature-description": "Usá OpenSSL para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado",
   "inti-logo": "Logo del INTI",
   "lang-description-en": "Inglés",
+  "lang-description-eo": "Esperanto",
   "lang-description-es": "Español",
   "lang-description-pt": "Portugués",
   "language-label": "Idioma",
@@ -32,6 +34,5 @@
   "successfully-generated-public-key": "Clave pública generada correctamente",
   "successfully-signed-file": "Archivo firmado correctamente",
   "verify": "Verificar",
-  "wrong-verification": "Verificación incorrecta",
-  "default-signature-filename": "firma"
+  "wrong-verification": "Verificación incorrecta"
 }

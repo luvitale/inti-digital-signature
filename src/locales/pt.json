@@ -9,6 +9,7 @@
   "inti-digital-signature-description": "Use OpenSSL para criar chaves privadas, obter a chave pública emparelhada, assinar arquivos e verificar o arquivo assinado",
   "inti-logo": "Logotipo INTI",
   "lang-description-en": "Inglês",
+  "lang-description-eo": "Esperanto",
   "lang-description-es": "Espanhol",
   "lang-description-pt": "Português",
   "language-label": "Idioma",
@@ -26,5 +27,12 @@
   "select-private-key-to-generate-public-key-label": "Selecione a chave privada e gere a chave pública",
   "select-public-key": "Selecione a chave pública",
   "select-signature": "Selecione o arquivo de assinatura",
-  "default-signature-filename": "assdig"
+  "default-signature-filename": "assdig",
+  "sign": "Assinar",
+  "signature-files-name": "Assinaturas (.bin)",
+  "successfully-generated-public-key": "Chave pública gerada com sucesso",
+  "verify": "Verificar",
+  "wrong-verification": "Verificação incorreta",
+  "successfully-signed-file": "Arquivo assinado com sucesso",
+  "successfully-generated-private-key": "Chave privada gerada com sucesso"
 }

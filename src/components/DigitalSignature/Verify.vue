@@ -1,13 +1,13 @@
 <template>
   <v-container fluid>
-    <v-card>
-      <v-toolbar flat color="blue" dark>
+    <v-card class="digital-signature-card">
+      <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
         <v-toolbar-title>Verificar</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
 
-      <v-form>
+      <v-form class="digital-signature-form">
         <v-file-input
           :label="$t('select-public-key')"
           prepend-icon="mdi-message-text"
@@ -78,4 +78,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import "styles.scss";
+</style>

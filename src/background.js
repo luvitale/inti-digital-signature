@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow, screen } from "electron";
+import { app, protocol, BrowserWindow, screen, nativeTheme } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import path from "path";
@@ -15,6 +15,9 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 async function createWindow(dimensions) {
+  // https://www.electronjs.org/docs/api/native-theme#nativethemethemesource
+  nativeTheme.themeSource = "dark";
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: dimensions.width,
