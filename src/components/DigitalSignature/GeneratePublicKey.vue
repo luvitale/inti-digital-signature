@@ -36,6 +36,8 @@ export default {
   },
   methods: {
     generatePublicKey() {
+      if (!this.privateKeyFile) return;
+
       const privateKeyPath = this.privateKeyFile.path;
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {

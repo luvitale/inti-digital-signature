@@ -26,7 +26,7 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 export default {
   name: "LocaleChanger",
   data() {

@@ -53,6 +53,10 @@ export default {
   },
   methods: {
     verify() {
+      if (!this.publicKeyFile) return;
+      if (!this.signatureFilePath) return;
+      if (!this.originalFile) return;
+
       const publicKeyPath = this.publicKeyFile.path;
       const signatureFilePath = this.signatureFilePath.path;
       const originalFilePath = this.originalFile.path;

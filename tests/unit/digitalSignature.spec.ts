@@ -4,7 +4,7 @@ import DigitalSignature from "@/backend/digital-signature";
 import fs from "fs";
 
 describe("DigitalSignature", () => {
-  let digitalSignature;
+  let digitalSignature: DigitalSignature;
   let filesDir;
 
   before(() => {
@@ -60,14 +60,14 @@ describe("DigitalSignature", () => {
       // Generate Private Key
       privateKeyPath = path.join(filesDir, "priv1.pem");
       const privateKey = await digitalSignature.generatePrivateKey();
-      await fs.promises.writeFile(privateKeyPath, privateKey);
+      await fs.promises.writeFile(privateKeyPath, privateKey as any);
 
       // Generate Public Key
       publicKeyPath = path.join(filesDir, "pub1.pem");
       const publicKey = await digitalSignature.generatePublicKey(
         privateKeyPath
       );
-      await fs.promises.writeFile(publicKeyPath, publicKey);
+      await fs.promises.writeFile(publicKeyPath, publicKey as any);
 
       // Sign
       const originalFilePath = path.join(filesDir, "original.txt");
@@ -77,7 +77,11 @@ describe("DigitalSignature", () => {
       );
 
       signatureFilePath = path.join(filesDir, "signature.bin");
-      await fs.promises.writeFile(signatureFilePath, signature, "binary");
+      await fs.promises.writeFile(
+        signatureFilePath,
+        signature as any as string,
+        "binary"
+      );
 
       // Verify
       const result = await digitalSignature.verify(
@@ -94,9 +98,9 @@ describe("DigitalSignature", () => {
       expect(result).to.equal(expected);
     } catch (error) {
       // Remove created files
-      await fs.promises.unlink(privateKeyPath);
-      await fs.promises.unlink(publicKeyPath);
-      await fs.promises.unlink(signatureFilePath);
+      await fs.promises.unlink(privateKeyPath as any);
+      await fs.promises.unlink(publicKeyPath as any);
+      await fs.promises.unlink(signatureFilePath as any);
 
       console.log(error);
       expect(error).to.equal(expected);

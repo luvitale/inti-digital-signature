@@ -49,9 +49,15 @@ export default {
   },
   methods: {
     sign() {
+      if (!this.privateKeyFile) return;
+      if (!this.fileToSign) return;
+
       const privateKeyPath = this.privateKeyFile.path;
       const fileToSignPath = this.fileToSign.path;
-      window.ipcRenderer.send("sign", { privateKeyPath, fileToSignPath });
+      window.ipcRenderer.send("sign", {
+        privateKeyPath,
+        fileToSignPath,
+      });
       window.ipcRenderer.receive("sign", (/* signature */) => {
         this.$root.Toast.show({
           message: this.$t("successfully-signed-file"),

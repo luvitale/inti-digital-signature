@@ -1,4 +1,5 @@
 "use strict";
+declare const __static: string;
 
 import { app, protocol, BrowserWindow, screen, nativeTheme } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
@@ -14,7 +15,7 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
-async function createWindow(dimensions) {
+async function createWindow(dimensions: any) {
   // https://www.electronjs.org/docs/api/native-theme#nativethemethemesource
   nativeTheme.themeSource = "dark";
 
@@ -22,24 +23,24 @@ async function createWindow(dimensions) {
   const win = new BrowserWindow({
     width: dimensions.width,
     height: dimensions.height,
-    minWidth: parseInt(dimensions.width * 0.75),
-    minHeight: parseInt(dimensions.height * 0.75),
+    minWidth: dimensions.width * 0.75,
+    minHeight: dimensions.height * 0.75,
     webPreferences: {
       // Required for Spectron testing
       enableRemoteModule: !!process.env.IS_TEST,
 
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: process.env
+        .ELECTRON_NODE_INTEGRATION as unknown as boolean,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      /* global __static */
       preload: path.resolve(__static, "preload.js"),
     },
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
     createProtocol("app");
@@ -47,7 +48,7 @@ async function createWindow(dimensions) {
     win.loadURL("app://./index.html");
   }
 
-  win.setTitle(i18n.t("inti-digital-signature"));
+  win.setTitle(i18n.t("inti-digital-signature") as string);
   win.setMenu(null);
   win.removeMenu();
 }
@@ -64,7 +65,11 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  if (BrowserWindow.getAllWindows().length === 0) {
+    const display = screen.getPrimaryDisplay();
+    const dimensions = display.workAreaSize;
+    createWindow(dimensions);
+  }
 });
 
 // This method will be called when Electron has finished
@@ -75,11 +80,10 @@ app.on("ready", async () => {
     // Install Vue Devtools
     try {
       await installExtension(VUEJS_DEVTOOLS);
-    } catch (e) {
+    } catch (e: any) {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-
   const display = screen.getPrimaryDisplay();
   const dimensions = display.workAreaSize;
   createWindow(dimensions);

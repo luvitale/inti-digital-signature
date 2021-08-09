@@ -1,7 +1,11 @@
-import { promises as fsPromises } from "fs";
+import { PathLike, promises as fsPromises } from "fs";
 import crypto from "crypto";
 
 export default class DigitalSignature {
+  hash: string;
+  modulusLength: number;
+  cypher: string;
+  keyFormat: string;
   constructor(
     hash = "SHA1",
     modulusLength = 2048,
@@ -17,7 +21,7 @@ export default class DigitalSignature {
   async generatePrivateKey() {
     return new Promise((resolve, reject) => {
       crypto.generateKeyPair(
-        this.cypher,
+        this.cypher as any,
         {
           modulusLength: this.modulusLength,
           publicKeyEncoding: {
@@ -29,7 +33,7 @@ export default class DigitalSignature {
             format: this.keyFormat,
           },
         },
-        (error, _publicKey, privateKey) => {
+        (error: any, _publicKey: any, privateKey: unknown) => {
           if (error) reject(error);
 
           resolve(privateKey);
@@ -38,20 +42,20 @@ export default class DigitalSignature {
     });
   }
 
-  async generatePublicKey(privateKeyPath) {
+  async generatePublicKey(privateKeyPath: PathLike | fsPromises.FileHandle) {
     return new Promise((resolve, reject) => {
       fsPromises
         .readFile(privateKeyPath)
         .then((privateKey) =>
           crypto.createPublicKey({
-            key: privateKey,
-            format: this.keyFormat,
+            key: privateKey as any,
+            format: this.keyFormat as any,
           })
         )
         .then((pubKeyObject) =>
           pubKeyObject.export({
             type: "spki",
-            format: this.keyFormat,
+            format: this.keyFormat as any,
           })
         )
         .then((publicKey) => resolve(publicKey.toString("base64")))
@@ -59,7 +63,10 @@ export default class DigitalSignature {
     });
   }
 
-  async sign(privateKeyPath, fileToSignPath) {
+  async sign(
+    privateKeyPath: PathLike | fsPromises.FileHandle,
+    fileToSignPath: PathLike | fsPromises.FileHandle
+  ) {
     const privateKey = await fsPromises.readFile(privateKeyPath);
     const fileToSign = await fsPromises.readFile(fileToSignPath);
 
@@ -71,7 +78,7 @@ export default class DigitalSignature {
         signer.end();
 
         // Returns the signature in binary output_format
-        const signature = signer.sign(privateKey, "binary");
+        const signature = signer.sign(privateKey, "binary" as any);
 
         resolve(signature);
       } catch (error) {
@@ -80,7 +87,11 @@ export default class DigitalSignature {
     });
   }
 
-  async verify(publicKeyPath, signatureFilePath, originalFilePath) {
+  async verify(
+    publicKeyPath: PathLike | fsPromises.FileHandle,
+    signatureFilePath: PathLike | fsPromises.FileHandle,
+    originalFilePath: PathLike | fsPromises.FileHandle
+  ) {
     const publicKey = await fsPromises.readFile(publicKeyPath);
     const signature = await fsPromises.readFile(signatureFilePath);
     const originalFile = await fsPromises.readFile(originalFilePath);
@@ -92,7 +103,11 @@ export default class DigitalSignature {
         verifier.end();
 
         // Verify binary file signature
-        const result = verifier.verify(publicKey, signature, "binary");
+        const result = verifier.verify(
+          publicKey,
+          signature as any,
+          "binary" as any
+        );
 
         console.log("Digital Signature Verification: " + result);
 
