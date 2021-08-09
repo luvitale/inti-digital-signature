@@ -12,6 +12,7 @@
           :label="$t('select-private-key')"
           prepend-icon="mdi-message-text"
           outlined
+          required
           v-model="privateKeyFile"
         />
 
@@ -19,6 +20,7 @@
           :label="$t('select-file-to-sign')"
           prepend-icon="mdi-message-text"
           outlined
+          required
           v-model="fileToSign"
         />
       </v-form>

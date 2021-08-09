@@ -16,7 +16,3 @@ linux:
     - AppImage
     - deb
     - rpm
-
-deb:
-  depends:
-    - openssl

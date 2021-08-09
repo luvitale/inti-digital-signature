@@ -12,6 +12,7 @@
           :label="$t('select-public-key')"
           prepend-icon="mdi-message-text"
           outlined
+          required
           v-model="publicKeyFile"
         />
 
@@ -19,6 +20,7 @@
           :label="$t('select-signature')"
           prepend-icon="mdi-message-text"
           outlined
+          required
           v-model="signatureFilePath"
         />
 
@@ -26,6 +28,7 @@
           :label="$t('select-original-file')"
           prepend-icon="mdi-message-text"
           outlined
+          required
           v-model="originalFile"
         />
       </v-form>

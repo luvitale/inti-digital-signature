@@ -14,6 +14,7 @@
           outlined
           append-outer-icon="mdi-send"
           v-model="privateKeyFile"
+          required
           @click:append-outer="generatePublicKey"
         />
       </v-form>
