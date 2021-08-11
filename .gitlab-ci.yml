@@ -4,9 +4,6 @@ default:
     - apt update
     - yarn install
 
-services:
-  - 4tqrgqe5yrgfd/electron:latest
-
 stages:
   - test
   - deploy
@@ -16,10 +13,12 @@ cache:
     - node_modules/
 
 test:
+  stage: test
   script:
     - yarn test:unit
 
 deploy:
+  stage: deploy
   script:
     - apt -y install rpm
     - yarn electron:build
