@@ -17,7 +17,7 @@
       class="mx-auto"
       id="inti-logo"
       :alt="$t('inti-logo')"
-      src="./assets/logo.png"
+      src="@/assets/logo.png"
       max-width="300px"
       max-height="300px"
     />

@@ -41,38 +41,6 @@ export default (app: App, mainWindow: BrowserWindow) => {
     },
   ];
 
-  const viewMenu = [
-    {
-      label: i18n.t("reload-label"),
-      accelerator: "Command+R",
-      click: (_item: any, focusedWindow: { reload: () => void }) => {
-        if (focusedWindow) {
-          focusedWindow.reload();
-        }
-      },
-    },
-    {
-      label: i18n.t("full-screen-label"),
-      accelerator: "Ctrl+Command+F",
-      click: (
-        _item: any,
-        focusedWindow: {
-          setFullScreen: (arg0: boolean) => void;
-          isFullScreen: () => any;
-        }
-      ) => {
-        if (focusedWindow) {
-          focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-        }
-      },
-    },
-    {
-      label: i18n.t("minimize-label"),
-      accelerator: "Command+M",
-      role: "minimize",
-    },
-  ];
-
   const helpMenu = [
     {
       label: i18n.t("about-app"),
@@ -92,6 +60,41 @@ export default (app: App, mainWindow: BrowserWindow) => {
     };
   });
 
+  const viewMenu = [
+    {
+      label: i18n.t("language-label"),
+      submenu: languageMenu,
+    },
+    {
+      type: "separator",
+    },
+    {
+      label: i18n.t("reload-label"),
+      accelerator: "Command+R",
+      click: function (_item: any, focusedWindow: { reload: () => void }) {
+        focusedWindow.reload();
+      },
+    },
+    {
+      label: i18n.t("full-screen-label"),
+      accelerator: "Ctrl+Command+F",
+      click: function (
+        _item: any,
+        focusedWindow: {
+          setFullScreen: (arg0: boolean) => void;
+          isFullScreen: () => any;
+        }
+      ) {
+        focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+      },
+    },
+    {
+      label: i18n.t("minimize-label"),
+      accelerator: "Command+M",
+      role: "minimize",
+    },
+  ];
+
   menu.push({
     label: i18n.t("inti-digital-signature"),
     submenu: mainMenu,
@@ -100,11 +103,6 @@ export default (app: App, mainWindow: BrowserWindow) => {
   menu.push({
     label: i18n.t("view-label"),
     submenu: viewMenu,
-  });
-
-  menu.push({
-    label: i18n.t("language-label"),
-    submenu: languageMenu,
   });
 
   menu.push({

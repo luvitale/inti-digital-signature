@@ -5,9 +5,9 @@ import { app, protocol, BrowserWindow, screen, nativeTheme } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import path from "path";
-import "./backend";
+import "@/backend";
 import i18n from "@/i18n";
-import menuFactoryService from "./services/menu-factory";
+import menuFactoryService from "@/services/menu-factory";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
