@@ -34,5 +34,18 @@
   "verify": "Verificar",
   "wrong-verification": "Verificação incorreta",
   "successfully-signed-file": "Arquivo assinado com sucesso",
-  "successfully-generated-private-key": "Chave privada gerada com sucesso"
+  "successfully-generated-private-key": "Chave privada gerada com sucesso",
+  "about-app": "Sobre...",
+  "about-app-description": "Sobre INTI Assinatura Digital",
+  "full-screen-label": "Tela completa",
+  "help-label": "PARA",
+  "hide-app": "Ocultar aplicativo",
+  "hide-others": "Esconder outros",
+  "minimize-label": "Minimizar",
+  "quit-label": "Fechar",
+  "reload-label": "Recarrega",
+  "show-all": "Mostrar tudo",
+  "toggle-developer-tools": "Ferramentas de desenvolvimento",
+  "file-label": "&Arquivo",
+  "view-label": "&Visão"
 }

@@ -1,6 +1,6 @@
 {
-  "canceled-save-file": "Save canceled",
-  "correct-verification": "Correct verification",
+  "show-all": "Show all",
+  "toggle-developer-tools": "Developer tools",
   "default-signature-filename": "sign",
   "file-not-signed": "File not signed",
   "generate-private-key": "Generate private key",
@@ -13,7 +13,7 @@
   "lang-description-eo": "Esperanto",
   "lang-description-es": "Spanish",
   "lang-description-pt": "Portuguese",
-  "language-label": "Language",
+  "language-label": "&Language",
   "pem-files-name": "PEM files (.pem)",
   "private-key": "Private key",
   "private-key-not-generated": "Private key not generated",
@@ -34,5 +34,18 @@
   "successfully-generated-public-key": "Successfully generated public key",
   "successfully-signed-file": "Successfully signed file",
   "verify": "Verify",
-  "wrong-verification": "Wrong verification"
+  "wrong-verification": "Wrong verification",
+  "about-app": "About...",
+  "about-app-description": "About INTI Digital Signature",
+  "full-screen-label": "Fullscreen",
+  "help-label": "&Help",
+  "hide-app": "Hide app",
+  "hide-others": "Hide others",
+  "minimize-label": "Minimize",
+  "quit-label": "Quit",
+  "reload-label": "Recharge",
+  "canceled-save-file": "Save canceled",
+  "correct-verification": "Correct verification",
+  "file-label": "&File",
+  "view-label": "&View"
 }

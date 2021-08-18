@@ -13,7 +13,7 @@
   "lang-description-eo": "Esperanto",
   "lang-description-es": "Español",
   "lang-description-pt": "Portugués",
-  "language-label": "Idioma",
+  "language-label": "&Idioma",
   "pem-files-name": "Archivos PEM (.pem)",
   "private-key": "Clave privada",
   "private-key-not-generated": "La clave privada no se pudo generar",
@@ -34,5 +34,19 @@
   "successfully-generated-public-key": "Clave pública generada correctamente",
   "successfully-signed-file": "Archivo firmado correctamente",
   "verify": "Verificar",
-  "wrong-verification": "Verificación incorrecta"
+  "wrong-verification": "Verificación incorrecta",
+
+  "file-label": "&Archivo",
+  "view-label": "&Vista",
+  "quit-label": "Cerrar",
+  "reload-label": "Recargar",
+  "minimize-label": "Minimizar",
+  "full-screen-label": "Pantalla completa",
+  "help-label": "A&yuda",
+  "about-app-description": "Acerca de Firma Digital INTI",
+  "hide-app": "Ocultar app",
+  "hide-others": "Ocultar otros",
+  "show-all": "Mostrar todo",
+  "toggle-developer-tools": "Herramientas de desarrollador",
+  "about-app": "Acerca de..."
 }

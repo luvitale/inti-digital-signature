@@ -34,5 +34,18 @@
   "successfully-generated-public-key": "Sukcese generita publika ŝlosilo",
   "successfully-signed-file": "Sukcese subskribita dosiero",
   "verify": "Kontroli",
-  "wrong-verification": "Malĝusta konfirmo"
+  "wrong-verification": "Malĝusta konfirmo",
+  "about-app": "Pri ...",
+  "about-app-description": "Pri INTI-Cifereca Subskribo",
+  "full-screen-label": "Plenekrane",
+  "help-label": "AL",
+  "hide-app": "Kaŝi programon",
+  "hide-others": "Kaŝu aliajn",
+  "minimize-label": "Minimumigi",
+  "quit-label": "Fermi",
+  "reload-label": "Reŝargu",
+  "show-all": "Montru ĉion",
+  "toggle-developer-tools": "Iloj por programistoj",
+  "file-label": "&Dosiero",
+  "view-label": "&Vido"
 }

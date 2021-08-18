@@ -2,7 +2,7 @@
   <v-select
     class="locale-changer"
     v-model="$i18n.locale"
-    :items="langs"
+    :items="$i18n.availableLocales"
     :label="$t('language-label')"
     dense
     hide-details
@@ -26,11 +26,8 @@
 }
 </style>
 
-<script lang="ts">
+<script>
 export default {
   name: "LocaleChanger",
-  data() {
-    return { langs: ["en", "eo", "es", "pt"] };
-  },
 };
 </script>

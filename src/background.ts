@@ -5,8 +5,9 @@ import { app, protocol, BrowserWindow, screen, nativeTheme } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import path from "path";
-import i18n from "./i18n";
 import "./backend";
+import i18n from "@/i18n";
+import menuFactoryService from "./services/menu-factory";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -38,6 +39,8 @@ async function createWindow(dimensions: any) {
     },
   });
 
+  new menuFactoryService.buildMenu(app, win);
+
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
@@ -49,8 +52,6 @@ async function createWindow(dimensions: any) {
   }
 
   win.setTitle(i18n.t("inti-digital-signature") as string);
-  win.setMenu(null);
-  win.removeMenu();
 }
 
 // Quit when all windows are closed.
