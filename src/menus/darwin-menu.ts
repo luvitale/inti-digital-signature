@@ -1,6 +1,6 @@
 import i18n from "@/i18n";
 import menuFactory from "@/services/menu-factory";
-import { App, BrowserWindow } from "electron";
+import { App, BrowserWindow, nativeTheme } from "electron";
 
 export default (app: App, mainWindow: BrowserWindow) => {
   mainWindow.setTitle(i18n.t("inti-digital-signature") as string);
@@ -60,10 +60,25 @@ export default (app: App, mainWindow: BrowserWindow) => {
     };
   });
 
+  const themeMenu = ["light", "dark"].map((style) => {
+    return {
+      label: i18n.t(`${style}-mode-label`),
+      type: "radio",
+      checked: nativeTheme.themeSource === style,
+      click: function () {
+        nativeTheme.themeSource = style as any;
+      },
+    };
+  });
+
   const viewMenu = [
     {
       label: i18n.t("language-label"),
       submenu: languageMenu,
+    },
+    {
+      label: i18n.t("theme-label"),
+      submenu: themeMenu,
     },
     {
       type: "separator",
