@@ -1,5 +1,5 @@
 import { dialog } from "electron";
-import i18n from "../i18n";
+import i18n from "@/i18n";
 import { promises as fsPromises } from "fs";
 
 const savePEM = async (data, defaultFilename) => {

@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import GeneratePrivateKey from "../views/DigitalSignature/GeneratePrivateKey.vue";
-import GeneratePublicKey from "../views/DigitalSignature/GeneratePublicKey.vue";
-import Sign from "../views/DigitalSignature/Sign.vue";
-import Verify from "../views/DigitalSignature/Verify.vue";
+import Home from "@/views/Home.vue";
+import GeneratePrivateKey from "@/views/DigitalSignature/GeneratePrivateKey.vue";
+import GeneratePublicKey from "@/views/DigitalSignature/GeneratePublicKey.vue";
+import Sign from "@/views/DigitalSignature/Sign.vue";
+import Verify from "@/views/DigitalSignature/Verify.vue";
 
 Vue.use(VueRouter);
 

@@ -2,8 +2,8 @@ import { App, BrowserWindow, Menu } from "electron";
 
 const platform = process.platform;
 
-import darwinTemplate from "../menus/darwin-menu";
-import otherTemplate from "../menus/other-menu";
+import darwinTemplate from "@/menus/darwin-menu";
+import otherTemplate from "@/menus/other-menu";
 
 const menu = null as unknown as Menu;
 
