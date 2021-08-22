@@ -8,6 +8,8 @@
       <v-divider></v-divider>
 
       <v-form class="digital-signature-form">
+        <Cyphers />
+
         <v-btn
           outlined
           color="success"
@@ -24,9 +26,14 @@
 
 <script>
 import mixin from "./mixin";
+import Cyphers from "@/components/Cyphers.vue";
 
 export default {
   name: "GeneratePrivateKeyComponent",
+
+  components: {
+    Cyphers,
+  },
 
   mixins: [mixin],
 

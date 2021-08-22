@@ -4,12 +4,20 @@ import crypto from "crypto";
 export default class DigitalSignature {
   hash: string;
   modulusLength: number;
-  cypher: string;
+  private _cypher!: string;
+
+  public get cypher(): string {
+    return this._cypher;
+  }
+  public set cypher(value: string) {
+    this._cypher = value;
+  }
+
   keyFormat: string;
   constructor(
     hash = "SHA1",
     modulusLength = 2048,
-    cypher = "rsa",
+    cypher = "RSA",
     keyFormat = "pem"
   ) {
     this.hash = hash;

@@ -77,3 +77,7 @@ ipcMain.on(
     }
   }
 );
+
+ipcMain.on("change-cypher", (event, cypher) => {
+  digitalSignature.cypher = cypher;
+});
