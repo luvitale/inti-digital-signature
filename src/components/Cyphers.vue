@@ -3,7 +3,7 @@
     class="cypher-changer"
     v-model="cypher"
     :items="cyphers"
-    label="Algoritmo"
+    label="{{ $t('digital-signature.private-key.cypher-type') }}"
     dense
     hide-details
     menu-props="offset-y"
@@ -24,7 +24,7 @@ export default {
 
   methods: {
     updateCypher() {
-      this.$emit("change", this.cypher);
+      this.$emit("input", this.cypher);
     },
   },
 };

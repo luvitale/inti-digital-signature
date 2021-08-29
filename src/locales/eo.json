@@ -24,7 +24,9 @@
   },
   "digital-signature": {
     "private-key": {
-      "label": "Privata ŝlosilo"
+      "label": "Privata ŝlosilo",
+      "cypher-type": "Ĉifrada tipo",
+      "modulus-length": "Ĉifrada longo"
     },
     "public-key": {
       "label": "Publika ŝlosilo",

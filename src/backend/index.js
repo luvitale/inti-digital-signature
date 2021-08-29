@@ -3,13 +3,16 @@ import digitalSignature from "./digital-signature";
 import cryptoFileDialog from "./crypto-file-dialog";
 import i18n from "@/i18n";
 
-ipcMain.on("generate-private-key", async (event, type) => {
+ipcMain.on("generate-private-key", async (event, { type, modulusLength }) => {
   const defaultPath = `${i18n.t(
     "crypto-file-dialog.default-filename.private-key"
   )}.pem`;
 
   try {
-    const privateKey = await digitalSignature.generatePrivateKey(type);
+    const privateKey = await digitalSignature.generatePrivateKey(
+      type,
+      modulusLength
+    );
 
     const savedPrivateKeyPath = await cryptoFileDialog.savePEM(
       privateKey,

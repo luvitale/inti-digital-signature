@@ -6,22 +6,28 @@ type PublicKey = string | crypto.KeyObject;
 type Signature = string;
 type Path = PathLike | fsPromises.FileHandle;
 
+type CypherType = "rsa" | "dsa" | "ec";
+type ModulusLength = 1024 | 2048 | 4096;
+type Hash = "SHA1" | "SHA256";
+type KeyFormat = "pem";
+
 class DigitalSignature {
   hash: string;
-  modulusLength: number;
   keyFormat: string;
-  constructor(hash = "SHA1", modulusLength = 2048, keyFormat = "pem") {
+  constructor(hash: Hash = "SHA1", keyFormat: KeyFormat = "pem") {
     this.hash = hash;
-    this.modulusLength = modulusLength;
     this.keyFormat = keyFormat;
   }
 
-  async generatePrivateKey(type = "rsa"): Promise<PrivateKey> {
+  async generatePrivateKey(
+    type: CypherType = "rsa",
+    modulusLength: ModulusLength = 2048
+  ): Promise<PrivateKey> {
     return new Promise((resolve, reject) => {
       crypto.generateKeyPair(
         type as any,
         {
-          modulusLength: this.modulusLength,
+          modulusLength,
           publicKeyEncoding: {
             type: "spki",
             format: this.keyFormat,

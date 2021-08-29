@@ -11,6 +11,7 @@
 
       <v-form class="digital-signature-form">
         <Cyphers v-model="type" />
+        <ModulusLength v-model="modulusLength" />
 
         <v-btn
           outlined
@@ -29,24 +30,30 @@
 <script>
 import mixin from "./mixin";
 import Cyphers from "@/components/Cyphers.vue";
+import ModulusLength from "@/components/ModulusLength.vue";
 
 export default {
   name: "GeneratePrivateKeyComponent",
 
   components: {
     Cyphers,
+    ModulusLength,
   },
 
   mixins: [mixin],
 
   data: function () {
     return {
-      type: "RSA",
+      type: "rsa",
+      modulusLength: 2048,
     };
   },
   methods: {
     generatePrivateKey() {
-      window.ipcRenderer.send("generate-private-key", this.type);
+      window.ipcRenderer.send("generate-private-key", {
+        type: this.type,
+        modulusLength: this.modulusLength,
+      });
       window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
         this.$root.Toast.show({
           message: this.$t("toast.private-key.successfully-generated"),

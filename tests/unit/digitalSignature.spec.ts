@@ -68,9 +68,17 @@ describe("DigitalSignature", () => {
         expectedPublicKeyPath,
         resultPublicKeyPath
       );
+
+      // Remove created files
+      await fsPromises.unlink(resultPublicKeyPath);
+
       expect(filesAreEqual, "PEM files should be equals").to.equal(true);
     } catch (error) {
       console.log(error);
+
+      // Remove created files
+      await fsPromises.unlink(resultPublicKeyPath);
+
       expect(error).to.equal("Not error");
     }
   });
@@ -90,9 +98,17 @@ describe("DigitalSignature", () => {
         notExpectedPublicKeyPath,
         resultPublicKeyPath
       );
+
+      // Remove created files
+      await fsPromises.unlink(resultPublicKeyPath);
+
       expect(filesAreEqual, "PEM files should not be equals").to.equal(false);
     } catch (error) {
       console.log(error);
+
+      // Remove created files
+      await fsPromises.unlink(resultPublicKeyPath);
+
       expect(error).to.equal("Not error");
     }
   });
@@ -149,7 +165,121 @@ describe("DigitalSignature", () => {
       await fsPromises.unlink(signatureFilePath as any);
 
       console.log(error);
-      expect(error).to.equal(expected);
+      expect(error).to.equal("Not error");
+    }
+  });
+
+  it(`digital signature is correct when PEM files are created
+  with cypher type dsa and length 2048 and file is signed`, async () => {
+    filesDir = path.join(process.cwd(), "tests", "unit", "files", "6");
+    const expected = true;
+    let privateKeyPath, publicKeyPath, signatureFilePath;
+
+    try {
+      // Generate Private Key
+      privateKeyPath = path.join(filesDir, "priv1.pem");
+      const privateKey = await digitalSignature.generatePrivateKey("dsa", 2048);
+      await fsPromises.writeFile(privateKeyPath, privateKey as any);
+
+      // Generate Public Key
+      publicKeyPath = path.join(filesDir, "pub1.pem");
+      const publicKey = await digitalSignature.generatePublicKey(
+        privateKeyPath
+      );
+      await fsPromises.writeFile(publicKeyPath, publicKey as any);
+
+      // Sign
+      const originalFilePath = path.join(filesDir, "original.txt");
+      const signature = await digitalSignature.sign(
+        privateKeyPath,
+        originalFilePath
+      );
+
+      signatureFilePath = path.join(filesDir, "signature.bin");
+      await fsPromises.writeFile(
+        signatureFilePath,
+        signature as any as string,
+        "binary"
+      );
+
+      // Verify
+      const result = await digitalSignature.verify(
+        publicKeyPath,
+        signatureFilePath,
+        originalFilePath
+      );
+
+      // Remove created files
+      await fsPromises.unlink(privateKeyPath);
+      await fsPromises.unlink(publicKeyPath);
+      await fsPromises.unlink(signatureFilePath);
+
+      expect(result).to.equal(expected);
+    } catch (error) {
+      // Remove created files
+      await fsPromises.unlink(privateKeyPath as any);
+      await fsPromises.unlink(publicKeyPath as any);
+      await fsPromises.unlink(signatureFilePath as any);
+
+      console.log(error);
+      expect(error).to.equal("Not error");
+    }
+  });
+
+  it(`digital signature is correct when PEM files are created
+  with cypher type rsa and length 4096 and file is signed`, async () => {
+    filesDir = path.join(process.cwd(), "tests", "unit", "files", "7");
+    const expected = true;
+    let privateKeyPath, publicKeyPath, signatureFilePath;
+
+    try {
+      // Generate Private Key
+      privateKeyPath = path.join(filesDir, "priv1.pem");
+      const privateKey = await digitalSignature.generatePrivateKey("rsa", 4096);
+      await fsPromises.writeFile(privateKeyPath, privateKey as any);
+
+      // Generate Public Key
+      publicKeyPath = path.join(filesDir, "pub1.pem");
+      const publicKey = await digitalSignature.generatePublicKey(
+        privateKeyPath
+      );
+      await fsPromises.writeFile(publicKeyPath, publicKey as any);
+
+      // Sign
+      const originalFilePath = path.join(filesDir, "original.txt");
+      const signature = await digitalSignature.sign(
+        privateKeyPath,
+        originalFilePath
+      );
+
+      signatureFilePath = path.join(filesDir, "signature.bin");
+      await fsPromises.writeFile(
+        signatureFilePath,
+        signature as any as string,
+        "binary"
+      );
+
+      // Verify
+      const result = await digitalSignature.verify(
+        publicKeyPath,
+        signatureFilePath,
+        originalFilePath
+      );
+
+      // Remove created files
+      await fsPromises.unlink(privateKeyPath);
+      await fsPromises.unlink(publicKeyPath);
+      await fsPromises.unlink(signatureFilePath);
+
+      expect(result).to.equal(expected);
+    } catch (error) {
+      // Remove created files
+      await fsPromises.unlink(privateKeyPath as any);
+      await fsPromises.unlink(publicKeyPath as any);
+      await fsPromises.unlink(signatureFilePath as any);
+
+      console.log(error);
+      expect(error).to.equal("Not error");
     }
   });
 });

@@ -24,7 +24,9 @@
   },
   "digital-signature": {
     "private-key": {
-      "label": "Private key"
+      "label": "Private key",
+      "cypher-type": "Encryption type",
+      "modulus-length": "Encryption length"
     },
     "public-key": {
       "label": "Public key",
