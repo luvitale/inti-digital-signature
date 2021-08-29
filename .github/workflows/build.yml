@@ -58,6 +58,7 @@ jobs:
 
       - name: Run tests
         run: yarn test:unit
+        if: startsWith(matrix.os, 'ubuntu')
 
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1.2.0
