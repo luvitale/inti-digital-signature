@@ -9,31 +9,31 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const mainMenu = [
     {
-      label: i18n.t("about-app-description"),
+      label: i18n.t("window.main.about-app-description"),
       role: "about",
     },
     {
       type: "separator",
     },
     {
-      label: i18n.t("hide-app"),
+      label: i18n.t("window.main.hide-app"),
       accelerator: "Command+H",
       role: "hide",
     },
     {
-      label: i18n.t("hide-others"),
+      label: i18n.t("window.main.hide-others"),
       accelerator: "Command+Shift+H",
       role: "hideothers",
     },
     {
-      label: i18n.t("show-all"),
+      label: i18n.t("window.main.show-all"),
       role: "unhide",
     },
     {
       type: "separator",
     },
     {
-      label: i18n.t("quit-label"),
+      label: i18n.t("window.file.quit"),
       accelerator: "Command+Q",
       click: () => {
         app.quit();
@@ -43,13 +43,13 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const helpMenu = [
     {
-      label: i18n.t("about-app"),
+      label: i18n.t("window.help.about-app"),
     },
   ];
 
   const languageMenu = i18n.availableLocales.map((languageCode) => {
     return {
-      label: languageCode + " - " + i18n.t(`lang-description-${languageCode}`),
+      label: languageCode + " - " + i18n.t(`language.${languageCode}`),
       type: "radio",
       checked: i18n.locale === languageCode,
       click: function () {
@@ -62,7 +62,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const themeMenu = ["light", "dark"].map((style) => {
     return {
-      label: i18n.t(`${style}-mode-label`),
+      label: i18n.t(`window.view.theme.mode.${style}`),
       type: "radio",
       checked: nativeTheme.themeSource === style,
       click: function () {
@@ -73,25 +73,25 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const viewMenu = [
     {
-      label: i18n.t("language-label"),
+      label: i18n.t("language.label"),
       submenu: languageMenu,
     },
     {
-      label: i18n.t("theme-label"),
+      label: i18n.t("window.view.theme.label"),
       submenu: themeMenu,
     },
     {
       type: "separator",
     },
     {
-      label: i18n.t("reload-label"),
+      label: i18n.t("window.file.reload"),
       accelerator: "Command+R",
       click: function (_item: any, focusedWindow: { reload: () => void }) {
         focusedWindow.reload();
       },
     },
     {
-      label: i18n.t("full-screen-label"),
+      label: i18n.t("window.view.fullscreen"),
       accelerator: "Ctrl+Command+F",
       click: function (
         _item: any,
@@ -104,7 +104,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
       },
     },
     {
-      label: i18n.t("minimize-label"),
+      label: i18n.t("window.view.minimize"),
       accelerator: "Command+M",
       role: "minimize",
     },
@@ -116,12 +116,12 @@ export default (app: App, mainWindow: BrowserWindow) => {
   });
 
   menu.push({
-    label: i18n.t("view-label"),
+    label: i18n.t("window.view.label"),
     submenu: viewMenu,
   });
 
   menu.push({
-    label: i18n.t("help-label"),
+    label: i18n.t("window.help.label"),
     submenu: helpMenu,
   });
 

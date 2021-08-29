@@ -2,13 +2,15 @@
   <v-container fluid>
     <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
-        <v-toolbar-title>{{ $t("private-key") }}</v-toolbar-title>
+        <v-toolbar-title>{{
+          $t("digital-signature.private-key.label")
+        }}</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
 
       <v-form class="digital-signature-form">
-        <Cyphers />
+        <Cyphers v-model="type" />
 
         <v-btn
           outlined
@@ -17,7 +19,7 @@
           depressed
           @click="generatePrivateKey"
         >
-          {{ $t("generate-private-key") }}
+          {{ $t("app.generate-private-key") }}
         </v-btn>
       </v-form>
     </v-card>
@@ -38,14 +40,16 @@ export default {
   mixins: [mixin],
 
   data: function () {
-    return {};
+    return {
+      type: "RSA",
+    };
   },
   methods: {
     generatePrivateKey() {
-      window.ipcRenderer.send("generate-private-key");
+      window.ipcRenderer.send("generate-private-key", this.type);
       window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
         this.$root.Toast.show({
-          message: this.$t("successfully-generated-private-key"),
+          message: this.$t("toast.private-key.successfully-generated"),
         });
       });
       window.ipcRenderer.receive("error", (msg) => {

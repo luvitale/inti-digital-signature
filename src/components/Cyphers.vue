@@ -7,7 +7,7 @@
     dense
     hide-details
     menu-props="offset-y"
-    @change="changeCypher"
+    @change="updateCypher"
   />
 </template>
 
@@ -23,13 +23,9 @@ export default {
   },
 
   methods: {
-    changeCypher() {
-      window.ipcRenderer.send("change-cypher", this.cypher);
+    updateCypher() {
+      this.$emit("change", this.cypher);
     },
-  },
-
-  mounted() {
-    this.changeCypher();
   },
 };
 </script>

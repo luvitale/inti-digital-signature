@@ -4,4 +4,5 @@ module.exports = [
   "sign",
   "verify",
   "error",
+  "change-language",
 ];

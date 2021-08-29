@@ -1,33 +1,35 @@
 import { ipcMain } from "electron";
-import DigitalSignature from "./digital-signature";
-import dialogFileTransfer from "./dialog-file-transfer";
+import digitalSignature from "./digital-signature";
+import cryptoFileDialog from "./crypto-file-dialog";
 import i18n from "@/i18n";
 
-const digitalSignature = new DigitalSignature();
-
-ipcMain.on("generate-private-key", async (event) => {
-  const defaultPath = "priv1.pem";
+ipcMain.on("generate-private-key", async (event, type) => {
+  const defaultPath = `${i18n.t(
+    "crypto-file-dialog.default-filename.private-key"
+  )}.pem`;
 
   try {
-    const privateKey = await digitalSignature.generatePrivateKey();
+    const privateKey = await digitalSignature.generatePrivateKey(type);
 
-    const savedPrivateKeyPath = await dialogFileTransfer.savePEM(
+    const savedPrivateKeyPath = await cryptoFileDialog.savePEM(
       privateKey,
       defaultPath
     );
     event.reply("generate-private-key", savedPrivateKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", i18n.t("private-key-not-generated"));
+    event.reply("error", i18n.t("toast.private-key.not-generated"));
   }
 });
 
 ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
-  const defaultPath = "pub1.pem";
+  const defaultPath = `${i18n.t(
+    "crypto-file-dialog.default-filename.public-key"
+  )}.pem`;
 
   try {
     const publicKey = await digitalSignature.generatePublicKey(privateKeyPath);
-    const savedPublicKeyPath = await dialogFileTransfer.savePEM(
+    const savedPublicKeyPath = await cryptoFileDialog.savePEM(
       publicKey,
       defaultPath
     );
@@ -35,12 +37,14 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
     event.reply("generate-public-key", savedPublicKeyPath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", i18n.t("public-key-not-generated"));
+    event.reply("error", i18n.t("toast.public-key.not-generated"));
   }
 });
 
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
-  const defaultPath = `${i18n.t("default-signature-filename")}.bin`;
+  const defaultPath = `${i18n.t(
+    "crypto-file-dialog.default-filename.signature"
+  )}.bin`;
 
   try {
     const signature = await digitalSignature.sign(
@@ -48,7 +52,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
       fileToSignPath
     );
 
-    const savedSignatureFilePath = await dialogFileTransfer.saveSignature(
+    const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
       signature,
       defaultPath
     );
@@ -56,7 +60,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
     event.reply("sign", savedSignatureFilePath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", i18n.t("file-not-signed"));
+    event.reply("error", i18n.t("toast.signature.not-signed"));
   }
 });
 
@@ -73,11 +77,7 @@ ipcMain.on(
       event.reply("verify", result);
     } catch (e) {
       console.log(e.toString());
-      event.reply("error", i18n.t("wrong-verification"));
+      event.reply("error", i18n.t("toast.verification.wrong"));
     }
   }
 );
-
-ipcMain.on("change-cypher", (event, cypher) => {
-  digitalSignature.cypher = cypher;
-});

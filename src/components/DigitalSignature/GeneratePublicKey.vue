@@ -2,14 +2,16 @@
   <v-container fluid>
     <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
-        <v-toolbar-title>{{ $t("public-key") }}</v-toolbar-title>
+        <v-toolbar-title>{{
+          $t("digital-signature.public-key.label")
+        }}</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
 
       <v-form class="digital-signature-form">
         <v-file-input
-          :label="$t('select-private-key-to-generate-public-key-label')"
+          :label="$t('digital-signature.public-key.select-private-key')"
           prepend-icon="mdi-message-text"
           outlined
           append-outer-icon="mdi-send"
@@ -43,7 +45,7 @@ export default {
       window.ipcRenderer.send("generate-public-key", privateKeyPath);
       window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
         this.$root.Toast.show({
-          message: this.$t("successfully-generated-public-key"),
+          message: this.$t("toast.public-key.successfully-generated"),
           color: "success",
         });
       });

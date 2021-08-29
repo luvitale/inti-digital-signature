@@ -51,7 +51,7 @@ async function createWindow(dimensions: any) {
     win.loadURL("app://./index.html");
   }
 
-  win.setTitle(i18n.t("inti-digital-signature") as string);
+  win.setTitle(i18n.t("app.title") as string);
 }
 
 // Quit when all windows are closed.

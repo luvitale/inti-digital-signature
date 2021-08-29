@@ -1,54 +1,98 @@
 {
-  "about-app": "Acerca de...",
-  "about-app-description": "Acerca de Firma Digital INTI",
-  "canceled-save-file": "Guardado cancelado",
-  "correct-verification": "Verificación correcta",
-  "dark-mode-label": "Oscuro",
-  "default-signature-filename": "firma",
-  "file-label": "&Archivo",
-  "file-not-signed": "No se pudo firmar el archivo",
-  "full-screen-label": "Pantalla completa",
-  "generate-private-key": "Generar clave privada",
-  "generate-public-key": "Generar clave pública",
-  "help-label": "A&yuda",
-  "hide-app": "Ocultar app",
-  "hide-others": "Ocultar otros",
-  "home": "Inicio",
-  "inti-digital-signature": "Firma Digital INTI",
-  "inti-digital-signature-description": "Usá OpenSSL para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado",
-  "inti-logo": "Logo del INTI",
-  "lang-description-en": "Inglés",
-  "lang-description-eo": "Esperanto",
-  "lang-description-es": "Español",
-  "lang-description-pt": "Portugués",
-  "language-label": "Idioma",
-  "light-mode-label": "Claro",
-  "minimize-label": "Minimizar",
-  "pem-files-name": "Archivos PEM (.pem)",
-  "private-key": "Clave privada",
-  "private-key-not-generated": "La clave privada no se pudo generar",
-  "public-key": "Clave pública",
-  "public-key-not-generated": "La clave pública no se pudo generar",
-  "quit-label": "Cerrar",
-  "reload-label": "Recargar",
-  "save-file-button-label": "Guardar",
-  "saved-file": "Guardado",
-  "select-file-location-to-save": "Seleccioná la ubicación del archivo a guardar",
-  "select-file-to-sign": "Seleccioná el archivo a firmar",
-  "select-original-file": "Seleccioná el archivo original",
-  "select-private-key": "Seleccioná la clave privada",
-  "select-private-key-to-generate-public-key-label": "Seleccioná la clave privada y generá la clave pública",
-  "select-public-key": "Seleccioná la clave pública",
-  "select-signature": "Seleccioná el archivo de firma",
-  "show-all": "Mostrar todo",
-  "sign": "Firmar",
-  "signature-files-name": "Firmas (.bin)",
-  "successfully-generated-private-key": "Clave privada generada correctamente",
-  "successfully-generated-public-key": "Clave pública generada correctamente",
-  "successfully-signed-file": "Archivo firmado correctamente",
-  "theme-label": "Tema",
-  "toggle-developer-tools": "Herramientas de desarrollador",
-  "verify": "Verificar",
-  "view-label": "&Vista",
-  "wrong-verification": "Verificación incorrecta"
+  "app": {
+    "description": "Usá OpenSSL para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado",
+    "generate-private-key": "Generar clave privada",
+    "generate-public-key": "Generar clave pública",
+    "home": "Inicio",
+    "logo": "Logo del INTI",
+    "sign": "Firmar",
+    "title": "Firma Digital INTI",
+    "verify": "Verificar"
+  },
+  "crypto-file-dialog": {
+    "canceled-save-file": "Guardado cancelado",
+    "default-filename": {
+      "signature": "firma",
+      "private-key": "priv1",
+      "public-key": "pub1"
+    },
+    "pem-files-name": "Archivos PEM (.pem)",
+    "save-file-button-label": "Guardar",
+    "saved-file": "Guardado",
+    "select-file-location-to-save": "Seleccioná la ubicación del archivo a guardar",
+    "signature-files-name": "Firmas (.bin)"
+  },
+  "digital-signature": {
+    "private-key": {
+      "label": "Clave privada"
+    },
+    "public-key": {
+      "label": "Clave pública",
+      "select-private-key": "Seleccioná la clave privada y generá la clave pública"
+    },
+    "sign": {
+      "select-file": "Seleccioná el archivo a firmar",
+      "select-private-key": "Seleccioná la clave privada"
+    },
+    "verify": {
+      "select-original-file": "Seleccioná el archivo original",
+      "select-public-key": "Seleccioná la clave pública",
+      "select-signature": "Seleccioná el archivo de firma"
+    }
+  },
+  "language": {
+    "en": "Inglés",
+    "eo": "Esperanto",
+    "es": "Español",
+    "label": "Idioma",
+    "pt": "Portugués"
+  },
+  "toast": {
+    "private-key": {
+      "not-generated": "La clave privada no se pudo generar",
+      "successfully-generated": "Clave privada generada correctamente"
+    },
+    "public-key": {
+      "not-generated": "La clave pública no se pudo generar",
+      "successfully-generated": "Clave pública generada correctamente"
+    },
+    "signature": {
+      "not-signed": "No se pudo firmar el archivo",
+      "successfully-signed": "Archivo firmado correctamente"
+    },
+    "verification": {
+      "correct": "Verificación correcta",
+      "wrong": "Verificación incorrecta"
+    }
+  },
+  "window": {
+    "file": {
+      "label": "&Archivo",
+      "quit": "Cerrar",
+      "reload": "Recargar"
+    },
+    "help": {
+      "about-app": "Acerca de…",
+      "label": "A&yuda"
+    },
+    "main": {
+      "about-app-description": "Acerca de Firma Digital INTI",
+      "hide-app": "Ocultar app",
+      "hide-others": "Ocultar otros",
+      "show-all": "Mostrar todo"
+    },
+    "toggle-developer-tools": "Herramientas de desarrollador",
+    "view": {
+      "fullscreen": "Pantalla completa",
+      "label": "&Vista",
+      "minimize": "Minimizar",
+      "theme": {
+        "label": "Tema",
+        "mode": {
+          "dark": "Oscuro",
+          "light": "Claro"
+        }
+      }
+    }
+  }
 }

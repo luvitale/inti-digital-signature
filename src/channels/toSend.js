@@ -3,5 +3,4 @@ module.exports = [
   "generate-public-key",
   "sign",
   "verify",
-  "change-language",
 ];

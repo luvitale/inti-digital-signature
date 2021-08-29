@@ -1,54 +1,98 @@
 {
-  "about-app": "Sobre...",
-  "about-app-description": "Sobre INTI Assinatura Digital",
-  "canceled-save-file": "Salvar cancelado",
-  "correct-verification": "Verificação correta",
-  "dark-mode-label": "Escuro",
-  "default-signature-filename": "assdig",
-  "file-label": "&Arquivo",
-  "file-not-signed": "O arquivo não pôde ser assinado",
-  "full-screen-label": "Tela completa",
-  "generate-private-key": "Gerar chave privada",
-  "generate-public-key": "Gerar chave pública",
-  "help-label": "A&juda",
-  "hide-app": "Ocultar aplicativo",
-  "hide-others": "Esconder outros",
-  "home": "Começar",
-  "inti-digital-signature": "INTI Assinatura Digital",
-  "inti-digital-signature-description": "Use OpenSSL para criar chaves privadas, obter a chave pública emparelhada, assinar arquivos e verificar o arquivo assinado",
-  "inti-logo": "Logotipo INTI",
-  "lang-description-en": "Inglês",
-  "lang-description-eo": "Esperanto",
-  "lang-description-es": "Espanhol",
-  "lang-description-pt": "Português",
-  "language-label": "Idioma",
-  "light-mode-label": "Claro",
-  "minimize-label": "Minimizar",
-  "pem-files-name": "Arquivos PEM (.pem)",
-  "private-key": "Chave privada",
-  "private-key-not-generated": "A chave privada não pôde ser gerada",
-  "public-key": "Chave pública",
-  "public-key-not-generated": "A chave pública não pôde ser gerada",
-  "quit-label": "Fechar",
-  "reload-label": "Recarrega",
-  "save-file-button-label": "Salvar",
-  "saved-file": "Salvou",
-  "select-file-location-to-save": "Selecione a localização do arquivo para salvar",
-  "select-file-to-sign": "Selecione o arquivo para assinar",
-  "select-original-file": "Selecione o arquivo original",
-  "select-private-key": "Selecione a chave privada",
-  "select-private-key-to-generate-public-key-label": "Selecione a chave privada e gere a chave pública",
-  "select-public-key": "Selecione a chave pública",
-  "select-signature": "Selecione o arquivo de assinatura",
-  "show-all": "Mostrar tudo",
-  "sign": "Assinar",
-  "signature-files-name": "Assinaturas (.bin)",
-  "successfully-generated-private-key": "Chave privada gerada com sucesso",
-  "successfully-generated-public-key": "Chave pública gerada com sucesso",
-  "successfully-signed-file": "Arquivo assinado com sucesso",
-  "theme-label": "Tema",
-  "toggle-developer-tools": "Ferramentas de desenvolvimento",
-  "verify": "Verificar",
-  "view-label": "&Visão",
-  "wrong-verification": "Verificação incorreta"
+  "app": {
+    "description": "Use OpenSSL para criar chaves privadas, obter a chave pública emparelhada, assinar arquivos e verificar o arquivo assinado",
+    "generate-private-key": "Gerar chave privada",
+    "generate-public-key": "Gerar chave pública",
+    "home": "Começar",
+    "logo": "Logotipo INTI",
+    "sign": "Assinar",
+    "title": "INTI Assinatura Digital",
+    "verify": "Verificar"
+  },
+  "crypto-file-dialog": {
+    "canceled-save-file": "Salvar cancelado",
+    "default-filename": {
+      "signature": "assdig",
+      "private-key": "priv1",
+      "public-key": "pub1"
+    },
+    "pem-files-name": "Arquivos PEM (.pem)",
+    "save-file-button-label": "Salvar",
+    "saved-file": "Salvou",
+    "select-file-location-to-save": "Selecione a localização do arquivo para salvar",
+    "signature-files-name": "Assinaturas (.bin)"
+  },
+  "digital-signature": {
+    "private-key": {
+      "label": "Chave privada"
+    },
+    "public-key": {
+      "label": "Chave pública",
+      "select-private-key": "Selecione a chave privada e gere a chave pública"
+    },
+    "sign": {
+      "select-file": "Selecione o arquivo para assinar",
+      "select-private-key": "Selecione a chave privada"
+    },
+    "verify": {
+      "select-original-file": "Selecione o arquivo original",
+      "select-public-key": "Selecione a chave pública",
+      "select-signature": "Selecione o arquivo de assinatura"
+    }
+  },
+  "language": {
+    "en": "Inglês",
+    "eo": "Esperanto",
+    "es": "Espanhol",
+    "label": "Idioma",
+    "pt": "Português"
+  },
+  "toast": {
+    "private-key": {
+      "not-generated": "A chave privada não pôde ser gerada",
+      "successfully-generated": "Chave privada gerada com sucesso"
+    },
+    "public-key": {
+      "not-generated": "A chave pública não pôde ser gerada",
+      "successfully-generated": "Chave pública gerada com sucesso"
+    },
+    "signature": {
+      "not-signed": "O arquivo não pôde ser assinado",
+      "successfully-signed": "Arquivo assinado com sucesso"
+    },
+    "verification": {
+      "correct": "Verificação correta",
+      "wrong": "Verificação incorreta"
+    }
+  },
+  "window": {
+    "file": {
+      "label": "&Arquivo",
+      "quit": "Fechar",
+      "reload": "Recarrega"
+    },
+    "help": {
+      "about-app": "Sobre…",
+      "label": "A&juda"
+    },
+    "main": {
+      "about-app-description": "Sobre INTI Assinatura Digital",
+      "hide-app": "Ocultar aplicativo",
+      "hide-others": "Esconder outros",
+      "show-all": "Mostrar tudo"
+    },
+    "toggle-developer-tools": "Ferramentas de desenvolvimento",
+    "view": {
+      "fullscreen": "Tela completa",
+      "label": "&Visão",
+      "minimize": "Minimizar",
+      "theme": {
+        "label": "Tema",
+        "mode": {
+          "dark": "Escuro",
+          "light": "Claro"
+        }
+      }
+    }
+  }
 }

@@ -3,20 +3,20 @@ import menuFactory from "@/services/menu-factory";
 import { App, BrowserWindow, nativeTheme } from "electron";
 
 export default (app: App, mainWindow: BrowserWindow) => {
-  mainWindow.setTitle(i18n.t("inti-digital-signature") as string);
+  mainWindow.setTitle(i18n.t("app.title") as string);
 
   const menu = [];
 
   const fileMenu = [
     {
-      label: i18n.t("reload-label"),
+      label: i18n.t("window.file.reload"),
       accelerator: "Ctrl+R",
       click: function (_item: any, focusedWindow: { reload: () => void }) {
         focusedWindow.reload();
       },
     },
     {
-      label: i18n.t("quit-label"),
+      label: i18n.t("window.file.quit"),
       accelerator: "Ctrl+Q",
       click: function () {
         app.quit();
@@ -26,13 +26,13 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const helpMenu = [
     {
-      label: i18n.t("about-app"),
+      label: i18n.t("window.help.about-app"),
     },
   ];
 
   const languageMenu = i18n.availableLocales.map((languageCode) => {
     return {
-      label: languageCode + " - " + i18n.t(`lang-description-${languageCode}`),
+      label: languageCode + " - " + i18n.t(`language.${languageCode}`),
       type: "radio",
       checked: i18n.locale === languageCode,
       click: function () {
@@ -45,7 +45,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const themeMenu = ["light", "dark"].map((style) => {
     return {
-      label: i18n.t(`${style}-mode-label`),
+      label: i18n.t(`window.view.theme.mode.${style}`),
       type: "radio",
       checked: nativeTheme.themeSource === style,
       click: function () {
@@ -56,18 +56,18 @@ export default (app: App, mainWindow: BrowserWindow) => {
 
   const viewMenu = [
     {
-      label: i18n.t("language-label"),
+      label: i18n.t("language.label"),
       submenu: languageMenu,
     },
     {
-      label: i18n.t("theme-label"),
+      label: i18n.t("window.view.theme.label"),
       submenu: themeMenu,
     },
     {
       type: "separator",
     },
     {
-      label: i18n.t("full-screen-label"),
+      label: i18n.t("window.view.fullscreen"),
       accelerator: "Ctrl+Command+F",
       click: function (
         _item: any,
@@ -80,24 +80,24 @@ export default (app: App, mainWindow: BrowserWindow) => {
       },
     },
     {
-      label: i18n.t("minimize-label"),
+      label: i18n.t("window.view.minimize"),
       accelerator: "Command+M",
       role: "minimize",
     },
   ];
 
   menu.push({
-    label: i18n.t("file-label"),
+    label: i18n.t("window.file.label"),
     submenu: fileMenu,
   });
 
   menu.push({
-    label: i18n.t("view-label"),
+    label: i18n.t("window.view.label"),
     submenu: viewMenu,
   });
 
   menu.push({
-    label: i18n.t("help-label"),
+    label: i18n.t("window.help.label"),
     submenu: helpMenu,
   });
 
