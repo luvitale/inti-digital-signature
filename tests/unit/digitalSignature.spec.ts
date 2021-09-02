@@ -209,18 +209,8 @@ describe("DigitalSignature", () => {
         originalFilePath
       );
 
-      // Remove created files
-      await fsPromises.unlink(privateKeyPath);
-      await fsPromises.unlink(publicKeyPath);
-      await fsPromises.unlink(signatureFilePath);
-
       expect(result).to.equal(expected);
     } catch (error) {
-      // Remove created files
-      await fsPromises.unlink(privateKeyPath as any);
-      await fsPromises.unlink(publicKeyPath as any);
-      await fsPromises.unlink(signatureFilePath as any);
-
       console.log(error);
       expect(error).to.equal("Not error");
     }
@@ -266,20 +256,34 @@ describe("DigitalSignature", () => {
         originalFilePath
       );
 
-      // Remove created files
-      await fsPromises.unlink(privateKeyPath);
-      await fsPromises.unlink(publicKeyPath);
-      await fsPromises.unlink(signatureFilePath);
-
       expect(result).to.equal(expected);
     } catch (error) {
+      console.log(error);
+      expect(error).to.equal("Not error");
+    }
+  });
+
+  after(async () => {
+    const initialTest = 6;
+    const finalTest = 7;
+
+    for (let testNumber = initialTest; testNumber <= finalTest; ++testNumber) {
+      filesDir = path.join(
+        process.cwd(),
+        "tests",
+        "unit",
+        "files",
+        testNumber.toString()
+      );
+
+      const privateKeyPath = path.join(filesDir, "priv1.pem");
+      const publicKeyPath = path.join(filesDir, "pub1.pem");
+      const signatureFilePath = path.join(filesDir, "signature.bin");
+
       // Remove created files
       await fsPromises.unlink(privateKeyPath as any);
       await fsPromises.unlink(publicKeyPath as any);
       await fsPromises.unlink(signatureFilePath as any);
-
-      console.log(error);
-      expect(error).to.equal("Not error");
     }
   });
 });
