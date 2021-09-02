@@ -3,7 +3,7 @@
     class="modulus-length-changer"
     v-model="modulusLength"
     :items="validLengths"
-    label="{{ $t('digital-signature.private-key.modulus-length') }}"
+    :label="$t('digital-signature.private-key.modulus-length')"
     dense
     hide-details
     menu-props="offset-y"

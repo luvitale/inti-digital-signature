@@ -3,7 +3,7 @@
     class="cypher-changer"
     v-model="cypher"
     :items="cyphers"
-    label="{{ $t('digital-signature.private-key.cypher-type') }}"
+    :label="$t('digital-signature.private-key.cypher-type')"
     dense
     hide-details
     menu-props="offset-y"
