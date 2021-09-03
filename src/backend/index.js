@@ -3,27 +3,30 @@ import digitalSignature from "./digital-signature";
 import cryptoFileDialog from "./crypto-file-dialog";
 import i18n from "@/i18n";
 
-ipcMain.on("generate-private-key", async (event, { type, modulusLength }) => {
-  const defaultPath = `${i18n.t(
-    "crypto-file-dialog.default-filename.private-key"
-  )}.pem`;
+ipcMain.on(
+  "generate-private-key",
+  async (event, { type, modulusLength, namedCurve }) => {
+    const defaultPath = `${i18n.t(
+      "crypto-file-dialog.default-filename.private-key"
+    )}.pem`;
 
-  try {
-    const privateKey = await digitalSignature.generatePrivateKey(
-      type,
-      modulusLength
-    );
+    try {
+      const privateKey = await digitalSignature.generatePrivateKey(type, {
+        modulusLength,
+        namedCurve,
+      });
 
-    const savedPrivateKeyPath = await cryptoFileDialog.savePEM(
-      privateKey,
-      defaultPath
-    );
-    event.reply("generate-private-key", savedPrivateKeyPath);
-  } catch (e) {
-    console.log(e.toString());
-    event.reply("error", i18n.t("toast.private-key.not-generated"));
+      const savedPrivateKeyPath = await cryptoFileDialog.savePEM(
+        privateKey,
+        defaultPath
+      );
+      event.reply("generate-private-key", savedPrivateKeyPath);
+    } catch (e) {
+      console.log(e.toString());
+      event.reply("error", i18n.t("toast.private-key.not-generated"));
+    }
   }
-});
+);
 
 ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
   const defaultPath = `${i18n.t(

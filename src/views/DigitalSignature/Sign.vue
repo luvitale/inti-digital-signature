@@ -1,17 +1,82 @@
 <template>
-  <div class="sign">
-    <SignComponent />
-  </div>
+  <v-container fluid>
+    <v-card class="digital-signature-card">
+      <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
+        <v-toolbar-title>{{ $t("app.sign") }}</v-toolbar-title>
+      </v-toolbar>
+
+      <v-divider></v-divider>
+
+      <v-form class="digital-signature-form">
+        <v-file-input
+          :label="$t('digital-signature.sign.select-private-key')"
+          prepend-icon="mdi-message-text"
+          outlined
+          required
+          v-model="privateKeyFile"
+        />
+
+        <v-file-input
+          :label="$t('digital-signature.sign.select-file')"
+          prepend-icon="mdi-message-text"
+          outlined
+          required
+          v-model="fileToSign"
+        />
+      </v-form>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="success" depressed class="text-none" @click="sign">
+          {{ $t("app.sign") }}
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import SignComponent from "@/components/DigitalSignature/Sign.vue";
+import mixin from "./mixin";
 
 export default {
   name: "Sign",
-  components: {
-    SignComponent,
+
+  mixins: [mixin],
+
+  data: function () {
+    return {
+      privateKeyFile: [],
+      fileToSign: [],
+    };
+  },
+  methods: {
+    sign() {
+      if (!this.privateKeyFile) return;
+      if (!this.fileToSign) return;
+
+      const privateKeyPath = this.privateKeyFile.path;
+      const fileToSignPath = this.fileToSign.path;
+      window.ipcRenderer.send("sign", {
+        privateKeyPath,
+        fileToSignPath,
+      });
+      window.ipcRenderer.receive("sign", (/* signature */) => {
+        this.$root.Toast.show({
+          message: this.$t("toast.signature.successfully-signed"),
+          color: "success",
+        });
+      });
+      window.ipcRenderer.receive("error", (msg) => {
+        this.$root.Toast.show({
+          message: msg,
+          color: "error",
+        });
+      });
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "styles.scss";
+</style>

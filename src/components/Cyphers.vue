@@ -17,8 +17,8 @@ export default {
 
   data() {
     return {
-      cyphers: ["RSA", "DSA", "EC"],
-      cypher: "RSA",
+      cyphers: ["rsa", "dsa", "ec"],
+      cypher: "rsa",
     };
   },
 

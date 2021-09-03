@@ -1,42 +1,33 @@
-import { PathLike, promises as fsPromises } from "fs";
+import { promises as fsPromises } from "fs";
 import crypto from "crypto";
-
-type PrivateKey = string | crypto.KeyObject;
-type PublicKey = string | crypto.KeyObject;
-type Signature = string;
-type Path = PathLike | fsPromises.FileHandle;
-
-type CypherType = "rsa" | "dsa" | "ec";
-type ModulusLength = 1024 | 2048 | 4096;
-type Hash = "SHA1" | "SHA256";
-type KeyFormat = "pem";
+import {
+  Hash,
+  CypherType,
+  ModulusLength,
+  PrivateKey,
+  PublicKey,
+  Path,
+  Signature,
+} from "./types";
+import getOptions, { keyFormat } from "./options";
 
 class DigitalSignature {
-  hash: string;
-  keyFormat: string;
-  constructor(hash: Hash = "SHA1", keyFormat: KeyFormat = "pem") {
+  hash: Hash;
+  constructor(hash: Hash = "SHA1") {
     this.hash = hash;
-    this.keyFormat = keyFormat;
   }
 
   async generatePrivateKey(
     type: CypherType = "rsa",
-    modulusLength: ModulusLength = 2048
+    options?: {
+      modulusLength?: ModulusLength;
+      namedCurve?: string;
+    }
   ): Promise<PrivateKey> {
     return new Promise((resolve, reject) => {
       crypto.generateKeyPair(
         type as any,
-        {
-          modulusLength,
-          publicKeyEncoding: {
-            type: "spki",
-            format: this.keyFormat,
-          },
-          privateKeyEncoding: {
-            type: "pkcs8",
-            format: this.keyFormat,
-          },
-        },
+        getOptions(type, options),
         (
           error: Error | null,
           _publicKey: PublicKey,
@@ -57,13 +48,13 @@ class DigitalSignature {
         .then((privateKey) =>
           crypto.createPublicKey({
             key: privateKey as any,
-            format: this.keyFormat as any,
+            format: keyFormat as any,
           })
         )
         .then((pubKeyObject) =>
           pubKeyObject.export({
             type: "spki",
-            format: this.keyFormat as any,
+            format: keyFormat as any,
           })
         )
         .then((publicKey) => resolve(publicKey.toString("base64")))
