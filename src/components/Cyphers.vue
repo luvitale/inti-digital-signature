@@ -8,7 +8,15 @@
     hide-details
     menu-props="offset-y"
     @change="updateCypher"
-  />
+  >
+    <template slot="selection" slot-scope="data">
+      {{ data.item.toUpperCase() }}
+    </template>
+
+    <template slot="item" slot-scope="data">
+      {{ data.item.toUpperCase() }}
+    </template>
+  </v-select>
 </template>
 
 <script>
@@ -17,7 +25,7 @@ export default {
 
   data() {
     return {
-      cyphers: ["rsa", "dsa", "ec"],
+      cyphers: ["rsa", "ec"],
       cypher: "rsa",
     };
   },

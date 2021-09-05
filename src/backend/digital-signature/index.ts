@@ -1,5 +1,6 @@
 import { promises as fsPromises } from "fs";
 import crypto from "crypto";
+import PrivateKeyGenerator from "./private-key-generator";
 import {
   Hash,
   CypherType,
@@ -9,7 +10,7 @@ import {
   Path,
   Signature,
 } from "./types";
-import getOptions, { keyFormat } from "./options";
+import { keyFormat } from "./key-options-getter";
 
 class DigitalSignature {
   hash: Hash;
@@ -18,27 +19,15 @@ class DigitalSignature {
   }
 
   async generatePrivateKey(
-    type: CypherType = "rsa",
+    type?: CypherType,
     options?: {
       modulusLength?: ModulusLength;
       namedCurve?: string;
     }
   ): Promise<PrivateKey> {
-    return new Promise((resolve, reject) => {
-      crypto.generateKeyPair(
-        type as any,
-        getOptions(type, options),
-        (
-          error: Error | null,
-          _publicKey: PublicKey,
-          privateKey: PrivateKey
-        ) => {
-          if (error) reject(error);
+    const privateKeyGenerator = new PrivateKeyGenerator(type, options);
 
-          resolve(privateKey);
-        }
-      );
-    });
+    return await privateKeyGenerator.generate();
   }
 
   async generatePublicKey(privateKeyPath: Path): Promise<PublicKey> {

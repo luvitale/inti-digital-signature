@@ -67,6 +67,10 @@
     "vuetify-loader": "^1.7.0",
     "wdio-geckodriver-service": "^1.1.0"
   },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

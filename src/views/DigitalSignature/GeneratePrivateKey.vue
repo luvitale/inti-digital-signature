@@ -50,7 +50,7 @@ export default {
     return {
       type: "rsa",
       modulusLength: 2048,
-      namedCurve: "sect239k1",
+      namedCurve: "P-256",
     };
   },
   methods: {

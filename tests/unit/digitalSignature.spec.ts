@@ -170,57 +170,8 @@ describe("DigitalSignature", () => {
   });
 
   it(`digital signature is correct when PEM files are created
-  with cypher type dsa and length 2048 and file is signed`, async () => {
-    filesDir = path.join(process.cwd(), "tests", "unit", "files", "6");
-    const expected = true;
-    let privateKeyPath, publicKeyPath, signatureFilePath;
-
-    try {
-      // Generate Private Key
-      privateKeyPath = path.join(filesDir, "priv1.pem");
-      const privateKey = await digitalSignature.generatePrivateKey("dsa", {
-        modulusLength: 2048,
-      });
-      await fsPromises.writeFile(privateKeyPath, privateKey as any);
-
-      // Generate Public Key
-      publicKeyPath = path.join(filesDir, "pub1.pem");
-      const publicKey = await digitalSignature.generatePublicKey(
-        privateKeyPath
-      );
-      await fsPromises.writeFile(publicKeyPath, publicKey as any);
-
-      // Sign
-      const originalFilePath = path.join(filesDir, "original.txt");
-      const signature = await digitalSignature.sign(
-        privateKeyPath,
-        originalFilePath
-      );
-
-      signatureFilePath = path.join(filesDir, "signature.bin");
-      await fsPromises.writeFile(
-        signatureFilePath,
-        signature as any as string,
-        "binary"
-      );
-
-      // Verify
-      const result = await digitalSignature.verify(
-        publicKeyPath,
-        signatureFilePath,
-        originalFilePath
-      );
-
-      expect(result).to.equal(expected);
-    } catch (error) {
-      console.log(error);
-      expect(error).to.equal("Not error");
-    }
-  });
-
-  it(`digital signature is correct when PEM files are created
   with cypher type rsa and length 4096 and file is signed`, async () => {
-    filesDir = path.join(process.cwd(), "tests", "unit", "files", "7");
+    filesDir = path.join(process.cwd(), "tests", "unit", "files", "6");
     const expected = true;
     let privateKeyPath, publicKeyPath, signatureFilePath;
 
@@ -268,8 +219,8 @@ describe("DigitalSignature", () => {
   });
 
   it(`digital signature is correct when PEM files are created
-  with cypher type ec and length 2048 and file is signed`, async () => {
-    filesDir = path.join(process.cwd(), "tests", "unit", "files", "8");
+  with cypher type ec and file is signed`, async () => {
+    filesDir = path.join(process.cwd(), "tests", "unit", "files", "7");
     const expected = true;
     let privateKeyPath, publicKeyPath, signatureFilePath;
 
@@ -316,7 +267,7 @@ describe("DigitalSignature", () => {
 
   after(async () => {
     const initialTest = 6;
-    const finalTest = 8;
+    const finalTest = 7;
 
     for (let testNumber = initialTest; testNumber <= finalTest; ++testNumber) {
       filesDir = path.join(

@@ -26,7 +26,7 @@ export default {
 
   data() {
     return {
-      validLengths: [1024, 2048],
+      validLengths: [1024, 2048, 4096],
       modulusLength: 2048,
     };
   },
@@ -39,8 +39,6 @@ export default {
     getValidLengths() {
       if (this.cypher === "rsa") {
         this.validLengths = [1024, 2048, 4096];
-      } else if (this.cypher === "dsa") {
-        this.validLengths = [1024, 2048, 3072];
       }
     },
   },
