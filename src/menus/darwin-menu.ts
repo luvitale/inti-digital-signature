@@ -1,9 +1,12 @@
 import i18n from "@/i18n";
 import menuFactory from "@/services/menu-factory";
 import { App, BrowserWindow, nativeTheme } from "electron";
+import path from "path";
+import openAboutModal from "@/about/modal";
+declare const __static: string;
 
 export default (app: App, mainWindow: BrowserWindow) => {
-  mainWindow.setTitle(i18n.t("inti-digital-signature") as string);
+  mainWindow.setTitle(i18n.t("app.title") as string);
 
   const menu = [];
 
@@ -44,6 +47,13 @@ export default (app: App, mainWindow: BrowserWindow) => {
   const helpMenu = [
     {
       label: i18n.t("window.help.about-app"),
+      click: () =>
+        openAboutModal(
+          path.resolve(__static, "about.html"),
+          mainWindow,
+          600,
+          400
+        ),
     },
   ];
 
@@ -111,7 +121,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
   ];
 
   menu.push({
-    label: i18n.t("inti-digital-signature"),
+    label: i18n.t("app.title"),
     submenu: mainMenu,
   });
 
