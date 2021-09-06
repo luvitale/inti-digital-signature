@@ -2,7 +2,7 @@ import i18n from "@/i18n";
 import path from "path";
 import menuFactory from "@/services/menu-factory";
 import { App, BrowserWindow, nativeTheme } from "electron";
-import openAboutModal from "@/about/modal";
+import openAboutModal from "@/about";
 declare const __static: string;
 
 export default (app: App, mainWindow: BrowserWindow) => {
@@ -31,12 +31,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
     {
       label: i18n.t("window.help.about-app"),
       click: () =>
-        openAboutModal(
-          path.resolve(__static, "about.html"),
-          mainWindow,
-          600,
-          400
-        ),
+        openAboutModal(path.resolve(__static, "about.html"), mainWindow),
     },
   ];
 

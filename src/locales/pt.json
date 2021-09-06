@@ -7,7 +7,8 @@
     "logo": "Logotipo INTI",
     "sign": "Assinar",
     "title": "INTI Assinatura Digital",
-    "verify": "Verificar"
+    "verify": "Verificar",
+    "copyright": "Desenvolvido por:"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Salvar cancelado",

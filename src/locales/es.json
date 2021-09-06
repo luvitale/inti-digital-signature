@@ -7,7 +7,8 @@
     "logo": "Logo del INTI",
     "sign": "Firmar",
     "title": "Firma Digital INTI",
-    "verify": "Verificar"
+    "verify": "Verificar",
+    "copyright": "Desarrollado por:"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Guardado cancelado",
