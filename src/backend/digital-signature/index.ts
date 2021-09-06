@@ -1,8 +1,8 @@
 import { promises as fsPromises } from "fs";
-import crypto from "crypto";
 import PrivateKeyGenerator from "./private-key-generator";
 import PublicKeyGenerator from "./public-key-generator";
 import Signer from "./signer";
+import Verifier from "./verifier";
 import {
   Hash,
   CypherType,
@@ -57,26 +57,9 @@ class DigitalSignature {
     const signature = await fsPromises.readFile(signatureFilePath);
     const originalFile = await fsPromises.readFile(originalFilePath);
 
-    return new Promise((resolve, reject) => {
-      try {
-        const verifier = crypto.createVerify(this.hash);
-        verifier.write(originalFile);
-        verifier.end();
+    const verifier = new Verifier(publicKey, signature, originalFile);
 
-        // Verify binary file signature
-        const result = verifier.verify(
-          publicKey,
-          signature as any,
-          "binary" as any
-        );
-
-        console.log("Digital Signature Verification: " + result);
-
-        resolve(result);
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return await verifier.verify();
   }
 }
 

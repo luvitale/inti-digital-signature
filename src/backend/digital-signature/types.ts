@@ -3,7 +3,7 @@ import { PathLike, promises as fsPromises } from "fs";
 
 export type PrivateKey = crypto.KeyObject | string | Buffer;
 export type PublicKey = crypto.KeyObject | string | Buffer;
-export type Signature = string;
+export type Signature = string | Buffer;
 export type Path = PathLike | fsPromises.FileHandle;
 
 export type CypherType = "rsa" | "dsa" | "ec";
