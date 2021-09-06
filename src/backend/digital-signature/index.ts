@@ -2,6 +2,7 @@ import { promises as fsPromises } from "fs";
 import crypto from "crypto";
 import PrivateKeyGenerator from "./private-key-generator";
 import PublicKeyGenerator from "./public-key-generator";
+import Signer from "./signer";
 import {
   Hash,
   CypherType,
@@ -42,21 +43,9 @@ class DigitalSignature {
     const privateKey = await fsPromises.readFile(privateKeyPath);
     const fileToSign = await fsPromises.readFile(fileToSignPath);
 
-    return new Promise((resolve, reject) => {
-      try {
-        // Signing
-        const signer = crypto.createSign(this.hash);
-        signer.write(fileToSign);
-        signer.end();
+    const signer = new Signer(privateKey, fileToSign);
 
-        // Returns the signature in binary output_format
-        const signature = signer.sign(privateKey, "binary" as any);
-
-        resolve(signature);
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return await signer.sign();
   }
 
   async verify(

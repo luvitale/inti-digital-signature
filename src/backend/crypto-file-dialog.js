@@ -20,11 +20,7 @@ const savePEM = async (data, defaultFilename) => {
 
   const dest = file.filePath.toString();
 
-  console.log(dest);
-
   await fsPromises.writeFile(dest, data);
-
-  console.log(i18n.t("crypto-file-dialog.saved-file"));
 };
 
 const saveSignature = async (data, defaultFilename) => {
@@ -45,11 +41,7 @@ const saveSignature = async (data, defaultFilename) => {
 
   const dest = file.filePath.toString();
 
-  console.log(dest);
-
   await fsPromises.writeFile(dest, data, "binary");
-
-  console.log(i18n.t("crypto-file-dialog.saved-file"));
 };
 
 const cryptoFileDialog = {
