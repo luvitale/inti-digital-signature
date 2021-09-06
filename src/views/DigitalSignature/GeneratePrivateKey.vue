@@ -10,8 +10,8 @@
       <v-divider></v-divider>
 
       <v-form class="digital-signature-form">
-        <Cyphers v-model="type" />
-        <ModulusLength
+        <CypherSelector v-model="type" />
+        <ModulusLengthSelector
           :cypher="type"
           v-model="modulusLength"
           v-if="type !== 'ec'"
@@ -33,15 +33,15 @@
 
 <script>
 import mixin from "./mixin";
-import Cyphers from "@/components/Cyphers.vue";
-import ModulusLength from "@/components/ModulusLength.vue";
+import CypherSelector from "@/components/CypherSelector.vue";
+import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
 
 export default {
   name: "GeneratePrivateKey",
 
   components: {
-    Cyphers,
-    ModulusLength,
+    CypherSelector,
+    ModulusLengthSelector,
   },
 
   mixins: [mixin],

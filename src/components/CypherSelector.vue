@@ -1,4 +1,4 @@
-<template class="cyphers">
+<template class="cypher-selector">
   <v-select
     class="cypher-changer"
     v-model="cypher"
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "Cyphers",
+  name: "CypherSelector",
 
   data() {
     return {

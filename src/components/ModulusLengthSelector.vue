@@ -1,4 +1,4 @@
-<template class="modulus-length">
+<template class="modulus-length-selector">
   <v-select
     class="modulus-length-changer"
     v-model="modulusLength"
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "Cyphers",
+  name: "ModulusLengthSelector",
 
   props: {
     cypher: {

@@ -39,11 +39,15 @@ class DigitalSignature {
     return await publicKeyGenerator.generate();
   }
 
-  async sign(privateKeyPath: Path, fileToSignPath: Path): Promise<Signature> {
+  async sign(
+    privateKeyPath: Path,
+    fileToSignPath: Path,
+    options?: { hash?: Hash }
+  ): Promise<Signature> {
     const privateKey = await fsPromises.readFile(privateKeyPath);
     const fileToSign = await fsPromises.readFile(fileToSignPath);
 
-    const signer = new Signer(privateKey, fileToSign);
+    const signer = new Signer(privateKey, fileToSign, options);
 
     return await signer.sign();
   }

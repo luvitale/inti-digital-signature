@@ -23,6 +23,8 @@
           required
           v-model="fileToSign"
         />
+
+        <HashSelector v-model="hash" />
       </v-form>
 
       <v-card-actions>
@@ -37,16 +39,22 @@
 
 <script>
 import mixin from "./mixin";
+import HashSelector from "@/components/HashSelector";
 
 export default {
   name: "Sign",
 
   mixins: [mixin],
 
+  components: {
+    HashSelector,
+  },
+
   data: function () {
     return {
       privateKeyFile: [],
       fileToSign: [],
+      hash: [],
     };
   },
   methods: {
@@ -59,6 +67,7 @@ export default {
       window.ipcRenderer.send("sign", {
         privateKeyPath,
         fileToSignPath,
+        hash: this.hash,
       });
       window.ipcRenderer.receive("sign", (/* signature */) => {
         this.$root.Toast.show({

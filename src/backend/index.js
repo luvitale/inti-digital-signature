@@ -47,7 +47,7 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
   }
 });
 
-ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
+ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
   const defaultPath = `${i18n.t(
     "crypto-file-dialog.default-filename.signature"
   )}.bin`;
@@ -55,7 +55,8 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath }) => {
   try {
     const signature = await digitalSignature.sign(
       privateKeyPath,
-      fileToSignPath
+      fileToSignPath,
+      { hash }
     );
 
     const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
@@ -79,7 +80,6 @@ ipcMain.on(
         signatureFilePath,
         originalFilePath
       );
-      console.log(result);
       event.reply("verify", result);
     } catch (e) {
       console.log(e.toString());

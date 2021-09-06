@@ -24,6 +24,7 @@
     "signature-files-name": "Subskriboj (.bin)"
   },
   "digital-signature": {
+    "hash": "Hash",
     "private-key": {
       "label": "Privata ŝlosilo",
       "cypher-type": "Ĉifrada tipo",

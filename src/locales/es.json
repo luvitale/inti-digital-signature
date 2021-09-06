@@ -24,6 +24,7 @@
     "signature-files-name": "Firmas (.bin)"
   },
   "digital-signature": {
+    "hash": "Hash",
     "private-key": {
       "label": "Clave privada",
       "cypher-type": "Tipo de cifrado",
