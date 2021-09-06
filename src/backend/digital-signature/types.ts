@@ -1,8 +1,8 @@
 import crypto from "crypto";
 import { PathLike, promises as fsPromises } from "fs";
 
-export type PrivateKey = string | crypto.KeyObject;
-export type PublicKey = string | crypto.KeyObject;
+export type PrivateKey = crypto.KeyObject | string | Buffer;
+export type PublicKey = crypto.KeyObject | string | Buffer;
 export type Signature = string;
 export type Path = PathLike | fsPromises.FileHandle;
 

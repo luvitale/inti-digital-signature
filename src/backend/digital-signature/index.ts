@@ -1,6 +1,7 @@
 import { promises as fsPromises } from "fs";
 import crypto from "crypto";
 import PrivateKeyGenerator from "./private-key-generator";
+import PublicKeyGenerator from "./public-key-generator";
 import {
   Hash,
   CypherType,
@@ -10,7 +11,6 @@ import {
   Path,
   Signature,
 } from "./types";
-import { keyFormat } from "./key-options-getter";
 
 class DigitalSignature {
   hash: Hash;
@@ -31,24 +31,11 @@ class DigitalSignature {
   }
 
   async generatePublicKey(privateKeyPath: Path): Promise<PublicKey> {
-    return new Promise((resolve, reject) => {
-      fsPromises
-        .readFile(privateKeyPath)
-        .then((privateKey) =>
-          crypto.createPublicKey({
-            key: privateKey as any,
-            format: keyFormat as any,
-          })
-        )
-        .then((pubKeyObject) =>
-          pubKeyObject.export({
-            type: "spki",
-            format: keyFormat as any,
-          })
-        )
-        .then((publicKey) => resolve(publicKey.toString("base64")))
-        .catch((error) => reject(error));
-    });
+    const privateKey = await fsPromises.readFile(privateKeyPath);
+
+    const publicKeyGenerator = new PublicKeyGenerator(privateKey);
+
+    return await publicKeyGenerator.generate();
   }
 
   async sign(privateKeyPath: Path, fileToSignPath: Path): Promise<Signature> {
