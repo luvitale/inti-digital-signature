@@ -14,11 +14,6 @@ import {
 } from "./types";
 
 class DigitalSignature {
-  hash: Hash;
-  constructor(hash: Hash = "SHA1") {
-    this.hash = hash;
-  }
-
   async generatePrivateKey(
     type?: CypherType,
     options?: {
@@ -55,13 +50,14 @@ class DigitalSignature {
   async verify(
     publicKeyPath: Path,
     signatureFilePath: Path,
-    originalFilePath: Path
+    originalFilePath: Path,
+    options?: { hash?: Hash }
   ): Promise<boolean> {
     const publicKey = await fsPromises.readFile(publicKeyPath);
     const signature = await fsPromises.readFile(signatureFilePath);
     const originalFile = await fsPromises.readFile(originalFilePath);
 
-    const verifier = new Verifier(publicKey, signature, originalFile);
+    const verifier = new Verifier(publicKey, signature, originalFile, options);
 
     return await verifier.verify();
   }

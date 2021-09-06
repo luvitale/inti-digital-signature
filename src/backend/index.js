@@ -73,12 +73,16 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
 
 ipcMain.on(
   "verify",
-  async (event, { publicKeyPath, signatureFilePath, originalFilePath }) => {
+  async (
+    event,
+    { publicKeyPath, signatureFilePath, originalFilePath, hash }
+  ) => {
     try {
       const result = await digitalSignature.verify(
         publicKeyPath,
         signatureFilePath,
-        originalFilePath
+        originalFilePath,
+        { hash }
       );
       event.reply("verify", result);
     } catch (e) {

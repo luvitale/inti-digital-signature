@@ -31,6 +31,8 @@
           required
           v-model="originalFile"
         />
+
+        <HashSelector v-model="hash" />
       </v-form>
 
       <v-card-actions>
@@ -44,14 +46,21 @@
 </template>
 
 <script>
+import HashSelector from "@/components/HashSelector";
+
 export default {
   name: "Verify",
+
+  components: {
+    HashSelector,
+  },
 
   data: function () {
     return {
       publicKeyFile: [],
       signatureFilePath: [],
       originalFile: [],
+      hash: "",
     };
   },
   methods: {
@@ -63,10 +72,12 @@ export default {
       const publicKeyPath = this.publicKeyFile.path;
       const signatureFilePath = this.signatureFilePath.path;
       const originalFilePath = this.originalFile.path;
+      const hash = this.hash;
       window.ipcRenderer.send("verify", {
         publicKeyPath,
         signatureFilePath,
         originalFilePath,
+        hash,
       });
       window.ipcRenderer.receive("verify", (isVerified) => {
         if (isVerified) {

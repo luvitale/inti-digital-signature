@@ -54,7 +54,7 @@ export default {
     return {
       privateKeyFile: [],
       fileToSign: [],
-      hash: [],
+      hash: "",
     };
   },
   methods: {
@@ -64,10 +64,11 @@ export default {
 
       const privateKeyPath = this.privateKeyFile.path;
       const fileToSignPath = this.fileToSign.path;
+      const hash = this.hash;
       window.ipcRenderer.send("sign", {
         privateKeyPath,
         fileToSignPath,
-        hash: this.hash,
+        hash,
       });
       window.ipcRenderer.receive("sign", (/* signature */) => {
         this.$root.Toast.show({
