@@ -31,7 +31,10 @@ export default (app: App, mainWindow: BrowserWindow) => {
     {
       label: i18n.t("window.help.about-app"),
       click: () =>
-        openAboutModal(path.resolve(__static, "about.html"), mainWindow),
+        openAboutModal(
+          path.resolve(__static, "about", "index.html"),
+          mainWindow
+        ),
     },
   ];
 

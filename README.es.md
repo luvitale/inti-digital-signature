@@ -6,7 +6,8 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](README.md)
 [![eo](https://img.shields.io/badge/lang-eo-green.svg)](README.eo.md)
 [![es](https://img.shields.io/badge/lang-es-yellow.svg)](README.es.md)
-[![pt](https://img.shields.io/badge/lang-pt-blue.svg)](README.pt.md)
+[![es](https://img.shields.io/badge/lang-io-blue.svg)](README.io.md)
+[![pt](https://img.shields.io/badge/lang-pt-darkblue.svg)](README.pt.md)
 
 Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL
 

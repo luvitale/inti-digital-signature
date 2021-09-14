@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { contextBridge, ipcRenderer } = require("electron");
-const validSendChannels = require("../src/channels/toSend");
-const validReceiveChannels = require("../src/channels/toReceive");
+const validSendChannels = require("./channels/toSend");
+const validReceiveChannels = require("./channels/toReceive");
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object

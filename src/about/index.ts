@@ -21,7 +21,7 @@ const openAboutModal = (htmlFile: string, parentWindow: BrowserWindow) => {
       nodeIntegration: process.env
         .ELECTRON_NODE_INTEGRATION as unknown as boolean,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      preload: path.resolve(__static, "about-preload.js"),
+      preload: path.resolve(__static, "about", "preload.js"),
     },
   });
 

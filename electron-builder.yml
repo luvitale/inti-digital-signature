@@ -12,7 +12,4 @@ win:
 linux:
   category: Development
   target:
-    - snap
-    - AppImage
     - deb
-    - rpm

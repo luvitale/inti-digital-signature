@@ -10,7 +10,7 @@ ipcMain.on("about:info", async (event) => {
     copyright_authors: [
       { name: "Luciano Nahuel Vitale", link: "https://luvitale.net" },
     ],
-    logo: "logo.png",
+    logo: "../logo.png",
   };
   event.reply("about:info", info);
 });
