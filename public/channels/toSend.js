@@ -3,5 +3,6 @@ module.exports = [
   "generate-public-key",
   "generate-digest",
   "sign",
+  "sign-digest",
   "verify",
 ];

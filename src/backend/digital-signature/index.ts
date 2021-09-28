@@ -36,13 +36,10 @@ class DigitalSignature {
     return await publicKeyGenerator.generate();
   }
 
-  async generateDigest(
-    fileToDigestPath: Path,
-    options?: { hash?: Hash }
-  ): Promise<Digest> {
+  async generateDigest(fileToDigestPath: Path): Promise<Digest> {
     const fileToDigest = await fsPromises.readFile(fileToDigestPath);
 
-    const digestGenerator = new DigestGenerator(fileToDigest, options);
+    const digestGenerator = new DigestGenerator(fileToDigest);
 
     return await digestGenerator.generate();
   }
@@ -58,6 +55,18 @@ class DigitalSignature {
     const signer = new Signer(privateKey, fileToSign, options);
 
     return await signer.sign();
+  }
+
+  async signDigest(
+    privateKeyPath: Path,
+    fileToSignPath: Path
+  ): Promise<Signature> {
+    const privateKey = await fsPromises.readFile(privateKeyPath);
+    const fileToSign = await fsPromises.readFile(fileToSignPath);
+
+    const signer = new Signer(privateKey, fileToSign);
+
+    return await signer.signDigest();
   }
 
   async verify(

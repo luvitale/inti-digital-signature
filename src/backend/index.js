@@ -92,6 +92,32 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
 });
 
 ipcMain.on(
+  "sign-digest",
+  async (event, { privateKeyPath, digestToSignPath }) => {
+    const defaultPath = `${i18n.t(
+      "crypto-file-dialog.default-filename.signature"
+    )}.bin`;
+
+    try {
+      const signature = await digitalSignature.signDigest(
+        privateKeyPath,
+        digestToSignPath
+      );
+
+      const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
+        signature,
+        defaultPath
+      );
+
+      event.reply("sign-digest", savedSignatureFilePath);
+    } catch (e) {
+      console.log(e.toString());
+      event.reply("error", i18n.t("toast.signature.not-signed"));
+    }
+  }
+);
+
+ipcMain.on(
   "verify",
   async (
     event,

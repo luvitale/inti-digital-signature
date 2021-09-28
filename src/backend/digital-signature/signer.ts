@@ -38,6 +38,20 @@ class Signer {
       }
     });
   }
+
+  async signDigest(): Promise<Signature> {
+    return new Promise((resolve, reject) => {
+      try {
+        const digest = this.fileToSign as Buffer;
+
+        const signature = crypto.publicEncrypt(this.privateKey, digest);
+
+        resolve(signature);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
 
 export default Signer;

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card class="digital-signature-card">
+    <v-card class="digital-signature-card" v-if="true">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
         <v-toolbar-title>{{ $t("app.sign") }}</v-toolbar-title>
       </v-toolbar>
@@ -8,23 +8,10 @@
       <v-divider></v-divider>
 
       <v-form class="digital-signature-form">
-        <v-file-input
-          :label="$t('digital-signature.sign.select-private-key')"
-          prepend-icon="mdi-message-text"
-          outlined
-          required
-          v-model="privateKeyFile"
-        />
+        <v-switch id="digest-switch" v-model="digest" flat :label="`Digest`" />
 
-        <v-file-input
-          :label="$t('digital-signature.sign.select-file')"
-          prepend-icon="mdi-message-text"
-          outlined
-          required
-          v-model="fileToSign"
-        />
-
-        <HashSelector v-model="hash" />
+        <SignDigest v-if="digest" ref="sign_digest" />
+        <SignFile v-else ref="sign_file" />
       </v-form>
 
       <v-card-actions>
@@ -39,7 +26,8 @@
 
 <script>
 import mixin from "./mixin";
-import HashSelector from "@/components/HashSelector";
+import SignFile from "@/components/DigitalSignature/SignFile.vue";
+import SignDigest from "@/components/DigitalSignature/SignDigest.vue";
 
 export default {
   name: "Sign",
@@ -47,41 +35,22 @@ export default {
   mixins: [mixin],
 
   components: {
-    HashSelector,
+    SignFile,
+    SignDigest,
   },
 
   data: function () {
     return {
-      privateKeyFile: [],
-      fileToSign: [],
-      hash: "",
+      digest: false,
     };
   },
   methods: {
     sign() {
-      if (!this.privateKeyFile) return;
-      if (!this.fileToSign) return;
-
-      const privateKeyPath = this.privateKeyFile.path;
-      const fileToSignPath = this.fileToSign.path;
-      const hash = this.hash;
-      window.ipcRenderer.send("sign", {
-        privateKeyPath,
-        fileToSignPath,
-        hash,
-      });
-      window.ipcRenderer.receive("sign", (/* signature */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.signature.successfully-signed"),
-          color: "success",
-        });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
-        });
-      });
+      if (this.digest) {
+        this.$refs.sign_digest.sign();
+      } else {
+        this.$refs.sign_file.sign();
+      }
     },
   },
 };
