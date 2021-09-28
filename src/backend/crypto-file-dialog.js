@@ -23,6 +23,27 @@ const savePEM = async (data, defaultFilename) => {
   await fsPromises.writeFile(dest, data);
 };
 
+const saveDigest = async (data, defaultFilename) => {
+  const file = await dialog.showSaveDialog({
+    title: i18n.t("crypto-file-dialog.select-file-location-to-save"),
+    defaultPath: defaultFilename,
+    buttonLabel: i18n.t("crypto-file-dialog.save-file-button-label"),
+    filters: [
+      {
+        name: "Digest (.dig)",
+        extensions: ["dig"],
+      },
+    ],
+    properties: [],
+  });
+
+  if (file.canceled) throw i18n.t("crypto-file-dialog.canceled-save-file");
+
+  const dest = file.filePath.toString();
+
+  await fsPromises.writeFile(dest, data, "binary");
+};
+
 const saveSignature = async (data, defaultFilename) => {
   const file = await dialog.showSaveDialog({
     title: i18n.t("crypto-file-dialog.select-file-location-to-save"),
@@ -46,6 +67,7 @@ const saveSignature = async (data, defaultFilename) => {
 
 const cryptoFileDialog = {
   savePEM,
+  saveDigest,
   saveSignature,
 };
 

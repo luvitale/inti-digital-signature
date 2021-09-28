@@ -47,6 +47,26 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
   }
 });
 
+ipcMain.on("generate-digest", async (event, { fileToDigestPath, hash }) => {
+  const defaultPath = `digest.dig`;
+
+  try {
+    const digest = await digitalSignature.generateDigest(fileToDigestPath, {
+      hash,
+    });
+
+    const savedDigestFilePath = await cryptoFileDialog.saveDigest(
+      digest,
+      defaultPath
+    );
+
+    event.reply("generate-digest", savedDigestFilePath);
+  } catch (e) {
+    console.log(e.toString());
+    event.reply("error", "No se pudo generar el digesto");
+  }
+});
+
 ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
   const defaultPath = `${i18n.t(
     "crypto-file-dialog.default-filename.signature"

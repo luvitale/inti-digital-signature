@@ -1,6 +1,7 @@
 import { promises as fsPromises } from "fs";
 import PrivateKeyGenerator from "./private-key-generator";
 import PublicKeyGenerator from "./public-key-generator";
+import DigestGenerator from "./digest-generator";
 import Signer from "./signer";
 import Verifier from "./verifier";
 import {
@@ -9,6 +10,7 @@ import {
   ModulusLength,
   PrivateKey,
   PublicKey,
+  Digest,
   Path,
   Signature,
 } from "./types";
@@ -32,6 +34,17 @@ class DigitalSignature {
     const publicKeyGenerator = new PublicKeyGenerator(privateKey);
 
     return await publicKeyGenerator.generate();
+  }
+
+  async generateDigest(
+    fileToDigestPath: Path,
+    options?: { hash?: Hash }
+  ): Promise<Digest> {
+    const fileToDigest = await fsPromises.readFile(fileToDigestPath);
+
+    const digestGenerator = new DigestGenerator(fileToDigest, options);
+
+    return await digestGenerator.generate();
   }
 
   async sign(

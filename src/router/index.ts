@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
 import GeneratePrivateKey from "@/views/DigitalSignature/GeneratePrivateKey.vue";
 import GeneratePublicKey from "@/views/DigitalSignature/GeneratePublicKey.vue";
+import GenerateDigest from "@/views/DigitalSignature/GenerateDigest.vue";
 import Sign from "@/views/DigitalSignature/Sign.vue";
 import Verify from "@/views/DigitalSignature/Verify.vue";
 
@@ -23,6 +24,11 @@ const routes = [
     path: "/generate-public-key",
     name: "GeneratePublicKey",
     component: GeneratePublicKey,
+  },
+  {
+    path: "/generate-digest",
+    name: "GenerateDigest",
+    component: GenerateDigest,
   },
   {
     path: "/sign",
