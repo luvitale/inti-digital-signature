@@ -1,8 +1,8 @@
 <template class="modulus-length-selector">
-  <v-select
+  <q-select
     class="modulus-length-changer"
     v-model="modulusLength"
-    :items="validLengths"
+    :options="validLengths"
     :label="$t('digital-signature.private-key.modulus-length')"
     dense
     hide-details
@@ -14,12 +14,12 @@
 
 <script>
 export default {
-  name: "ModulusLengthSelector",
+  name: 'ModulusLengthSelector',
 
   props: {
     cypher: {
       type: String,
-      default: "rsa",
+      default: 'rsa',
       required: true,
     },
   },
@@ -33,11 +33,11 @@ export default {
 
   methods: {
     updateLength() {
-      this.$emit("input", this.modulusLength);
+      this.$emit('input', this.modulusLength);
     },
 
     getValidLengths() {
-      if (this.cypher === "rsa") {
+      if (this.cypher === 'rsa') {
         this.validLengths = [1024, 2048, 4096];
       }
     },

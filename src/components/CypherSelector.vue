@@ -1,38 +1,38 @@
 <template class="cypher-selector">
-  <v-select
+  <q-select
     class="cypher-changer"
     v-model="cypher"
-    :items="cyphers"
+    :options="cyphers"
     :label="$t('digital-signature.private-key.cypher-type')"
     dense
     hide-details
     menu-props="offset-y"
     @change="updateCypher"
   >
-    <template slot="selection" slot-scope="data">
+    <template v-slot:selection="data">
       {{ data.item.toUpperCase() }}
     </template>
 
-    <template slot="item" slot-scope="data">
+    <template v-slot:item="data">
       {{ data.item.toUpperCase() }}
     </template>
-  </v-select>
+  </q-select>
 </template>
 
 <script>
 export default {
-  name: "CypherSelector",
+  name: 'CypherSelector',
 
   data() {
     return {
-      cyphers: ["rsa", "ec"],
-      cypher: "rsa",
+      cyphers: ['rsa', 'ec'],
+      cypher: 'rsa',
     };
   },
 
   methods: {
     updateCypher() {
-      this.$emit("input", this.cypher);
+      this.$emit('input', this.cypher);
     },
   },
 };

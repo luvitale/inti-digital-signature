@@ -1,85 +1,68 @@
 <template>
-  <v-app id="app">
-    <div id="nav">
-      <router-link to="/">{{ $t("app.home") }}</router-link> |
-      <router-link to="/generate-private-key">{{
-        $t("app.generate-private-key")
-      }}</router-link>
-      |
-      <router-link to="/generate-public-key">{{
-        $t("app.generate-public-key")
-      }}</router-link>
-      | <router-link to="/generate-digest">Generar digesto</router-link> |
-      <router-link to="/sign">{{ $t("app.sign") }}</router-link> |
-      <router-link to="/verify">{{ $t("app.verify") }}</router-link>
-    </div>
+  <q-layout
+    view="lHh lpr lFf"
+    container
+    style="height: 100vh"
+    class="shadow-2 rounded-borders"
+  >
+    <q-header elevated>
+      <q-toolbar>
+        <q-avatar>
+          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+        </q-avatar>
 
-    <v-img
-      class="mx-auto"
-      id="inti-logo"
-      :alt="$t('app.logo')"
-      src="@/assets/logo.png"
-      max-width="300px"
-      max-height="300px"
-    />
-    <router-view />
-    <Toast ref="Toast" />
-  </v-app>
+        <q-toolbar-title>{{ $t('app.title') }}</q-toolbar-title>
+
+        <q-btn flat round dense icon="whatshot" />
+      </q-toolbar>
+
+      <q-tabs v-model="tab">
+        <q-item name="home" to="/" active-class="navbar-link">{{
+          $t('app.home')
+        }}</q-item>
+        <q-item
+          name="generate-private-key"
+          to="/generate-private-key"
+          active-class="navbar-link"
+          >{{ $t('app.generate-private-key') }}</q-item
+        >
+        <q-item
+          name="generate-public-key"
+          to="/generate-public-key"
+          active-class="navbar-link"
+          >{{ $t('app.generate-public-key') }}</q-item
+        >
+        <q-item
+          name="generate-digest"
+          to="/generate-digest"
+          active-class="navbar-link"
+          >Generar digesto</q-item
+        >
+        <q-item name="sign" to="/sign" active-class="navbar-link">{{
+          $t('app.sign')
+        }}</q-item>
+        <q-item name="verify" to="/verify" active-class="navbar-link">{{
+          $t('app.verify')
+        }}</q-item>
+      </q-tabs>
+    </q-header>
+
+    <q-page-container>
+      <q-page class="q-pa-md">
+        <router-view />
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  #app {
-    background-color: #121212;
-    color: #fff;
-  }
-
-  #nav {
-    a {
-      color: turquoise;
-
-      &.router-link-exact-active {
-        color: lightblue;
-      }
-    }
-  }
-}
-</style>
-
-<script>
-import Toast from "@/components/Toast";
-
-export default {
-  name: "App",
-  components: {
-    Toast,
+export default defineComponent({
+  name: 'App',
+  setup: () => {
+    return {
+      tab: ref('home'),
+    };
   },
-  mounted() {
-    window.ipcRenderer.receive("change-language", (lang) => {
-      this.$root.$i18n.locale = lang;
-    });
-    this.$root.Toast = this.$refs.Toast;
-  },
-};
+});
 </script>

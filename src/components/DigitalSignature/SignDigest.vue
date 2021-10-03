@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid>
-    <v-file-input
+  <q-container fluid>
+    <q-file
       :label="$t('digital-signature.sign.select-private-key')"
       prepend-icon="mdi-message-text"
       outlined
@@ -8,19 +8,19 @@
       v-model="privateKeyFile"
     />
 
-    <v-file-input
+    <q-file
       :label="$t('digital-signature.sign.select-file')"
       prepend-icon="mdi-message-text"
       outlined
       required
       v-model="digestToSign"
     />
-  </v-container>
+  </q-container>
 </template>
 
 <script>
 export default {
-  name: "Sign",
+  name: 'Sign',
 
   data: function () {
     return {
@@ -35,20 +35,20 @@ export default {
 
       const privateKeyPath = this.privateKeyFile.path;
       const digestToSignPath = this.digestToSign.path;
-      window.ipcRenderer.send("sign-digest", {
+      window.ipcRenderer.send('sign-digest', {
         privateKeyPath,
         digestToSignPath,
       });
-      window.ipcRenderer.receive("sign-digest", (/* signature */) => {
+      window.ipcRenderer.receive('sign-digest', (/* signature */) => {
         this.$root.Toast.show({
-          message: this.$t("toast.signature.successfully-signed"),
-          color: "success",
+          message: this.$t('toast.signature.successfully-signed'),
+          color: 'success',
         });
       });
-      window.ipcRenderer.receive("error", (msg) => {
+      window.ipcRenderer.receive('error', (msg) => {
         this.$root.Toast.show({
           message: msg,
-          color: "error",
+          color: 'error',
         });
       });
     },

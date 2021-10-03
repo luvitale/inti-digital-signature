@@ -5,7 +5,7 @@
         <h1 class="display-2 font-weight-bold mb-3">{{ msg }}</h1>
 
         <p class="subheading font-weight-regular">
-          {{ $t("app.description") }}
+          {{ $t('app.description') }}
         </p>
       </v-col>
     </v-row>
@@ -14,7 +14,7 @@
 
 <script lang="ts">
 export default {
-  name: "Landing",
+  name: 'Landing',
 
   props: {
     msg: String,

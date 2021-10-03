@@ -1,38 +1,38 @@
 <template class="hash-selector">
-  <v-select
+  <q-select
     class="hash-changer"
     v-model="hash"
-    :items="hashes"
+    :options="hashes"
     :label="$t('digital-signature.hash')"
     dense
     hide-details
     menu-props="offset-y"
     @change="updateHash"
   >
-    <template slot="selection" slot-scope="data">
+    <template v-slot:selection="data">
       {{ data.item.toUpperCase() }}
     </template>
 
-    <template slot="item" slot-scope="data">
+    <template v-slot:item="data">
       {{ data.item.toUpperCase() }}
     </template>
-  </v-select>
+  </q-select>
 </template>
 
 <script>
 export default {
-  name: "HashSelector",
+  name: 'HashSelector',
 
   data() {
     return {
-      hashes: ["SHA1", "SHA256", "SHA384", "SHA512"],
-      hash: "SHA1",
+      hashes: ['SHA1', 'SHA256', 'SHA384', 'SHA512'],
+      hash: 'SHA1',
     };
   },
 
   methods: {
     updateHash() {
-      this.$emit("input", this.hash);
+      this.$emit('input', this.hash);
     },
   },
 };

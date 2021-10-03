@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid>
-    <v-file-input
+  <q-container fluid>
+    <q-file
       :label="$t('digital-signature.sign.select-private-key')"
       prepend-icon="mdi-message-text"
       outlined
@@ -8,7 +8,7 @@
       v-model="privateKeyFile"
     />
 
-    <v-file-input
+    <q-file
       :label="$t('digital-signature.sign.select-file')"
       prepend-icon="mdi-message-text"
       outlined
@@ -17,14 +17,14 @@
     />
 
     <HashSelector v-model="hash" />
-  </v-container>
+  </q-container>
 </template>
 
 <script>
-import HashSelector from "@/components/HashSelector";
+import HashSelector from 'components/HashSelector';
 
 export default {
-  name: "Sign",
+  name: 'Sign',
 
   components: {
     HashSelector,
@@ -34,7 +34,7 @@ export default {
     return {
       privateKeyFile: [],
       fileToSign: [],
-      hash: "",
+      hash: '',
     };
   },
   methods: {
@@ -45,21 +45,21 @@ export default {
       const privateKeyPath = this.privateKeyFile.path;
       const fileToSignPath = this.fileToSign.path;
       const hash = this.hash;
-      window.ipcRenderer.send("sign", {
+      window.ipcRenderer.send('sign', {
         privateKeyPath,
         fileToSignPath,
         hash,
       });
-      window.ipcRenderer.receive("sign", (/* signature */) => {
+      window.ipcRenderer.receive('sign', (/* signature */) => {
         this.$root.Toast.show({
-          message: this.$t("toast.signature.successfully-signed"),
-          color: "success",
+          message: this.$t('toast.signature.successfully-signed'),
+          color: 'success',
         });
       });
-      window.ipcRenderer.receive("error", (msg) => {
+      window.ipcRenderer.receive('error', (msg) => {
         this.$root.Toast.show({
           message: msg,
-          color: "error",
+          color: 'error',
         });
       });
     },
