@@ -1,5 +1,5 @@
 <template>
-  <q-container fluid>
+  <div>
     <q-file
       :label="$t('digital-signature.sign.select-private-key')"
       prepend-icon="mdi-message-text"
@@ -9,49 +9,58 @@
     />
 
     <q-file
-      :label="$t('digital-signature.sign.select-file')"
+      label="Select digest file"
       prepend-icon="mdi-message-text"
       outlined
       required
       v-model="digestToSign"
     />
-  </q-container>
+  </div>
 </template>
 
 <script>
-export default {
+import { useQuasar } from 'quasar';
+import { i18n } from 'boot/i18n';
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
   name: 'Sign',
 
-  data: function () {
-    return {
-      privateKeyFile: [],
-      digestToSign: [],
-    };
-  },
-  methods: {
-    sign() {
-      if (!this.privateKeyFile) return;
-      if (!this.digestToSign) return;
+  setup: () => {
+    const $q = useQuasar();
 
-      const privateKeyPath = this.privateKeyFile.path;
-      const digestToSignPath = this.digestToSign.path;
+    const privateKeyFile = ref([]);
+    const digestToSign = ref([]);
+
+    const sign = () => {
+      if (!privateKeyFile.value) return;
+      if (!digestToSign.value) return;
+
+      const privateKeyPath = privateKeyFile.value.path;
+      const digestToSignPath = digestToSign.value.path;
       window.ipcRenderer.send('sign-digest', {
         privateKeyPath,
         digestToSignPath,
       });
       window.ipcRenderer.receive('sign-digest', (/* signature */) => {
-        this.$root.Toast.show({
-          message: this.$t('toast.signature.successfully-signed'),
+        $q.notify({
+          message: i18n.global.t('toast.signature.successfully-signed'),
           color: 'success',
         });
       });
       window.ipcRenderer.receive('error', (msg) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: msg,
           color: 'error',
         });
       });
-    },
+    };
+
+    return {
+      privateKeyFile,
+      digestToSign,
+      sign,
+    };
   },
-};
+});
 </script>

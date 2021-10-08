@@ -1,16 +1,11 @@
 import { RouteRecordRaw } from 'vue-router';
-import Home from 'pages/Home.vue';
-import GeneratePrivateKey from 'pages/DigitalSignature/GeneratePrivateKey.vue';
-import GeneratePublicKey from 'pages/DigitalSignature/GeneratePublicKey.vue';
-import GenerateDigest from 'pages/DigitalSignature/GenerateDigest.vue';
-import Sign from 'pages/DigitalSignature/Sign.vue';
-import Verify from 'pages/DigitalSignature/Verify.vue';
 
 const routes: RouteRecordRaw[] = [
+  /*
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Index',
+    component: Index,
   },
   {
     path: '/generate-private-key',
@@ -37,13 +32,46 @@ const routes: RouteRecordRaw[] = [
     name: 'Verify',
     component: Verify,
   },
-  /*
+  */
+
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('app/Index.vue') }],
+    children: [{ path: '', component: () => import('pages/Index.vue') }],
   },
 
+  {
+    path: '/generate-private-key',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/DigitalSignature/GeneratePrivateKey.vue') }],
+  },
+  {
+    path: '/generate-private-key',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/DigitalSignature/GeneratePrivateKey.vue') }],
+  },
+  {
+    path: '/generate-public-key',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/DigitalSignature/GeneratePublicKey.vue') }],
+  },
+  {
+    path: '/generate-digest',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/DigitalSignature/GenerateDigest.vue') }],
+  },
+  {
+    path: '/sign',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/DigitalSignature/Sign.vue') }],
+  },
+  {
+    path: '/verify',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/DigitalSignature/Verify.vue') }],
+  },
+
+  /*
   // Always leave this as last one,
   // but you can also remove it
   {

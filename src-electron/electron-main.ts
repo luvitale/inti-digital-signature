@@ -1,6 +1,7 @@
 import { app, BrowserWindow, nativeTheme } from 'electron'
 import fs from 'fs'
 import path from 'path'
+import './background'
 
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {

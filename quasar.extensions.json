@@ -1,8 +1,0 @@
-{
-  "@quasar/typescript": {
-    "codeUpdate": true,
-    "componentStyle": "composition",
-    "vscode": true,
-    "prettier": true
-  }
-}

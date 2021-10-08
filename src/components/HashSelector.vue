@@ -20,22 +20,26 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
   name: 'HashSelector',
 
-  data() {
-    return {
-      hashes: ['SHA1', 'SHA256', 'SHA384', 'SHA512'],
-      hash: 'SHA1',
-    };
-  },
+  setup: () => {
+    const hashes = ['SHA1', 'SHA256', 'SHA384', 'SHA512'];
+    const hash = ref('SHA1');
 
-  methods: {
-    updateHash() {
-      this.$emit('input', this.hash);
-    },
+    const updateHash = () => {
+      this.$emit('input', hash);
+    };
+
+    return {
+      hashes,
+      hash,
+      updateHash,
+    }
   },
-};
+});
 </script>
 
 <style>

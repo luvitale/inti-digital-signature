@@ -20,22 +20,26 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
   name: 'CypherSelector',
 
-  data() {
-    return {
-      cyphers: ['rsa', 'ec'],
-      cypher: 'rsa',
-    };
-  },
+  setup: () => {
+    const cyphers = ['rsa', 'ec'];
+    const cypher = ref('rsa');
 
-  methods: {
-    updateCypher() {
-      this.$emit('input', this.cypher);
-    },
+    const updateCypher = () => {
+      this.$emit('input', cypher);
+    };
+
+    return {
+      cyphers,
+      cypher,
+      updateCypher
+    }
   },
-};
+});
 </script>
 
 <style>

@@ -1,5 +1,5 @@
 <template>
-  <q-container fluid>
+  <div>
     <q-file
       :label="$t('digital-signature.sign.select-private-key')"
       prepend-icon="mdi-message-text"
@@ -17,52 +17,61 @@
     />
 
     <HashSelector v-model="hash" />
-  </q-container>
+  </div>
 </template>
 
 <script>
 import HashSelector from 'components/HashSelector';
+import { useQuasar } from 'quasar';
+import { i18n } from 'boot/i18n';
+import { defineComponent, ref } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'Sign',
 
   components: {
     HashSelector,
   },
 
-  data: function () {
-    return {
-      privateKeyFile: [],
-      fileToSign: [],
-      hash: '',
-    };
-  },
-  methods: {
-    sign() {
-      if (!this.privateKeyFile) return;
-      if (!this.fileToSign) return;
+  setup: () => {
+    const $q = useQuasar();
 
-      const privateKeyPath = this.privateKeyFile.path;
-      const fileToSignPath = this.fileToSign.path;
-      const hash = this.hash;
+    const privateKeyFile = ref([]);
+    const fileToSign = ref([]);
+    const hash = ref('SHA1');
+
+    const sign = () => {
+      if (!privateKeyFile.value) return;
+      if (!fileToSign.value) return;
+
+      const privateKeyPath = privateKeyFile.value.path;
+      const fileToSignPath = fileToSign.value.path;
+
       window.ipcRenderer.send('sign', {
         privateKeyPath,
         fileToSignPath,
-        hash,
+        hash: hash.value,
       });
       window.ipcRenderer.receive('sign', (/* signature */) => {
-        this.$root.Toast.show({
-          message: this.$t('toast.signature.successfully-signed'),
+        $q.notify({
+          message: i18n.global.t('toast.signature.successfully-signed'),
           color: 'success',
         });
       });
       window.ipcRenderer.receive('error', (msg) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: msg,
           color: 'error',
         });
       });
-    },
+    };
+
+    return {
+      privateKeyFile,
+      fileToSign,
+      hash,
+      sign,
+    };
   },
-};
+});
 </script>

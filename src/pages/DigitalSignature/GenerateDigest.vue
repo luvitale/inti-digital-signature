@@ -1,11 +1,11 @@
 <template>
-  <q-container fluid>
+  <q-page fluid>
     <q-card class="digest-card">
       <q-toolbar flat color="blue" dark class="digest-toolbar">
         <q-toolbar-title>Generar digesto</q-toolbar-title>
       </q-toolbar>
 
-      <q-divider></q-divider>
+      <q-separator></q-separator>
 
       <q-form class="digest-form">
         <q-file
@@ -30,53 +30,57 @@
         />
       </div>
     </q-card>
-  </q-container>
+  </q-page>
 </template>
 
 <script>
-import mixin from './mixin';
 import HashSelector from 'components/HashSelector';
+import { useQuasar } from 'quasar';
+import { defineComponent, ref } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'GenerateDigest',
-
-  mixins: [mixin],
 
   components: {
     HashSelector,
   },
 
-  data: function () {
-    return {
-      fileToDigest: [],
-      hash: '',
-    };
-  },
-  methods: {
-    generateDigest() {
-      if (!this.fileToDigest) return;
+  setup: () => {
+    const $q = useQuasar();
 
-      const fileToDigestPath = this.fileToDigest.path;
-      const hash = this.hash;
+    const fileToDigest = ref([]);
+    const hash = ref('SHA1');
+
+    const generateDigest = () => {
+      if (!fileToDigest.value) return;
+
+      const fileToDigestPath = fileToDigest.value.path;
+
       window.ipcRenderer.send('generate-digest', {
         fileToDigestPath,
-        hash,
+        hash: hash.value,
       });
       window.ipcRenderer.receive('generate-digest', (/* digest */) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: 'Digesto generado',
           color: 'success',
         });
       });
       window.ipcRenderer.receive('error', (msg) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: msg,
           color: 'error',
         });
       });
-    },
+    };
+
+    return {
+      fileToDigest,
+      hash,
+      generateDigest,
+    }
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

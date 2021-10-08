@@ -1,5 +1,5 @@
 <template>
-  <q-container fluid>
+  <q-page>
     <q-card class="digital-signature-card">
       <q-toolbar flat color="blue" dark class="digital-signature-toolbar">
         <q-toolbar-title>{{
@@ -7,7 +7,7 @@
         }}</q-toolbar-title>
       </q-toolbar>
 
-      <q-divider></q-divider>
+      <q-separator></q-separator>
 
       <q-form class="digital-signature-form">
         <CypherSelector v-model="type" />
@@ -28,15 +28,17 @@
         </div>
       </q-form>
     </q-card>
-  </q-container>
+  </q-page>
 </template>
 
 <script>
-import mixin from './mixin';
 import CypherSelector from 'components/CypherSelector.vue';
 import ModulusLengthSelector from 'components/ModulusLengthSelector.vue';
+import { defineComponent, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { i18n } from 'boot/i18n';
 
-export default {
+export default defineComponent({
   name: 'GeneratePrivateKey',
 
   components: {
@@ -44,36 +46,41 @@ export default {
     ModulusLengthSelector,
   },
 
-  mixins: [mixin],
+  setup: () => {
+    const $q = useQuasar();
 
-  data() {
-    return {
-      type: 'rsa',
-      modulusLength: 2048,
-      namedCurve: 'P-256',
-    };
-  },
-  methods: {
-    generatePrivateKey() {
+    const type = ref('rsa');
+    const modulusLength = ref(2048);
+    const namedCurve = ref('P-256');
+
+    const generatePrivateKey = () => {
       window.ipcRenderer.send('generate-private-key', {
-        type: this.type,
-        modulusLength: this.modulusLength,
-        namedCurve: this.namedCurve,
+        type: type.value,
+        modulusLength: modulusLength.value,
+        namedCurve: namedCurve.value,
       });
       window.ipcRenderer.receive('generate-private-key', (/* privateKey */) => {
-        this.$root.Toast.show({
-          message: this.$t('toast.private-key.successfully-generated'),
+        $q.notify({
+          message: i18n.global.t('toast.private-key.successfully-generated'),
+          color: 'green',
         });
       });
       window.ipcRenderer.receive('error', (msg) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: msg,
-          color: 'warning',
+          color: 'red',
         });
       });
-    },
+    };
+
+    return {
+      type,
+      modulusLength,
+      namedCurve,
+      generatePrivateKey,
+    };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

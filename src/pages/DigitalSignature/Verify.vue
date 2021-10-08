@@ -1,11 +1,11 @@
 <template>
-  <q-container fluid>
+  <q-page>
     <q-card class="digital-signature-card">
       <q-toolbar flat color="blue" dark class="digital-signature-toolbar">
         <q-toolbar-title>Verificar</q-toolbar-title>
       </q-toolbar>
 
-      <q-divider></q-divider>
+      <q-separator></q-separator>
 
       <q-form class="digital-signature-form">
         <q-file
@@ -21,7 +21,7 @@
           prepend-icon="mdi-message-text"
           outlined
           required
-          v-model="signatureFilePath"
+          v-model="signatureFile"
         />
 
         <q-file
@@ -45,65 +45,75 @@
         />
       </div>
     </q-card>
-  </q-container>
+  </q-page>
 </template>
 
 <script>
 import HashSelector from 'components/HashSelector';
+import { useQuasar } from 'quasar';
+import { i18n } from 'boot/i18n';
+import { defineComponent, ref } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'Verify',
 
   components: {
     HashSelector,
   },
 
-  data: function () {
-    return {
-      publicKeyFile: [],
-      signatureFilePath: [],
-      originalFile: [],
-      hash: '',
-    };
-  },
-  methods: {
-    verify() {
-      if (!this.publicKeyFile) return;
-      if (!this.signatureFilePath) return;
-      if (!this.originalFile) return;
+  setup: () => {
+    const $q = useQuasar();
 
-      const publicKeyPath = this.publicKeyFile.path;
-      const signatureFilePath = this.signatureFilePath.path;
-      const originalFilePath = this.originalFile.path;
-      const hash = this.hash;
+    const publicKeyFile = ref([]);
+    const signatureFile = ref([]);
+    const originalFile = ref([]);
+    const hash = ref('SHA1');
+
+    const verify = () => {
+      if (!publicKeyFile.value) return;
+      if (!signatureFile.value) return;
+      if (!originalFile.value) return;
+
+      const publicKeyPath = publicKeyFile.value.path;
+      const signatureFilePath = signatureFile.value.path;
+      const originalFilePath = originalFile.value.path;
+
       window.ipcRenderer.send('verify', {
         publicKeyPath,
         signatureFilePath,
         originalFilePath,
-        hash,
+        hash: hash.value,
       });
       window.ipcRenderer.receive('verify', (isVerified) => {
         if (isVerified) {
-          this.$root.Toast.show({
-            message: this.$t('toast.verification.correct'),
+          $q.notify({
+            message: i18n.global.t('toast.verification.correct'),
             color: 'success',
           });
         } else {
-          this.$root.Toast.show({
-            message: this.$t('toast.verification.wrong'),
+          $q.notify({
+            message: i18n.global.t('toast.verification.wrong'),
             color: 'error',
           });
         }
       });
       window.ipcRenderer.receive('error', (msg) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: msg,
           color: 'error',
         });
       });
-    },
+    };
+
+    return {
+      publicKeyFile,
+      signatureFile,
+      originalFile,
+      hash,
+      verify,
+    };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

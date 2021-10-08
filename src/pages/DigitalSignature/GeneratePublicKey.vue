@@ -1,5 +1,5 @@
 <template>
-  <q-container fluid>
+  <q-page>
     <q-card class="digital-signature-card">
       <q-toolbar flat color="blue" dark class="digital-signature-toolbar">
         <q-toolbar-title>{{
@@ -7,7 +7,7 @@
         }}</q-toolbar-title>
       </q-toolbar>
 
-      <q-divider></q-divider>
+      <q-separator></q-separator>
 
       <q-form class="digital-signature-form">
         <q-file
@@ -24,43 +24,47 @@
         </q-file>
       </q-form>
     </q-card>
-  </q-container>
+  </q-page>
 </template>
 
 <script>
-import mixin from './mixin';
+import { defineComponent, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { i18n } from 'boot/i18n';
 
-export default {
+export default defineComponent({
   name: 'GeneratePublicKey',
 
-  mixins: [mixin],
+  setup: () => {
+    const $q = useQuasar();
 
-  data: function () {
-    return {
-      privateKeyFile: [],
-    };
-  },
-  methods: {
-    generatePublicKey() {
-      if (!this.privateKeyFile) return;
+    const privateKeyFile = ref([]);
 
-      const privateKeyPath = this.privateKeyFile.path;
-      window.ipcRenderer.send('generate-public-key', privateKeyPath);
+    const generatePublicKey = () => {
+      if (!privateKeyFile.value) return;
+
+      const privateKeyPath = privateKeyFile.value.path;
+      window.ipcRenderer.send('generate-public-key', privateKeyPath.value);
       window.ipcRenderer.receive('generate-public-key', (/* publicKey */) => {
-        this.$root.Toast.show({
-          message: this.$t('toast.public-key.successfully-generated'),
+        $q.notify({
+          message: i18n.global.t('toast.public-key.successfully-generated'),
           color: 'success',
         });
       });
       window.ipcRenderer.receive('error', (msg) => {
-        this.$root.Toast.show({
+        $q.notify({
           message: msg,
           color: 'warning',
         });
       });
-    },
+    };
+
+    return {
+      privateKeyFile,
+      generatePublicKey,
+    };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
