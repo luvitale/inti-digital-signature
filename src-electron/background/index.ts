@@ -12,10 +12,6 @@ const i18n = {
 ipcMain.on(
   'generate-private-key',
   async (event, { type, modulusLength, namedCurve }) => {
-    const defaultPath = `${i18n.global.t(
-      'crypto-file-dialog.default-filename.private-key'
-    )}.pem`;
-
     try {
       const privateKey = await digitalSignature.generatePrivateKey(type, {
         modulusLength,
@@ -31,21 +27,13 @@ ipcMain.on(
 );
 
 ipcMain.on('generate-public-key', async (event, privateKeyPath) => {
-  const defaultPath = `${i18n.global.t(
-    'crypto-file-dialog.default-filename.public-key'
-  )}.pem`;
-
   try {
     const publicKey = await digitalSignature.generatePublicKey(privateKeyPath);
-    const savedPublicKeyPath = await cryptoFileDialog.savePEM(
-      publicKey,
-      defaultPath
-    );
 
-    event.reply('generate-public-key', savedPublicKeyPath);
+    event.reply('generate-public-key', publicKey);
   } catch (e) {
     console.log((e as Error).toString());
-    event.reply('error', i18n.global.t('toast.public-key.not-generated'));
+    event.reply('error');
   }
 });
 

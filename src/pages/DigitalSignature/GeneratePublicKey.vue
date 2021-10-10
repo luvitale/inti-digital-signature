@@ -40,23 +40,47 @@ export default defineComponent({
 
     const privateKeyFile = ref([]);
 
+    const receivePublicKeyToDownload = () =>
+      window.ipcRenderer.receive('generate-public-key', (publicKey) => {
+        const url = window.URL.createObjectURL(new Blob([publicKey]));
+        window.ipcRenderer.send('download', {
+          url,
+          properties: {
+            defaultFilename: `${i18n.global.t(
+              'crypto-file-dialog.default-filename.public-key'
+            )}.pem`,
+          },
+        });
+      });
+
+    const receiveDownload = () =>
+      window.ipcRenderer.receive('download', (savedPath) => {
+        console.log(savedPath);
+
+        $q.notify({
+          message: i18n.global.t('toast.public-key.successfully-generated'),
+          color: 'green',
+        });
+      });
+
+    const receiveError = () =>
+      window.ipcRenderer.receive('error', () => {
+        $q.notify({
+          message: i18n.global.t('toast.public-key.not-generated'),
+          color: 'red',
+        });
+      });
+
+    receivePublicKeyToDownload();
+    receiveDownload();
+    receiveError();
+
     const generatePublicKey = () => {
       if (!privateKeyFile.value) return;
 
       const privateKeyPath = privateKeyFile.value.path;
-      window.ipcRenderer.send('generate-public-key', privateKeyPath.value);
-      window.ipcRenderer.receive('generate-public-key', (/* publicKey */) => {
-        $q.notify({
-          message: i18n.global.t('toast.public-key.successfully-generated'),
-          color: 'success',
-        });
-      });
-      window.ipcRenderer.receive('error', (msg) => {
-        $q.notify({
-          message: msg,
-          color: 'warning',
-        });
-      });
+
+      window.ipcRenderer.send('generate-public-key', privateKeyPath);
     };
 
     return {
