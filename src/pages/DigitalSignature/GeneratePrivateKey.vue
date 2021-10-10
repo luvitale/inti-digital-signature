@@ -53,23 +53,46 @@ export default defineComponent({
     const modulusLength = ref(2048);
     const namedCurve = ref('P-256');
 
-    const generatePrivateKey = () => {
-      window.ipcRenderer.send('generate-private-key', {
-        type: type.value,
-        modulusLength: modulusLength.value,
-        namedCurve: namedCurve.value,
+    const receivePrivateKeyToDownload = () =>
+      window.ipcRenderer.receive('generate-private-key', (privateKey) => {
+        const url = window.URL.createObjectURL(new Blob([privateKey]));
+        window.ipcRenderer.send('download', {
+          url,
+          properties: {
+            defaultFilename: `${i18n.global.t(
+              'crypto-file-dialog.default-filename.private-key'
+            )}.pem`,
+          },
+        });
       });
-      window.ipcRenderer.receive('generate-private-key', (/* privateKey */) => {
+
+    const receiveDownload = () =>
+      window.ipcRenderer.receive('download', (savedPath) => {
+        console.log(savedPath);
+
         $q.notify({
           message: i18n.global.t('toast.private-key.successfully-generated'),
           color: 'green',
         });
       });
-      window.ipcRenderer.receive('error', (msg) => {
+
+    const receiveError = () =>
+      window.ipcRenderer.receive('error', () => {
         $q.notify({
-          message: msg,
+          message: i18n.global.t('toast.private-key.not-generated'),
           color: 'red',
         });
+      });
+
+    receivePrivateKeyToDownload();
+    receiveDownload();
+    receiveError();
+
+    const generatePrivateKey = () => {
+      window.ipcRenderer.send('generate-private-key', {
+        type: type.value,
+        modulusLength: modulusLength.value,
+        namedCurve: namedCurve.value,
       });
     };
 

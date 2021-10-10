@@ -1,7 +1,13 @@
 import { ipcMain } from 'electron';
 import digitalSignature from './digital-signature';
 import cryptoFileDialog from './crypto-file-dialog';
-import { i18n } from '../../src/boot/i18n';
+//import { i18n } from '../electron-i18n';
+
+const i18n = {
+  global: {
+    t: (_msg: string) => 't'
+  }
+}
 
 ipcMain.on(
   'generate-private-key',
@@ -16,14 +22,10 @@ ipcMain.on(
         namedCurve,
       });
 
-      const savedPrivateKeyPath = await cryptoFileDialog.savePEM(
-        privateKey,
-        defaultPath
-      );
-      event.reply('generate-private-key', savedPrivateKeyPath);
+      event.reply('generate-private-key', privateKey);
     } catch (e) {
       console.log((e as Error).toString());
-      event.reply('error', i18n.global.t('toast.private-key.not-generated'));
+      event.reply('error');
     }
   }
 );

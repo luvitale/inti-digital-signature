@@ -1,5 +1,6 @@
 export default {
   receive: [
+    'download',
     'generate-private-key',
     'generate-public-key',
     'generate-digest',
@@ -10,6 +11,7 @@ export default {
     'change-language',
   ],
   send: [
+    'download',
     'generate-private-key',
     'generate-public-key',
     'generate-digest',

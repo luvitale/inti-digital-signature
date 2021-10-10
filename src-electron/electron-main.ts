@@ -1,6 +1,7 @@
 import { app, BrowserWindow, nativeTheme } from 'electron'
 import fs from 'fs'
 import path from 'path'
+import { enableDownloadListener } from './electron-download'
 import './background'
 
 try {
@@ -43,7 +44,11 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+
+  enableDownloadListener(mainWindow);
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
