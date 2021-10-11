@@ -32,6 +32,51 @@ export default defineComponent({
     const privateKeyFile = ref([]);
     const digestToSign = ref([]);
 
+    const getBinaryString = (str) => {
+      const array = new Uint8Array(str.length);
+      for (let c = 0; c < str.length; ++c) {
+        array[c] = str.charCodeAt(c);
+      }
+      return array;
+    };
+
+    const receiveSignatureToDownload = () =>
+      window.ipcRenderer.receive('sign-digest', (signature) => {
+        const binarySignature = getBinaryString(signature);
+
+        const url = window.URL.createObjectURL(new Blob([binarySignature]));
+        window.ipcRenderer.send('download', {
+          url,
+          properties: {
+            defaultFilename: `${i18n.global.t(
+              'crypto-file-dialog.default-filename.signature'
+            )}.bin`,
+          },
+        });
+      });
+
+    const receiveDownload = () =>
+      window.ipcRenderer.receive('download', (savedPath) => {
+        console.log(savedPath);
+
+        $q.notify({
+          message: i18n.global.t('toast.signature.successfully-signed'),
+          color: 'green',
+        });
+      });
+
+    const receiveError = () =>
+      window.ipcRenderer.receive('error', () => {
+        $q.notify({
+          message: i18n.global.t('toast.signature.not-signed'),
+          color: 'red',
+        });
+      });
+
+    receiveSignatureToDownload();
+    receiveDownload();
+    receiveError();
+
     const sign = () => {
       if (!privateKeyFile.value) return;
       if (!digestToSign.value) return;
@@ -41,18 +86,6 @@ export default defineComponent({
       window.ipcRenderer.send('sign-digest', {
         privateKeyPath,
         digestToSignPath,
-      });
-      window.ipcRenderer.receive('sign-digest', (/* signature */) => {
-        $q.notify({
-          message: i18n.global.t('toast.signature.successfully-signed'),
-          color: 'success',
-        });
-      });
-      window.ipcRenderer.receive('error', (msg) => {
-        $q.notify({
-          message: msg,
-          color: 'error',
-        });
       });
     };
 

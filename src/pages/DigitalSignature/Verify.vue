@@ -69,6 +69,46 @@ export default defineComponent({
     const originalFile = ref([]);
     const hash = ref('SHA1');
 
+    const sendToVerify = (
+      publicKeyPath,
+      signatureFilePath,
+      originalFilePath,
+      hash
+    ) => {
+      window.ipcRenderer.send('verify', {
+        publicKeyPath,
+        signatureFilePath,
+        originalFilePath,
+        hash,
+      });
+    };
+
+    const receiveVerification = () =>
+      window.ipcRenderer.receive('verify', (isVerified) => {
+        if (isVerified) {
+          $q.notify({
+            message: i18n.global.t('toast.verification.correct'),
+            color: 'green',
+          });
+        } else {
+          $q.notify({
+            message: i18n.global.t('toast.verification.wrong'),
+            color: 'red',
+          });
+        }
+      });
+
+    const receiveError = () =>
+      window.ipcRenderer.receive('error', () => {
+        $q.notify({
+          message: i18n.global.t('toast.verification.wrong'),
+          color: 'red',
+        });
+      });
+
+    receiveVerification();
+    receiveError();
+
     const verify = () => {
       if (!publicKeyFile.value) return;
       if (!signatureFile.value) return;
@@ -78,31 +118,12 @@ export default defineComponent({
       const signatureFilePath = signatureFile.value.path;
       const originalFilePath = originalFile.value.path;
 
-      window.ipcRenderer.send('verify', {
+      sendToVerify(
         publicKeyPath,
         signatureFilePath,
         originalFilePath,
-        hash: hash.value,
-      });
-      window.ipcRenderer.receive('verify', (isVerified) => {
-        if (isVerified) {
-          $q.notify({
-            message: i18n.global.t('toast.verification.correct'),
-            color: 'success',
-          });
-        } else {
-          $q.notify({
-            message: i18n.global.t('toast.verification.wrong'),
-            color: 'error',
-          });
-        }
-      });
-      window.ipcRenderer.receive('error', (msg) => {
-        $q.notify({
-          message: msg,
-          color: 'error',
-        });
-      });
+        hash.value
+      );
     };
 
     return {

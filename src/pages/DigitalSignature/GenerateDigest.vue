@@ -51,6 +51,39 @@ export default defineComponent({
     const fileToDigest = ref([]);
     const hash = ref('SHA1');
 
+    const receiveDigestToDownload = () =>
+      window.ipcRenderer.receive('generate-digest', (digest) => {
+        const url = window.URL.createObjectURL(new Blob([digest]));
+        window.ipcRenderer.send('download', {
+          url,
+          properties: {
+            defaultFilename: `${'digest'}.pem`,
+          },
+        });
+      });
+
+    const receiveDownload = () =>
+      window.ipcRenderer.receive('download', (savedPath) => {
+        console.log(savedPath);
+
+        $q.notify({
+          message: 'Digesto generado',
+          color: 'green',
+        });
+      });
+
+    const receiveError = () =>
+      window.ipcRenderer.receive('error', () => {
+        $q.notify({
+          message: 'No se pudo generar el digesto',
+          color: 'red',
+        });
+      });
+
+    receiveDigestToDownload();
+    receiveDownload();
+    receiveError();
+
     const generateDigest = () => {
       if (!fileToDigest.value) return;
 
@@ -60,25 +93,13 @@ export default defineComponent({
         fileToDigestPath,
         hash: hash.value,
       });
-      window.ipcRenderer.receive('generate-digest', (/* digest */) => {
-        $q.notify({
-          message: 'Digesto generado',
-          color: 'success',
-        });
-      });
-      window.ipcRenderer.receive('error', (msg) => {
-        $q.notify({
-          message: msg,
-          color: 'error',
-        });
-      });
     };
 
     return {
       fileToDigest,
       hash,
       generateDigest,
-    }
+    };
   },
 });
 </script>

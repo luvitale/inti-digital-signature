@@ -1,13 +1,5 @@
 import { ipcMain } from 'electron';
 import digitalSignature from './digital-signature';
-import cryptoFileDialog from './crypto-file-dialog';
-//import { i18n } from '../electron-i18n';
-
-const i18n = {
-  global: {
-    t: (_msg: string) => 't'
-  }
-}
 
 ipcMain.on(
   'generate-private-key',
@@ -38,30 +30,19 @@ ipcMain.on('generate-public-key', async (event, privateKeyPath) => {
 });
 
 ipcMain.on('generate-digest', async (event, { fileToDigestPath, hash }) => {
-  const defaultPath = 'digest.dig';
-
   try {
     const digest = await digitalSignature.generateDigest(fileToDigestPath, {
       hash,
     });
 
-    const savedDigestFilePath = await cryptoFileDialog.saveDigest(
-      digest,
-      defaultPath
-    );
-
-    event.reply('generate-digest', savedDigestFilePath);
+    event.reply('generate-digest', digest);
   } catch (e) {
     console.log((e as Error).toString());
-    event.reply('error', 'No se pudo generar el digesto');
+    event.reply('error');
   }
 });
 
 ipcMain.on('sign', async (event, { privateKeyPath, fileToSignPath, hash }) => {
-  const defaultPath = `${i18n.global.t(
-    'crypto-file-dialog.default-filename.signature'
-  )}.bin`;
-
   try {
     const signature = await digitalSignature.sign(
       privateKeyPath,
@@ -69,40 +50,26 @@ ipcMain.on('sign', async (event, { privateKeyPath, fileToSignPath, hash }) => {
       { hash }
     );
 
-    const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
-      signature,
-      defaultPath
-    );
-
-    event.reply('sign', savedSignatureFilePath);
+    event.reply('sign', signature);
   } catch (e) {
     console.log((e as Error).toString());
-    event.reply('error', i18n.global.t('toast.signature.not-signed'));
+    event.reply('error');
   }
 });
 
 ipcMain.on(
   'sign-digest',
   async (event, { privateKeyPath, digestToSignPath }) => {
-    const defaultPath = `${i18n.global.t(
-      'crypto-file-dialog.default-filename.signature'
-    )}.bin`;
-
     try {
       const signature = await digitalSignature.signDigest(
         privateKeyPath,
         digestToSignPath
       );
 
-      const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
-        signature,
-        defaultPath
-      );
-
-      event.reply('sign-digest', savedSignatureFilePath);
+      event.reply('sign-digest', signature);
     } catch (e) {
       console.log((e as Error).toString());
-      event.reply('error', i18n.global.t('toast.signature.not-signed'));
+      event.reply('error');
     }
   }
 );
@@ -123,7 +90,7 @@ ipcMain.on(
       event.reply('verify', result);
     } catch (e) {
       console.log((e as Error).toString());
-      event.reply('error', i18n.global.t('toast.verification.wrong'));
+      event.reply('error');
     }
   }
 );
