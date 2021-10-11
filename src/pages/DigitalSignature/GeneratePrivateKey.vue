@@ -53,7 +53,7 @@ export default defineComponent({
     const modulusLength = ref(2048);
     const namedCurve = ref('P-256');
 
-    const receivePrivateKeyToDownload = () =>
+    const receivePrivateKeyToDownload = () => {
       window.ipcRenderer.receive('generate-private-key', (privateKey) => {
         const url = window.URL.createObjectURL(new Blob([privateKey]));
         window.ipcRenderer.send('download', {
@@ -65,8 +65,9 @@ export default defineComponent({
           },
         });
       });
+    };
 
-    const receiveDownload = () =>
+    const receiveDownload = () => {
       window.ipcRenderer.receive('download', (savedPath) => {
         console.log(savedPath);
 
@@ -75,25 +76,31 @@ export default defineComponent({
           color: 'green',
         });
       });
+    };
 
-    const receiveError = () =>
+    const receiveError = () => {
       window.ipcRenderer.receive('error', () => {
         $q.notify({
           message: i18n.global.t('toast.private-key.not-generated'),
           color: 'red',
         });
       });
+    };
 
-    receivePrivateKeyToDownload();
-    receiveDownload();
-    receiveError();
+    if ($q.platform.is.electron) {
+      receivePrivateKeyToDownload();
+      receiveDownload();
+      receiveError();
+    }
 
     const generatePrivateKey = () => {
-      window.ipcRenderer.send('generate-private-key', {
-        type: type.value,
-        modulusLength: modulusLength.value,
-        namedCurve: namedCurve.value,
-      });
+      if ($q.platform.is.electron) {
+        window.ipcRenderer.send('generate-private-key', {
+          type: type.value,
+          modulusLength: modulusLength.value,
+          namedCurve: namedCurve.value,
+        });
+      }
     };
 
     return {

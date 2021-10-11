@@ -71,16 +71,20 @@ export default defineComponent({
         });
       });
 
-    receivePublicKeyToDownload();
-    receiveDownload();
-    receiveError();
+    if ($q.platform.is.electron) {
+      receivePublicKeyToDownload();
+      receiveDownload();
+      receiveError();
+    }
 
     const generatePublicKey = () => {
       if (!privateKeyFile.value) return;
 
       const privateKeyPath = privateKeyFile.value.path;
 
-      window.ipcRenderer.send('generate-public-key', privateKeyPath);
+      if ($q.platform.is.electron) {
+        window.ipcRenderer.send('generate-public-key', privateKeyPath);
+      }
     };
 
     return {

@@ -83,9 +83,11 @@ export default defineComponent({
         });
       });
 
-    receiveSignatureToDownload();
-    receiveDownload();
-    receiveError();
+    if ($q.platform.is.electron) {
+      receiveSignatureToDownload();
+      receiveDownload();
+      receiveError();
+    }
 
     const sign = () => {
       if (!privateKeyFile.value) return;
@@ -94,11 +96,13 @@ export default defineComponent({
       const privateKeyPath = privateKeyFile.value.path;
       const fileToSignPath = fileToSign.value.path;
 
-      window.ipcRenderer.send('sign', {
-        privateKeyPath,
-        fileToSignPath,
-        hash: hash.value,
-      });
+      if ($q.platform.is.electron) {
+        window.ipcRenderer.send('sign', {
+          privateKeyPath,
+          fileToSignPath,
+          hash: hash.value,
+        });
+      }
     };
 
     return {

@@ -80,19 +80,23 @@ export default defineComponent({
         });
       });
 
+      if ($q.platform.is.electron) {
     receiveDigestToDownload();
     receiveDownload();
     receiveError();
+      }
 
     const generateDigest = () => {
       if (!fileToDigest.value) return;
 
       const fileToDigestPath = fileToDigest.value.path;
 
+      if ($q.platform.is.electron) {
       window.ipcRenderer.send('generate-digest', {
         fileToDigestPath,
         hash: hash.value,
       });
+      }
     };
 
     return {

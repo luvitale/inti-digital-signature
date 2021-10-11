@@ -106,8 +106,10 @@ export default defineComponent({
         });
       });
 
-    receiveVerification();
-    receiveError();
+    if ($q.platform.is.electron) {
+      receiveVerification();
+      receiveError();
+    }
 
     const verify = () => {
       if (!publicKeyFile.value) return;
@@ -118,12 +120,14 @@ export default defineComponent({
       const signatureFilePath = signatureFile.value.path;
       const originalFilePath = originalFile.value.path;
 
-      sendToVerify(
-        publicKeyPath,
-        signatureFilePath,
-        originalFilePath,
-        hash.value
-      );
+      if ($q.platform.is.electron) {
+        sendToVerify(
+          publicKeyPath,
+          signatureFilePath,
+          originalFilePath,
+          hash.value
+        );
+      }
     };
 
     return {
