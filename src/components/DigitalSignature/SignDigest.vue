@@ -35,22 +35,25 @@ export default {
 
       const privateKeyPath = this.privateKeyFile.path;
       const digestToSignPath = this.digestToSign.path;
-      window.ipcRenderer.send("sign-digest", {
-        privateKeyPath,
-        digestToSignPath,
-      });
-      window.ipcRenderer.receive("sign-digest", (/* signature */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.signature.successfully-signed"),
-          color: "success",
+
+      if (process.env.IS_ELECTRON) {
+        window.ipcRenderer.send("sign-digest", {
+          privateKeyPath,
+          digestToSignPath,
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
+        window.ipcRenderer.receive("sign-digest", (/* signature */) => {
+          this.$root.Toast.show({
+            message: this.$t("toast.signature.successfully-signed"),
+            color: "success",
+          });
         });
-      });
+        window.ipcRenderer.receive("error", (msg) => {
+          this.$root.Toast.show({
+            message: msg,
+            color: "error",
+          });
+        });
+      }
     },
   },
 };

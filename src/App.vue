@@ -76,9 +76,11 @@ export default {
     Toast,
   },
   mounted() {
-    window.ipcRenderer.receive("change-language", (lang) => {
-      this.$root.$i18n.locale = lang;
-    });
+    if (process.env.IS_ELECTRON) {
+      window.ipcRenderer.receive("change-language", (lang) => {
+        this.$root.$i18n.locale = lang;
+      });
+    }
     this.$root.Toast = this.$refs.Toast;
   },
 };

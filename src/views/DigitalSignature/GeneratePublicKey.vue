@@ -42,19 +42,22 @@ export default {
       if (!this.privateKeyFile) return;
 
       const privateKeyPath = this.privateKeyFile.path;
-      window.ipcRenderer.send("generate-public-key", privateKeyPath);
-      window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.public-key.successfully-generated"),
-          color: "success",
+
+      if (process.env.IS_ELECTRON) {
+        window.ipcRenderer.send("generate-public-key", privateKeyPath);
+        window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
+          this.$root.Toast.show({
+            message: this.$t("toast.public-key.successfully-generated"),
+            color: "success",
+          });
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "warning",
+        window.ipcRenderer.receive("error", (msg) => {
+          this.$root.Toast.show({
+            message: msg,
+            color: "warning",
+          });
         });
-      });
+      }
     },
   },
 };

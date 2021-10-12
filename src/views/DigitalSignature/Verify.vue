@@ -73,31 +73,34 @@ export default {
       const signatureFilePath = this.signatureFilePath.path;
       const originalFilePath = this.originalFile.path;
       const hash = this.hash;
-      window.ipcRenderer.send("verify", {
-        publicKeyPath,
-        signatureFilePath,
-        originalFilePath,
-        hash,
-      });
-      window.ipcRenderer.receive("verify", (isVerified) => {
-        if (isVerified) {
+
+      if (process.env.IS_ELECTRON === false) {
+        window.ipcRenderer.send("verify", {
+          publicKeyPath,
+          signatureFilePath,
+          originalFilePath,
+          hash,
+        });
+        window.ipcRenderer.receive("verify", (isVerified) => {
+          if (isVerified) {
+            this.$root.Toast.show({
+              message: this.$t("toast.verification.correct"),
+              color: "success",
+            });
+          } else {
+            this.$root.Toast.show({
+              message: this.$t("toast.verification.wrong"),
+              color: "error",
+            });
+          }
+        });
+        window.ipcRenderer.receive("error", (msg) => {
           this.$root.Toast.show({
-            message: this.$t("toast.verification.correct"),
-            color: "success",
-          });
-        } else {
-          this.$root.Toast.show({
-            message: this.$t("toast.verification.wrong"),
+            message: msg,
             color: "error",
           });
-        }
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
         });
-      });
+      }
     },
   },
 };

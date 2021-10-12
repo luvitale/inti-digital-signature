@@ -55,22 +55,27 @@ export default {
   },
   methods: {
     generatePrivateKey() {
-      window.ipcRenderer.send("generate-private-key", {
-        type: this.type,
-        modulusLength: this.modulusLength,
-        namedCurve: this.namedCurve,
-      });
-      window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.private-key.successfully-generated"),
+      if (process.env.IS_ELECTRON) {
+        window.ipcRenderer.send("generate-private-key", {
+          type: this.type,
+          modulusLength: this.modulusLength,
+          namedCurve: this.namedCurve,
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "warning",
+        window.ipcRenderer.receive(
+          "generate-private-key",
+          (/* privateKey */) => {
+            this.$root.Toast.show({
+              message: this.$t("toast.private-key.successfully-generated"),
+            });
+          }
+        );
+        window.ipcRenderer.receive("error", (msg) => {
+          this.$root.Toast.show({
+            message: msg,
+            color: "warning",
+          });
         });
-      });
+      }
     },
   },
 };

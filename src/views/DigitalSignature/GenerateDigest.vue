@@ -59,22 +59,25 @@ export default {
 
       const fileToDigestPath = this.fileToDigest.path;
       const hash = this.hash;
-      window.ipcRenderer.send("generate-digest", {
-        fileToDigestPath,
-        hash,
-      });
-      window.ipcRenderer.receive("generate-digest", (/* digest */) => {
-        this.$root.Toast.show({
-          message: "Digesto generado",
-          color: "success",
+
+      if (process.env.IS_ELECTRON) {
+        window.ipcRenderer.send("generate-digest", {
+          fileToDigestPath,
+          hash,
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
+        window.ipcRenderer.receive("generate-digest", (/* digest */) => {
+          this.$root.Toast.show({
+            message: "Digesto generado",
+            color: "success",
+          });
         });
-      });
+        window.ipcRenderer.receive("error", (msg) => {
+          this.$root.Toast.show({
+            message: msg,
+            color: "error",
+          });
+        });
+      }
     },
   },
 };
