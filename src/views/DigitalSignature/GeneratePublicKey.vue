@@ -26,8 +26,7 @@
 
 <script>
 import mixin from "./mixin";
-import forge from "node-forge";
-import fileSaver from "file-saver";
+import webapi from "@/api-browser/ipc-main";
 
 export default {
   name: "GeneratePublicKey",
@@ -40,30 +39,6 @@ export default {
     };
   },
   methods: {
-    async webGeneratePublicKey() {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        const privateKey = e.target.result;
-
-        const forgePrivateKey = forge.pki.privateKeyFromPem(privateKey);
-
-        const forgePublicKey = forge.pki.setRsaPublicKey(
-          forgePrivateKey.n,
-          forgePrivateKey.e
-        );
-
-        const publicKey = forge.pki.publicKeyToPem(forgePublicKey);
-
-        const publicKeyBlob = new Blob([publicKey]);
-
-        fileSaver.saveAs(
-          publicKeyBlob,
-          `${this.$t("crypto-file-dialog.default-filename.public-key")}.pem`
-        );
-      };
-      reader.readAsText(this.privateKeyFile);
-    },
-
     generatePublicKey() {
       if (!this.privateKeyFile) return;
 
@@ -84,7 +59,7 @@ export default {
           });
         });
       } else {
-        this.webGeneratePublicKey(privateKeyPath);
+        webapi.generatePublicKey(this.privateKeyFile);
       }
     },
   },

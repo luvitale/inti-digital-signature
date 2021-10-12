@@ -1,10 +1,13 @@
-import { PrivateKey, Path, Hash, Signature } from "./types";
+import AbstractSigner from "@/api/digital-signature/signer";
+import {
+  PrivateKey,
+  Path,
+  Hash,
+  Signature,
+} from "@/api/digital-signature/types";
 import crypto from "crypto";
 
-class Signer {
-  privateKey: PrivateKey;
-  fileToSign: Path;
-  options: { hash?: Hash | undefined } | undefined;
+class Signer extends AbstractSigner {
   constructor(
     privateKey: PrivateKey,
     fileToSign: Path,
@@ -12,9 +15,7 @@ class Signer {
       hash?: Hash;
     }
   ) {
-    this.privateKey = privateKey;
-    this.fileToSign = fileToSign;
-    this.options = options;
+    super(privateKey, fileToSign, options);
   }
 
   async sign(): Promise<Signature> {

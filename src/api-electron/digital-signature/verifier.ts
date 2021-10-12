@@ -1,11 +1,13 @@
-import { PublicKey, Signature, Path, Hash } from "./types";
+import AbstractVerifier from "@/api/digital-signature/verifier";
+import {
+  PublicKey,
+  Signature,
+  Path,
+  Hash,
+} from "@/api/digital-signature/types";
 import crypto from "crypto";
 
-class Verifier {
-  publicKey: PublicKey;
-  signature: Signature;
-  originalFile: Path;
-  options: { hash?: Hash | undefined } | undefined;
+class Verifier extends AbstractVerifier {
   constructor(
     publicKey: PublicKey,
     signature: Signature,
@@ -14,10 +16,7 @@ class Verifier {
       hash?: Hash;
     }
   ) {
-    this.publicKey = publicKey;
-    this.signature = signature;
-    this.originalFile = originalFile;
-    this.options = options;
+    super(publicKey, signature, originalFile, options);
   }
 
   verify(): Promise<boolean> {

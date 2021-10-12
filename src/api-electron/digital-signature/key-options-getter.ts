@@ -1,5 +1,9 @@
 import crypto from "crypto";
-import { CypherType, ModulusLength, KeyFormat } from "./types";
+import {
+  CypherType,
+  ModulusLength,
+  KeyFormat,
+} from "@/api/digital-signature/types";
 
 export const keyFormat: KeyFormat = "pem";
 

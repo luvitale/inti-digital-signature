@@ -1,18 +1,16 @@
-import { CypherType, ModulusLength, PublicKey, PrivateKey } from "./types";
+import AbstractPrivateKeyGenerator from "@/api/digital-signature/private-key-generator";
+import {
+  CypherType,
+  ModulusLength,
+  PublicKey,
+  PrivateKey,
+} from "@/api/digital-signature/types";
 import crypto from "crypto";
 import keyOptionsGetter from "./key-options-getter";
 
 const defaultType: CypherType = "rsa";
 
-class PrivateKeyGenerator {
-  type: CypherType;
-  options:
-    | {
-        modulusLength?: ModulusLength | undefined;
-        namedCurve?: string | undefined;
-      }
-    | undefined;
-
+class PrivateKeyGenerator extends AbstractPrivateKeyGenerator {
   constructor(
     type: CypherType = defaultType,
     options?: {
@@ -20,8 +18,7 @@ class PrivateKeyGenerator {
       namedCurve?: string;
     }
   ) {
-    this.type = type;
-    this.options = options;
+    super(type, options);
   }
 
   async generate(): Promise<PrivateKey> {

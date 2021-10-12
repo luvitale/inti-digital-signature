@@ -1,32 +1,11 @@
 import { ipcMain } from "electron";
+import { promises as fsPromises } from "fs";
 import digitalSignature from "./digital-signature";
+import fileDigitalSignature from "./file-digital-signature";
 import cryptoFileDialog from "./crypto-file-dialog";
 import i18n from "@/i18n";
 
-ipcMain.on(
-  "generate-private-key",
-  async (event, { type, modulusLength, namedCurve }) => {
-    const defaultPath = `${i18n.t(
-      "crypto-file-dialog.default-filename.private-key"
-    )}.pem`;
-
-    try {
-      const privateKey = await digitalSignature.generatePrivateKey(type, {
-        modulusLength,
-        namedCurve,
-      });
-
-      const savedPrivateKeyPath = await cryptoFileDialog.savePEM(
-        privateKey,
-        defaultPath
-      );
-      event.reply("generate-private-key", savedPrivateKeyPath);
-    } catch (e) {
-      console.log(e.toString());
-      event.reply("error", i18n.t("toast.private-key.not-generated"));
-    }
-  }
-);
+ipcMain.on("generate-private-key", fileDigitalSignature.generatePrivateKey);
 
 ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
   const defaultPath = `${i18n.t(
@@ -34,7 +13,10 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
   )}.pem`;
 
   try {
-    const publicKey = await digitalSignature.generatePublicKey(privateKeyPath);
+    const privateKey = await fsPromises.readFile(privateKeyPath);
+
+    const publicKey = await digitalSignature.generatePublicKey(privateKey);
+
     const savedPublicKeyPath = await cryptoFileDialog.savePEM(
       publicKey,
       defaultPath
@@ -73,11 +55,12 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
   )}.bin`;
 
   try {
-    const signature = await digitalSignature.sign(
-      privateKeyPath,
-      fileToSignPath,
-      { hash }
-    );
+    const privateKey = await fsPromises.readFile(privateKeyPath);
+    const fileToSign = await fsPromises.readFile(fileToSignPath);
+
+    const signature = await digitalSignature.sign(privateKey, fileToSign, {
+      hash,
+    });
 
     const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
       signature,
@@ -99,9 +82,12 @@ ipcMain.on(
     )}.bin`;
 
     try {
+      const privateKey = await fsPromises.readFile(privateKeyPath);
+      const digestToSign = await fsPromises.readFile(digestToSignPath);
+
       const signature = await digitalSignature.signDigest(
-        privateKeyPath,
-        digestToSignPath
+        privateKey,
+        digestToSign
       );
 
       const savedSignatureFilePath = await cryptoFileDialog.saveSignature(
@@ -124,10 +110,14 @@ ipcMain.on(
     { publicKeyPath, signatureFilePath, originalFilePath, hash }
   ) => {
     try {
+      const publicKey = await fsPromises.readFile(publicKeyPath);
+      const signature = await fsPromises.readFile(signatureFilePath);
+      const originalFile = await fsPromises.readFile(originalFilePath);
+
       const result = await digitalSignature.verify(
-        publicKeyPath,
-        signatureFilePath,
-        originalFilePath,
+        publicKey,
+        signature,
+        originalFile,
         { hash }
       );
       event.reply("verify", result);

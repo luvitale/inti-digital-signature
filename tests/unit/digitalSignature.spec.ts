@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import path from "path";
-import digitalSignature from "@/backend/digital-signature";
+import digitalSignature from "@/api-electron/digital-signature";
 import { promises as fsPromises } from "fs";
 import { FilesManager } from "turbodepot-node";
 

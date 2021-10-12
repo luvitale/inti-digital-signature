@@ -1,3 +1,4 @@
+import AbstractDigitalSignature from "@/api/digital-signature";
 import { promises as fsPromises } from "fs";
 import PrivateKeyGenerator from "./private-key-generator";
 import PublicKeyGenerator from "./public-key-generator";
@@ -13,9 +14,9 @@ import {
   Digest,
   Path,
   Signature,
-} from "./types";
+} from "@/api/digital-signature/types";
 
-class DigitalSignature {
+class DigitalSignature extends AbstractDigitalSignature {
   async generatePrivateKey(
     type?: CypherType,
     options?: {
@@ -28,9 +29,7 @@ class DigitalSignature {
     return await privateKeyGenerator.generate();
   }
 
-  async generatePublicKey(privateKeyPath: Path): Promise<PublicKey> {
-    const privateKey = await fsPromises.readFile(privateKeyPath);
-
+  async generatePublicKey(privateKey: PrivateKey): Promise<PublicKey> {
     const publicKeyGenerator = new PublicKeyGenerator(privateKey);
 
     return await publicKeyGenerator.generate();
@@ -45,40 +44,30 @@ class DigitalSignature {
   }
 
   async sign(
-    privateKeyPath: Path,
-    fileToSignPath: Path,
+    privateKey: PrivateKey,
+    fileToSign: Path,
     options?: { hash?: Hash }
   ): Promise<Signature> {
-    const privateKey = await fsPromises.readFile(privateKeyPath);
-    const fileToSign = await fsPromises.readFile(fileToSignPath);
-
     const signer = new Signer(privateKey, fileToSign, options);
 
     return await signer.sign();
   }
 
   async signDigest(
-    privateKeyPath: Path,
-    fileToSignPath: Path
+    privateKey: PrivateKey,
+    fileToSign: Path
   ): Promise<Signature> {
-    const privateKey = await fsPromises.readFile(privateKeyPath);
-    const fileToSign = await fsPromises.readFile(fileToSignPath);
-
     const signer = new Signer(privateKey, fileToSign);
 
     return await signer.signDigest();
   }
 
   async verify(
-    publicKeyPath: Path,
-    signatureFilePath: Path,
-    originalFilePath: Path,
+    publicKey: PublicKey,
+    signature: Signature,
+    originalFile: Path,
     options?: { hash?: Hash }
   ): Promise<boolean> {
-    const publicKey = await fsPromises.readFile(publicKeyPath);
-    const signature = await fsPromises.readFile(signatureFilePath);
-    const originalFile = await fsPromises.readFile(originalFilePath);
-
     const verifier = new Verifier(publicKey, signature, originalFile, options);
 
     return await verifier.verify();

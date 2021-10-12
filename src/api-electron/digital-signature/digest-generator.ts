@@ -1,17 +1,15 @@
-import { Path, Hash, Digest } from "./types";
+import AbstractDigestGenerator from "@/api/digital-signature/digest-generator";
+import { Path, Hash, Digest } from "@/api/digital-signature/types";
 import crypto from "crypto";
 
-class DigestGenerator {
-  fileToDigest: Path;
-  options: { hash?: Hash | undefined } | undefined;
+class DigestGenerator extends AbstractDigestGenerator {
   constructor(
     fileToDigest: Path,
     options?: {
       hash?: Hash;
     }
   ) {
-    this.fileToDigest = fileToDigest;
-    this.options = options;
+    super(fileToDigest, options);
   }
 
   async generate(): Promise<Digest> {

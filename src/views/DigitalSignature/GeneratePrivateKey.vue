@@ -33,6 +33,7 @@
 
 <script>
 import mixin from "./mixin";
+import webapi from "@/webapi";
 import CypherSelector from "@/components/CypherSelector.vue";
 import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
 
@@ -75,6 +76,8 @@ export default {
             color: "warning",
           });
         });
+      } else {
+        webapi.generatePrivateKey();
       }
     },
   },
