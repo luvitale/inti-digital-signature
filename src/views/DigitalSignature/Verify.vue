@@ -74,7 +74,7 @@ export default {
       const originalFilePath = this.originalFile.path;
       const hash = this.hash;
 
-      if (process.env.IS_ELECTRON === false) {
+      if (process.env.IS_ELECTRON) {
         window.ipcRenderer.send("verify", {
           publicKeyPath,
           signatureFilePath,

@@ -33,7 +33,7 @@
 
 <script>
 import mixin from "./mixin";
-import webapi from "@/webapi";
+import browserDS from "@/middleware/digital-signature";
 import CypherSelector from "@/components/CypherSelector.vue";
 import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
 
@@ -77,7 +77,7 @@ export default {
           });
         });
       } else {
-        webapi.generatePrivateKey();
+        browserDS.generatePrivateKey();
       }
     },
   },

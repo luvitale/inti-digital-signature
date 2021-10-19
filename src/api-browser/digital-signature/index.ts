@@ -27,7 +27,7 @@ class DigitalSignature extends AbstractDigitalSignature {
   async generatePublicKey(privateKey: PrivateKey): Promise<PublicKey> {
     const forgePrivateKey = forge.pki.privateKeyFromPem(privateKey as string);
 
-    const forgePublicKey = forge.pki.setRsaPublicKey(
+    const forgePublicKey = forge.pki.rsa.setPublicKey(
       forgePrivateKey.n,
       forgePrivateKey.e
     );

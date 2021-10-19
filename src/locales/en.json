@@ -8,20 +8,23 @@
     "sign": "Sign",
     "title": "INTI Digital Signature",
     "verify": "Verify",
-    "copyright": "Developed by:"
+    "copyright": "Developed by:",
+    "generate-digest": "Generate digest"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Save canceled",
     "default-filename": {
       "signature": "sign",
       "private-key": "priv1",
-      "public-key": "pub1"
+      "public-key": "pub1",
+      "digest": "digest"
     },
     "pem-files-name": "PEM files (.pem)",
     "save-file-button-label": "Save",
     "saved-file": "Saved",
     "select-file-location-to-save": "Select file location to save",
-    "signature-files-name": "Signatures (.bin)"
+    "signature-files-name": "Signatures (.bin)",
+    "digest-files-name": "Digest (.dig)"
   },
   "digital-signature": {
     "hash": "Hash",
@@ -42,6 +45,9 @@
       "select-original-file": "Select original file",
       "select-public-key": "Select public key",
       "select-signature": "Select signature file"
+    },
+    "digest": {
+      "select-file": "Select file to generate digest"
     }
   },
   "language": {
@@ -68,6 +74,10 @@
     "verification": {
       "correct": "Correct verification",
       "wrong": "Wrong verification"
+    },
+    "digest": {
+      "successfully-generated": "Successfully generated digest",
+      "not-generated": "Digest not generated"
     }
   },
   "window": {
@@ -99,5 +109,6 @@
         }
       }
     }
-  }
+  },
+  "digest-switch-label": "Digest"
 }

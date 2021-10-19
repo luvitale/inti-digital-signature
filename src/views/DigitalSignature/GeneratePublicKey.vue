@@ -26,7 +26,7 @@
 
 <script>
 import mixin from "./mixin";
-import webapi from "@/api-browser/ipc-main";
+import browserDS from "@/middleware/digital-signature";
 
 export default {
   name: "GeneratePublicKey",
@@ -59,7 +59,7 @@ export default {
           });
         });
       } else {
-        webapi.generatePublicKey(this.privateKeyFile);
+        browserDS.generatePublicKey(this.privateKeyFile);
       }
     },
   },

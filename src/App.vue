@@ -9,7 +9,11 @@
       <router-link to="/generate-public-key">{{
         $t("app.generate-public-key")
       }}</router-link>
-      | <router-link to="/generate-digest">Generar digesto</router-link> |
+      |
+      <router-link to="/generate-digest">{{
+        $t("app.generate-digest")
+      }}</router-link>
+      |
       <router-link to="/sign">{{ $t("app.sign") }}</router-link> |
       <router-link to="/verify">{{ $t("app.verify") }}</router-link>
     </div>

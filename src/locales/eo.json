@@ -8,20 +8,23 @@
     "sign": "Subskribu",
     "title": "INTI Cifereca Subskribo",
     "verify": "Kontroli",
-    "copyright": "Disvolvita de:"
+    "copyright": "Disvolvita de:",
+    "generate-digest": "Generi digeston"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Konservu nuligita",
     "default-filename": {
       "signature": "firma",
       "private-key": "priv1",
-      "public-key": "pub1"
+      "public-key": "pub1",
+      "digest": "digest"
     },
     "pem-files-name": "PEM-dosieroj (.pem)",
     "save-file-button-label": "Savi",
     "saved-file": "Savita",
     "select-file-location-to-save": "Elektu la lokon de la savita dosiero",
-    "signature-files-name": "Subskriboj (.bin)"
+    "signature-files-name": "Subskriboj (.bin)",
+    "digest-files-name": "Digesto (.dig)"
   },
   "digital-signature": {
     "hash": "Hash",
@@ -42,6 +45,9 @@
       "select-original-file": "Elektu la originalan dosieron",
       "select-public-key": "Elektu la publikan ŝlosilon",
       "select-signature": "Elektu la subskriban dosieron"
+    },
+    "digest": {
+      "select-file": "Elektu la dosieron por generi la digeston"
     }
   },
   "language": {
@@ -68,6 +74,10 @@
     "verification": {
       "correct": "Ĝusta konfirmo",
       "wrong": "Malĝusta konfirmo"
+    },
+    "digest": {
+      "successfully-generated": "Sukcese generita digesto",
+      "not-generated": "La digesto ne povis esti generita"
     }
   },
   "window": {
@@ -99,5 +109,6 @@
         }
       }
     }
-  }
+  },
+  "digest-switch-label": "Digesto"
 }

@@ -48,7 +48,7 @@ const saveDigest = async (
     buttonLabel: i18n.t("crypto-file-dialog.save-file-button-label") as string,
     filters: [
       {
-        name: "Digest (.dig)",
+        name: i18n.t("crypto-file-dialog.digest-files-name") as string,
         extensions: ["dig"],
       },
     ],

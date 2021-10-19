@@ -8,7 +8,13 @@
       <v-divider></v-divider>
 
       <v-form class="digital-signature-form">
-        <v-switch id="digest-switch" v-model="digest" flat :label="`Digest`" />
+        <v-switch
+          id="digest-switch"
+          v-model="digest"
+          flat
+          :label="$t('digest-switch-label')"
+          disabled
+        />
 
         <SignDigest v-if="digest" ref="sign_digest" />
         <SignFile v-else ref="sign_file" />
