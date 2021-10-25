@@ -8,20 +8,23 @@
     "sign": "Signatar",
     "title": "INTI Komputerala Signato",
     "verify": "Verigar",
-    "copyright": "Developita da:"
+    "copyright": "Developita da:",
+    "generate-digest": "Genitar dijesto"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Gardito cesato",
     "default-filename": {
       "signature": "sign",
       "private-key": "priv1",
-      "public-key": "pub1"
+      "public-key": "pub1",
+      "digest": "dijest"
     },
     "pem-files-name": "PEM savaro (.pem)",
     "save-file-button-label": "Gardar",
     "saved-file": "Gardito",
     "select-file-location-to-save": "Selektez la savara loko a gardar",
-    "signature-files-name": "Signato (.bin)"
+    "signature-files-name": "Signato (.bin)",
+    "digest-files-name": "Dijesto (.dig)"
   },
   "digital-signature": {
     "hash": "Hash",
@@ -42,6 +45,9 @@
       "select-original-file": "Selektez la originala savaro",
       "select-public-key": "Selektez la publika klavo",
       "select-signature": "Selektez la archivo de signato"
+    },
+    "digest": {
+      "select-file": "Selektez la archivo para genitar la dijesto"
     }
   },
   "language": {
@@ -68,6 +74,10 @@
     "verification": {
       "correct": "Verifo korekta",
       "wrong": "Verifo nekorekta"
+    },
+    "digest": {
+      "successfully-generated": "Dijesto genitita kun suceso",
+      "not-generated": "La dijesto ne povis esar genitita"
     }
   },
   "window": {
@@ -99,5 +109,6 @@
         }
       }
     }
-  }
+  },
+  "digest-switch-label": "Dijesto"
 }

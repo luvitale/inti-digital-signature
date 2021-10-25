@@ -48,7 +48,9 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 });
 
 ipcMain.on("generate-digest", async (event, { fileToDigestPath, hash }) => {
-  const defaultPath = `digest.dig`;
+  const defaultPath = `${i18n.t(
+    "crypto-file-dialog.default-filename.digest"
+  )}.dig`;
 
   try {
     const digest = await digitalSignature.generateDigest(fileToDigestPath, {
@@ -63,7 +65,7 @@ ipcMain.on("generate-digest", async (event, { fileToDigestPath, hash }) => {
     event.reply("generate-digest", savedDigestFilePath);
   } catch (e) {
     console.log(e.toString());
-    event.reply("error", "No se pudo generar el digesto");
+    event.reply("error", i18n.t("toast.digest.not-generated"));
   }
 });
 

@@ -8,20 +8,23 @@
     "sign": "Firmar",
     "title": "Firma Digital INTI",
     "verify": "Verificar",
-    "copyright": "Desarrollado por:"
+    "copyright": "Desarrollado por:",
+    "generate-digest": "Generar digesto"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Guardado cancelado",
     "default-filename": {
       "signature": "firma",
       "private-key": "priv1",
-      "public-key": "pub1"
+      "public-key": "pub1",
+      "digest": "digest"
     },
     "pem-files-name": "Archivos PEM (.pem)",
     "save-file-button-label": "Guardar",
     "saved-file": "Guardado",
     "select-file-location-to-save": "Seleccioná la ubicación del archivo a guardar",
-    "signature-files-name": "Firmas (.bin)"
+    "signature-files-name": "Firmas (.bin)",
+    "digest-files-name": "Digesto (.dig)"
   },
   "digital-signature": {
     "hash": "Hash",
@@ -42,6 +45,9 @@
       "select-original-file": "Seleccioná el archivo original",
       "select-public-key": "Seleccioná la clave pública",
       "select-signature": "Seleccioná el archivo de firma"
+    },
+    "digest": {
+      "select-file": "Seleccioná el archivo para generar el digesto"
     }
   },
   "language": {
@@ -68,6 +74,10 @@
     "verification": {
       "correct": "Verificación correcta",
       "wrong": "Verificación incorrecta"
+    },
+    "digest": {
+      "successfully-generated": "Digesto generado",
+      "not-generated": "No se pudo generar el digesto"
     }
   },
   "window": {
@@ -99,5 +109,6 @@
         }
       }
     }
-  }
+  },
+  "digest-switch-label": "Digesto"
 }

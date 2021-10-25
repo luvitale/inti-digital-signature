@@ -2,14 +2,14 @@
   <v-container fluid>
     <v-card class="digest-card">
       <v-toolbar flat color="blue" dark class="digest-toolbar">
-        <v-toolbar-title>Generar digesto</v-toolbar-title>
+        <v-toolbar-title>{{ $t("app.generate-digest") }}</v-toolbar-title>
       </v-toolbar>
 
       <v-divider></v-divider>
 
       <v-form class="digest-form">
         <v-file-input
-          label="Seleccioná el archivo para generar el digesto"
+          :label="$t('digital-signature.digest.select-file')"
           prepend-icon="mdi-message-text"
           outlined
           required
@@ -27,7 +27,7 @@
           class="text-none"
           @click="generateDigest"
         >
-          Generar digesto
+          {{ $t("app.generate-digest") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -65,7 +65,7 @@ export default {
       });
       window.ipcRenderer.receive("generate-digest", (/* digest */) => {
         this.$root.Toast.show({
-          message: "Digesto generado",
+          message: this.$t("toast.digest.successfully-generated"),
           color: "success",
         });
       });

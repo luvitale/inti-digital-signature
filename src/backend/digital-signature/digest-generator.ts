@@ -23,12 +23,12 @@ class DigestGenerator {
           this.options && this.options.hash ? this.options.hash : defaultHash
         );
 
-        hash.write(this.fileToDigest);
+        hash.write(this.fileToDigest.toString());
         hash.end();
 
-        const digest = hash.digest();
+        const digest = hash.digest("hex");
 
-        resolve(digest.toString());
+        resolve(digest);
       } catch (error) {
         reject(error);
       }

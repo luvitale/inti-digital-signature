@@ -8,20 +8,23 @@
     "sign": "Assinar",
     "title": "INTI Assinatura Digital",
     "verify": "Verificar",
-    "copyright": "Desenvolvido por:"
+    "copyright": "Desenvolvido por:",
+    "generate-digest": "Gerar digesto"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Salvar cancelado",
     "default-filename": {
       "signature": "assdig",
       "private-key": "priv1",
-      "public-key": "pub1"
+      "public-key": "pub1",
+      "digest": "digest"
     },
     "pem-files-name": "Arquivos PEM (.pem)",
     "save-file-button-label": "Salvar",
     "saved-file": "Salvou",
     "select-file-location-to-save": "Selecione a localização do arquivo para salvar",
-    "signature-files-name": "Assinaturas (.bin)"
+    "signature-files-name": "Assinaturas (.bin)",
+    "digest-files-name": "Digesto (.dig)"
   },
   "digital-signature": {
     "hash": "Hash",
@@ -42,6 +45,9 @@
       "select-original-file": "Selecione o arquivo original",
       "select-public-key": "Selecione a chave pública",
       "select-signature": "Selecione o arquivo de assinatura"
+    },
+    "digest": {
+      "select-file": "Selecione o arquivo para gerar o digesto"
     }
   },
   "language": {
@@ -68,6 +74,10 @@
     "verification": {
       "correct": "Verificação correta",
       "wrong": "Verificação incorreta"
+    },
+    "digest": {
+      "successfully-generated": "Digesto gerado com sucesso",
+      "not-generated": "O digesto não pôde ser gerado"
     }
   },
   "window": {
@@ -99,5 +109,6 @@
         }
       }
     }
-  }
+  },
+  "digest-switch-label": "Digesto"
 }
