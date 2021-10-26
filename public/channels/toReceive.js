@@ -5,6 +5,7 @@ module.exports = [
   "sign",
   "sign-digest",
   "verify",
+  "verify-digest",
   "error",
   "change-language",
 ];

@@ -45,7 +45,8 @@
     "verify": {
       "select-original-file": "Select original file",
       "select-public-key": "Select public key",
-      "select-signature": "Select signature file"
+      "select-signature": "Select signature file",
+      "select-digest-file": "Select digest file"
     },
     "digest": {
       "select-file": "Select file to generate digest"

@@ -45,7 +45,8 @@
     "verify": {
       "select-original-file": "Elektu la originalan dosieron",
       "select-public-key": "Elektu la publikan ŝlosilon",
-      "select-signature": "Elektu la subskriban dosieron"
+      "select-signature": "Elektu la subskriban dosieron",
+      "select-digest-file": "Elektu la digesto"
     },
     "digest": {
       "select-file": "Elektu la dosieron por generi la digeston"

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card class="digital-signature-card" v-if="true">
+    <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
         <v-toolbar-title>{{ $t("app.sign") }}</v-toolbar-title>
       </v-toolbar>

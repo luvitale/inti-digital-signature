@@ -84,6 +84,21 @@ class DigitalSignature {
 
     return await verifier.verify();
   }
+
+  async verifyDigest(
+    publicKeyPath: Path,
+    signatureFilePath: Path,
+    digestFilePath: Path,
+    options?: { hash?: Hash }
+  ): Promise<boolean> {
+    const publicKey = await fsPromises.readFile(publicKeyPath);
+    const signature = await fsPromises.readFile(signatureFilePath);
+    const digestFile = await fsPromises.readFile(digestFilePath);
+
+    const verifier = new Verifier(publicKey, signature, digestFile, options);
+
+    return await verifier.verifyDigest();
+  }
 }
 
 export default new DigitalSignature();

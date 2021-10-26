@@ -140,3 +140,21 @@ ipcMain.on(
     }
   }
 );
+
+ipcMain.on(
+  "verify-digest",
+  async (event, { publicKeyPath, signatureFilePath, digestFilePath, hash }) => {
+    try {
+      const result = await digitalSignature.verifyDigest(
+        publicKeyPath,
+        signatureFilePath,
+        digestFilePath,
+        { hash }
+      );
+      event.reply("verify-digest", result);
+    } catch (e) {
+      console.log(e.toString());
+      event.reply("error", i18n.t("toast.verification.wrong"));
+    }
+  }
+);

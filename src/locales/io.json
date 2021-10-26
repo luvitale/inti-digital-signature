@@ -45,7 +45,8 @@
     "verify": {
       "select-original-file": "Selektez la originala savaro",
       "select-public-key": "Selektez la publika klavo",
-      "select-signature": "Selektez la archivo de signato"
+      "select-signature": "Selektez la archivo de signato",
+      "select-digest-file": "Selektez la dijesto"
     },
     "digest": {
       "select-file": "Selektez la archivo para genitar la dijesto"

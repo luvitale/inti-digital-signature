@@ -45,7 +45,8 @@
     "verify": {
       "select-original-file": "Seleccioná el archivo original",
       "select-public-key": "Seleccioná la clave pública",
-      "select-signature": "Seleccioná el archivo de firma"
+      "select-signature": "Seleccioná el archivo de firma",
+      "select-digest-file": "Seleccioná el digesto"
     },
     "digest": {
       "select-file": "Seleccioná el archivo para generar el digesto"
