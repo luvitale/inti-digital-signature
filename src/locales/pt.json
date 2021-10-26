@@ -39,7 +39,8 @@
     },
     "sign": {
       "select-file": "Selecione o arquivo para assinar",
-      "select-private-key": "Selecione a chave privada"
+      "select-private-key": "Selecione a chave privada",
+      "select-digest-file": "Selecione o digesto para assinar"
     },
     "verify": {
       "select-original-file": "Selecione o arquivo original",
@@ -69,7 +70,8 @@
     },
     "signature": {
       "not-signed": "O arquivo não pôde ser assinado",
-      "successfully-signed": "Arquivo assinado com sucesso"
+      "successfully-signed": "Arquivo assinado com sucesso",
+      "successfully-signed-digest": "Digesto assinado com sucesso"
     },
     "verification": {
       "correct": "Verificação correta",

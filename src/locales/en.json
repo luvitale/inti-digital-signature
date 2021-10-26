@@ -39,7 +39,8 @@
     },
     "sign": {
       "select-file": "Select file to sign",
-      "select-private-key": "Select private key"
+      "select-private-key": "Select private key",
+      "select-digest-file": "Select digest to sign"
     },
     "verify": {
       "select-original-file": "Select original file",
@@ -69,7 +70,8 @@
     },
     "signature": {
       "not-signed": "File not signed",
-      "successfully-signed": "Successfully signed file"
+      "successfully-signed": "Successfully signed file",
+      "successfully-signed-digest": "Successfully signed digest"
     },
     "verification": {
       "correct": "Correct verification",

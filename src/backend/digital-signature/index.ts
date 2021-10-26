@@ -59,12 +59,13 @@ class DigitalSignature {
 
   async signDigest(
     privateKeyPath: Path,
-    fileToSignPath: Path
+    fileToSignPath: Path,
+    options?: { hash?: Hash }
   ): Promise<Signature> {
     const privateKey = await fsPromises.readFile(privateKeyPath);
     const fileToSign = await fsPromises.readFile(fileToSignPath);
 
-    const signer = new Signer(privateKey, fileToSign);
+    const signer = new Signer(privateKey, fileToSign, options);
 
     return await signer.signDigest();
   }

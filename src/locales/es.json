@@ -39,7 +39,8 @@
     },
     "sign": {
       "select-file": "Seleccioná el archivo a firmar",
-      "select-private-key": "Seleccioná la clave privada"
+      "select-private-key": "Seleccioná la clave privada",
+      "select-digest-file": "Seleccioná el digesto a firmar"
     },
     "verify": {
       "select-original-file": "Seleccioná el archivo original",
@@ -69,7 +70,8 @@
     },
     "signature": {
       "not-signed": "No se pudo firmar el archivo",
-      "successfully-signed": "Archivo firmado correctamente"
+      "successfully-signed": "Archivo firmado correctamente",
+      "successfully-signed-digest": "Digesto firmado correctamente"
     },
     "verification": {
       "correct": "Verificación correcta",

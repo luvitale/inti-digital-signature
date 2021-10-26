@@ -95,7 +95,7 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
 
 ipcMain.on(
   "sign-digest",
-  async (event, { privateKeyPath, digestToSignPath }) => {
+  async (event, { privateKeyPath, digestToSignPath, hash }) => {
     const defaultPath = `${i18n.t(
       "crypto-file-dialog.default-filename.signature"
     )}.bin`;
@@ -103,7 +103,8 @@ ipcMain.on(
     try {
       const signature = await digitalSignature.signDigest(
         privateKeyPath,
-        digestToSignPath
+        digestToSignPath,
+        { hash }
       );
 
       const savedSignatureFilePath = await cryptoFileDialog.saveSignature(

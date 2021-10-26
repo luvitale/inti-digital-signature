@@ -39,7 +39,8 @@
     },
     "sign": {
       "select-file": "Selectez la savaro a signatar",
-      "select-private-key": "Selektez la privata klavo"
+      "select-private-key": "Selektez la privata klavo",
+      "select-digest-file": "Selektez la dijesto a signatar"
     },
     "verify": {
       "select-original-file": "Selektez la originala savaro",
@@ -69,7 +70,8 @@
     },
     "signature": {
       "not-signed": "La savaro ne povis esar signatita",
-      "successfully-signed": "Savaro signatita kun suceso"
+      "successfully-signed": "Savaro signatita kun suceso",
+      "successfully-signed-digest": "Dijesto signatita kun suceso"
     },
     "verification": {
       "correct": "Verifo korekta",

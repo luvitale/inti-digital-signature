@@ -39,7 +39,8 @@
     },
     "sign": {
       "select-file": "Elektu la dosieron subskribotan",
-      "select-private-key": "Elektu la privatan ŝlosilon"
+      "select-private-key": "Elektu la privatan ŝlosilon",
+      "select-digest-file": "Elektu la digeston subskribotan"
     },
     "verify": {
       "select-original-file": "Elektu la originalan dosieron",
@@ -69,7 +70,8 @@
     },
     "signature": {
       "not-signed": "La dosiero ne povis esti subskribita",
-      "successfully-signed": "Sukcese subskribita dosiero"
+      "successfully-signed": "Sukcese subskribita dosiero",
+      "successfully-signed-digest": "Sukcese subskribita digesto"
     },
     "verification": {
       "correct": "Ĝusta konfirmo",
