@@ -52,6 +52,7 @@ async function createWindow(dimensions: any) {
   }
 
   win.setTitle(i18n.t("app.title") as string);
+  win.maximize();
 }
 
 // Quit when all windows are closed.
