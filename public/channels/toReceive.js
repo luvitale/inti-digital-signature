@@ -10,4 +10,5 @@ module.exports = [
   "change-language",
   "open-about-dialog",
   "get-version",
+  "change-theme",
 ];

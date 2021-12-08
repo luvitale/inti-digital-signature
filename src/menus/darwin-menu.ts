@@ -72,6 +72,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
       checked: nativeTheme.themeSource === style,
       click: function () {
         nativeTheme.themeSource = style as any;
+        mainWindow.webContents.send("change-theme", style);
       },
     };
   });
