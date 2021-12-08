@@ -1,4 +1,4 @@
-import { Path, Hash, Digest } from "./types";
+import { Path, Hash, Digest } from "./utils/types";
 import crypto from "crypto";
 
 class DigestGenerator {

@@ -1,6 +1,11 @@
-import { CypherType, ModulusLength, PublicKey, PrivateKey } from "./types";
+import {
+  CypherType,
+  ModulusLength,
+  PublicKey,
+  PrivateKey,
+} from "./utils/types";
 import crypto from "crypto";
-import keyOptionsGetter from "./key-options-getter";
+import keyOptionsGetter from "./utils/key-options-getter";
 
 const defaultType: CypherType = "rsa";
 

@@ -1,5 +1,5 @@
-import { PublicKey, Signature, Path, Hash } from "./types";
-import asn1PrefixGetter from "./asn1-prefix-getter";
+import { PublicKey, Signature, Path, Hash } from "./utils/types";
+import asn1PrefixGetter from "./utils/asn1-prefix-getter";
 import crypto from "crypto";
 
 class Verifier {

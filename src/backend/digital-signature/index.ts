@@ -13,7 +13,7 @@ import {
   Digest,
   Path,
   Signature,
-} from "./types";
+} from "./utils/types";
 
 class DigitalSignature {
   async generatePrivateKey(

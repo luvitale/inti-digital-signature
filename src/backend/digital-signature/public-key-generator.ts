@@ -1,6 +1,6 @@
-import { PrivateKey, PublicKey } from "./types";
+import { PrivateKey, PublicKey } from "./utils/types";
 import crypto from "crypto";
-import { keyFormat } from "./key-options-getter";
+import { keyFormat } from "./utils/key-options-getter";
 
 class PublicKeyGenerator {
   privateKey: PrivateKey;
