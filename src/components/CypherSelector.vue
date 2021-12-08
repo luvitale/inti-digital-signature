@@ -40,8 +40,9 @@ export default {
 
 <style>
 .cypher-changer {
+  width: 50%;
   min-width: 20%;
-  max-width: 30%;
+  max-width: 50%;
   margin: 2em auto;
   flex: 0 !important;
 }

@@ -2,26 +2,24 @@
   <v-container fluid>
     <v-card class="digest-card">
       <v-toolbar flat color="blue" dark class="digest-toolbar">
-        <v-toolbar-title>{{ $t("app.generate-digest") }}</v-toolbar-title>
+        <v-toolbar-title class="flex text-center">{{
+          $t("app.generate-digest")
+        }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-divider></v-divider>
-
-      <v-form class="digest-form">
+      <v-form class="digital-signature-form" id="digest-form">
         <v-file-input
           :label="$t('digital-signature.digest.select-file')"
           prepend-icon="mdi-message-text"
           outlined
-          required
           v-model="fileToDigest"
+          required
         />
 
         <HashSelector v-model="hash" />
-      </v-form>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
         <v-btn
+          outlined
           color="success"
           depressed
           class="text-none"
@@ -29,7 +27,7 @@
         >
           {{ $t("app.generate-digest") }}
         </v-btn>
-      </v-card-actions>
+      </v-form>
     </v-card>
   </v-container>
 </template>

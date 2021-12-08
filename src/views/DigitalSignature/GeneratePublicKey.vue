@@ -2,23 +2,29 @@
   <v-container fluid>
     <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
-        <v-toolbar-title>{{
+        <v-toolbar-title class="flex text-center">{{
           $t("digital-signature.public-key.label")
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-divider></v-divider>
-
-      <v-form class="digital-signature-form">
+      <v-form class="digital-signature-form" id="public-key-form">
         <v-file-input
           :label="$t('digital-signature.public-key.select-private-key')"
           prepend-icon="mdi-message-text"
           outlined
-          append-outer-icon="mdi-send"
           v-model="privateKeyFile"
           required
-          @click:append-outer="generatePublicKey"
         />
+
+        <v-btn
+          outlined
+          color="success"
+          class="text-none"
+          depressed
+          @click="generatePublicKey"
+        >
+          {{ $t("app.generate-public-key") }}
+        </v-btn>
       </v-form>
     </v-card>
   </v-container>

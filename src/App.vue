@@ -87,7 +87,7 @@ export default {
     });
     this.$root.Toast = this.$refs.Toast;
     window.ipcRenderer.receive("change-theme", (theme) => {
-      this.$vuetify.theme.dark = theme;
+      this.$vuetify.theme.dark = theme === "dark";
     });
   },
 };

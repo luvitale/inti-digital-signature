@@ -2,35 +2,34 @@
   <v-container fluid>
     <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
-        <v-toolbar-title>{{ $t("app.sign") }}</v-toolbar-title>
+        <v-toolbar-title class="flex text-center">{{
+          $t("app.sign")
+        }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-divider></v-divider>
-
-      <v-form class="digital-signature-form">
-        <v-switch
-          id="digest-switch"
-          v-model="digest"
-          flat
-          :label="$t('digest-switch-label')"
-        />
+      <v-form class="digital-signature-form" id="sign-form">
+        <DigestSwitch v-model="digest" />
 
         <SignDigest v-if="digest" ref="sign_digest" />
         <SignFile v-else ref="sign_file" />
-      </v-form>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="success" depressed class="text-none" @click="sign">
+        <v-btn
+          outlined
+          color="success"
+          depressed
+          class="text-none"
+          @click="sign"
+        >
           {{ $t("app.sign") }}
         </v-btn>
-      </v-card-actions>
+      </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
 import mixin from "./mixin";
+import DigestSwitch from "@/components/DigestSwitch";
 import SignFile from "@/components/DigitalSignature/SignFile.vue";
 import SignDigest from "@/components/DigitalSignature/SignDigest.vue";
 
@@ -40,6 +39,7 @@ export default {
   mixins: [mixin],
 
   components: {
+    DigestSwitch,
     SignFile,
     SignDigest,
   },

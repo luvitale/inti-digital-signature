@@ -2,14 +2,12 @@
   <v-container fluid>
     <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
-        <v-toolbar-title>{{
+        <v-toolbar-title class="flex text-center">{{
           $t("digital-signature.private-key.label")
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-divider></v-divider>
-
-      <v-form class="digital-signature-form">
+      <v-form class="digital-signature-form" id="private-key-form">
         <CypherSelector v-model="type" />
         <ModulusLengthSelector
           :cypher="type"

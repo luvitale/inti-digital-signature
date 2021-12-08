@@ -2,34 +2,33 @@
   <v-container fluid>
     <v-card class="digital-signature-card">
       <v-toolbar flat color="blue" dark class="digital-signature-toolbar">
-        <v-toolbar-title>{{ $t("app.verify") }}</v-toolbar-title>
+        <v-toolbar-title class="flex text-center">{{
+          $t("app.verify")
+        }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-divider></v-divider>
-
-      <v-form class="digital-signature-form">
-        <v-switch
-          id="digest-switch"
-          v-model="digest"
-          flat
-          :label="$t('digest-switch-label')"
-        />
+      <v-form class="digital-signature-form" id="verify-form">
+        <DigestSwitch v-model="digest" />
 
         <VerifyDigest v-if="digest" ref="verify_digest" />
         <VerifyFile v-else ref="verify_file" />
-      </v-form>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="success" depressed class="text-none" @click="verify">
+        <v-btn
+          outlined
+          color="success"
+          depressed
+          class="text-none"
+          @click="verify"
+        >
           {{ $t("app.verify") }}
         </v-btn>
-      </v-card-actions>
+      </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import DigestSwitch from "@/components/DigestSwitch";
 import VerifyFile from "@/components/DigitalSignature/VerifyFile";
 import VerifyDigest from "@/components/DigitalSignature/VerifyDigest";
 
@@ -37,6 +36,7 @@ export default {
   name: "Verify",
 
   components: {
+    DigestSwitch,
     VerifyFile,
     VerifyDigest,
   },
