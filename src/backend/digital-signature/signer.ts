@@ -1,5 +1,5 @@
 import { PrivateKey, Path, Hash, Signature } from "./types";
-import getASN1Prefix from "./asn1-prefix-getter";
+import asn1PrefixGetter from "./asn1-prefix-getter";
 import crypto from "crypto";
 
 class Signer {
@@ -46,7 +46,7 @@ class Signer {
       try {
         const digest = this.fileToSign.toString();
         const fingerprint = Buffer.from(digest, "hex");
-        const id = getASN1Prefix(
+        const id = asn1PrefixGetter.get(
           this.options && this.options.hash ? this.options.hash : defaultHash
         );
         const allData = Buffer.concat([id as Buffer, fingerprint]);

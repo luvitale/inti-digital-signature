@@ -78,4 +78,6 @@ const ecKeyOptionsGetter = new ECKeyOptionsGetter();
 
 rsaKeyOptionsGetter.setNextHandler(ecKeyOptionsGetter);
 
-export default rsaKeyOptionsGetter;
+const keyOptionsGetter = rsaKeyOptionsGetter;
+
+export default keyOptionsGetter;

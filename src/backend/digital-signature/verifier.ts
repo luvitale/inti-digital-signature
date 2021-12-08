@@ -1,5 +1,5 @@
 import { PublicKey, Signature, Path, Hash } from "./types";
-import getASN1Prefix from "./asn1-prefix-getter";
+import asn1PrefixGetter from "./asn1-prefix-getter";
 import crypto from "crypto";
 
 class Verifier {
@@ -54,7 +54,7 @@ class Verifier {
         const digest = this.originalFile.toString();
         const fingerprint = Buffer.from(digest, "hex");
 
-        const id = getASN1Prefix(
+        const id = asn1PrefixGetter.get(
           this.options && this.options.hash ? this.options.hash : defaultHash
         );
         const inputData = Buffer.concat([id as Buffer, fingerprint]).toString(
