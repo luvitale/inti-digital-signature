@@ -8,4 +8,6 @@ module.exports = [
   "verify-digest",
   "error",
   "change-language",
+  "open-about-dialog",
+  "get-version",
 ];

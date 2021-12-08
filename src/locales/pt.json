@@ -8,8 +8,28 @@
     "sign": "Assinar",
     "title": "INTI Assinatura Digital",
     "verify": "Verificar",
-    "copyright": "Desenvolvido por:",
-    "generate-digest": "Gerar digesto"
+    "generate-digest": "Gerar digesto",
+    "organization": {
+      "name": "INTI",
+      "department": "Departamento de Validação de Dispositivos e Sistemas Eletrônicos"
+    },
+    "authors": {
+      "internship-tutor": {
+        "name": "Ing. Gustavo Escudero",
+        "description": "Diretor de bolsa"
+      },
+      "developer": {
+        "name": "Luciano Nahuel Vitale",
+        "description": "Desenvolvido por"
+      }
+    },
+    "about": {
+      "description": "Software multiplataforma para gerar chaves privadas, chaves públicas, assinar arquivos e verificar a assinatura"
+    },
+    "dialog": {
+      "close": "Fechar"
+    },
+    "version": "Versão"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Salvar cancelado",

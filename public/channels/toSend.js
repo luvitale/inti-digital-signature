@@ -6,4 +6,5 @@ module.exports = [
   "sign-digest",
   "verify",
   "verify-digest",
+  "get-version",
 ];

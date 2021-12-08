@@ -24,6 +24,7 @@
     />
     <router-view />
     <Toast ref="Toast" />
+    <AboutDialog />
   </v-app>
 </template>
 
@@ -69,11 +70,13 @@
 
 <script>
 import Toast from "@/components/Toast";
+import AboutDialog from "@/components/AboutDialog";
 
 export default {
   name: "App",
   components: {
     Toast,
+    AboutDialog,
   },
   mounted() {
     window.ipcRenderer.receive("change-language", (lang) => {

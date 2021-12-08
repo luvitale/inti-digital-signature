@@ -8,8 +8,28 @@
     "sign": "Sign",
     "title": "INTI Digital Signature",
     "verify": "Verify",
-    "copyright": "Developed by:",
-    "generate-digest": "Generate digest"
+    "generate-digest": "Generate digest",
+    "organization": {
+      "name": "INTI",
+      "department": "Electronic Devices and Systems Validation Department"
+    },
+    "authors": {
+      "internship-tutor": {
+        "name": "Engineer Gustavo Escudero",
+        "description": "Internship tutor"
+      },
+      "developer": {
+        "name": "Luciano Nahuel Vitale",
+        "description": "Developed by"
+      }
+    },
+    "about": {
+      "description": "Cross-platform software to generate private keys, public keys, sign files and verify the signature"
+    },
+    "dialog": {
+      "close": "Close"
+    },
+    "version": "Version"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Save canceled",

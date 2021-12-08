@@ -8,8 +8,28 @@
     "sign": "Firmar",
     "title": "Firma Digital INTI",
     "verify": "Verificar",
-    "copyright": "Desarrollado por:",
-    "generate-digest": "Generar digesto"
+    "generate-digest": "Generar digesto",
+    "dialog": {
+      "close": "Cerrar"
+    },
+    "about": {
+      "description": "Software multiplataforma para generar claves privadas, claves públicas, firmar archivos y verificar la firma"
+    },
+    "organization": {
+      "name": "INTI | Instituto Nacional de Tecnología Industrial",
+      "department": "Departamento de Validación de Dispositivos y Sistemas Electrónicos"
+    },
+    "authors": {
+      "internship-tutor": {
+        "name": "Ing. Gustavo Escudero",
+        "description": "Director de beca"
+      },
+      "developer": {
+        "description": "Desarrollado por",
+        "name": "Luciano Nahuel Vitale"
+      }
+    },
+    "version": "Versión"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Guardado cancelado",

@@ -1,6 +1,7 @@
 import { ipcMain } from "electron";
 import digitalSignature from "./digital-signature";
 import cryptoFileDialog from "./crypto-file-dialog";
+import "./version";
 import i18n from "@/i18n";
 
 ipcMain.on(

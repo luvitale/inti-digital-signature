@@ -8,8 +8,28 @@
     "sign": "Subskribu",
     "title": "INTI Cifereca Subskribo",
     "verify": "Kontroli",
-    "copyright": "Disvolvita de:",
-    "generate-digest": "Generi digeston"
+    "generate-digest": "Generi digeston",
+    "organization": {
+      "name": "INTI",
+      "department": "Elektronikaj Aparatoj kaj Sistemoj Validado-Departemento"
+    },
+    "authors": {
+      "internship-tutor": {
+        "name": "Inĝ. Gustavo Escudero",
+        "description": "Direktoro de stipendio"
+      },
+      "developer": {
+        "name": "Luciano Nahuel Vitale",
+        "description": "Disvolvita de"
+      }
+    },
+    "about": {
+      "description": "Multiplatforma programaro por generi privatajn ŝlosilojn, publikajn ŝlosilojn, subskribi dosierojn kaj kontroli la subskribon"
+    },
+    "dialog": {
+      "close": "Fermi"
+    },
+    "version": "Versio"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Konservu nuligita",

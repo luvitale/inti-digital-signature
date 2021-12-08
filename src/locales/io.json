@@ -1,6 +1,6 @@
 {
   "app": {
-    "description": "Tu uzez OpenSSL por krear privata klavo, obtenar la para publika klavo, signatar savaro y verigar la signatita savaro",
+    "description": "Tu uzez OpenSSL por krear privata klavo, obtenar la para publika klavo, signatar savaro e verigar la signatita savaro",
     "generate-private-key": "Genitar privata klavo",
     "generate-public-key": "Genitar publika klavo",
     "home": "Komenco",
@@ -8,8 +8,28 @@
     "sign": "Signatar",
     "title": "INTI Komputerala Signato",
     "verify": "Verigar",
-    "copyright": "Developita da:",
-    "generate-digest": "Genitar dijesto"
+    "generate-digest": "Genitar dijesto",
+    "organization": {
+      "name": "INTI",
+      "department": "Departmento de elektronika dispositi e sistemi"
+    },
+    "authors": {
+      "internship-tutor": {
+        "name": "Inj. Gustavo Escudero",
+        "description": "Direktanto de stipendio"
+      },
+      "developer": {
+        "name": "Luciano Nahuel Vitale",
+        "description": "Developato da"
+      }
+    },
+    "about": {
+      "description": "Multiplatforma softwaro por genitar privata e publika klavo, signatar savaro e verigar la signatita savaro"
+    },
+    "dialog": {
+      "close": "Klozar"
+    },
+    "version": "Versiono"
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Gardito cesato",
