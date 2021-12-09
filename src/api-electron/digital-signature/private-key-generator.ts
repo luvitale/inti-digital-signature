@@ -3,9 +3,9 @@ import {
   ModulusLength,
   PublicKey,
   PrivateKey,
-} from "./utils/types";
+} from "../../api/digital-signature/utils/types";
 import crypto from "crypto";
-import keyOptionsGetter from "./utils/key-options-getter";
+import keyOptionsGetter from "../../api/digital-signature/utils/key-options-getter";
 
 const defaultType: CypherType = "rsa";
 

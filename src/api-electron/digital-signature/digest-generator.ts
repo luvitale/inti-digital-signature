@@ -1,4 +1,4 @@
-import { Path, Hash, Digest } from "./utils/types";
+import { Path, Hash, Digest } from "../../api/digital-signature/utils/types";
 import crypto from "crypto";
 
 class DigestGenerator {

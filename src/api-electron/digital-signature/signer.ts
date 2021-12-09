@@ -1,5 +1,10 @@
-import { PrivateKey, Path, Hash, Signature } from "./utils/types";
-import asn1PrefixGetter from "./utils/asn1-prefix-getter";
+import {
+  PrivateKey,
+  Path,
+  Hash,
+  Signature,
+} from "../../api/digital-signature/utils/types";
+import asn1PrefixGetter from "../../api/digital-signature/utils/asn1-prefix-getter";
 import crypto from "crypto";
 
 class Signer {

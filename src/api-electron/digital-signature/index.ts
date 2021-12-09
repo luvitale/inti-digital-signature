@@ -1,4 +1,4 @@
-import { promises as fsPromises } from "fs";
+import AbstractDigitalSignature from "../../api/digital-signature";
 import PrivateKeyGenerator from "./private-key-generator";
 import PublicKeyGenerator from "./public-key-generator";
 import DigestGenerator from "./digest-generator";
@@ -11,11 +11,10 @@ import {
   PrivateKey,
   PublicKey,
   Digest,
-  Path,
   Signature,
-} from "./utils/types";
+} from "../../api/digital-signature/utils/types";
 
-class DigitalSignature {
+class DigitalSignature extends AbstractDigitalSignature {
   async generatePrivateKey(
     type?: CypherType,
     options?: {
@@ -28,73 +27,60 @@ class DigitalSignature {
     return await privateKeyGenerator.generate();
   }
 
-  async generatePublicKey(privateKeyPath: Path): Promise<PublicKey> {
-    const privateKey = await fsPromises.readFile(privateKeyPath);
-
+  async generatePublicKey(privateKey: PrivateKey): Promise<PublicKey> {
     const publicKeyGenerator = new PublicKeyGenerator(privateKey);
 
     return await publicKeyGenerator.generate();
   }
 
-  async generateDigest(fileToDigestPath: Path): Promise<Digest> {
-    const fileToDigest = await fsPromises.readFile(fileToDigestPath);
-
-    const digestGenerator = new DigestGenerator(fileToDigest);
+  async generateDigest(
+    fileToDigest: Buffer,
+    options?: {
+      hash?: Hash;
+    }
+  ): Promise<Digest> {
+    const digestGenerator = new DigestGenerator(fileToDigest, options);
 
     return await digestGenerator.generate();
   }
 
   async sign(
-    privateKeyPath: Path,
-    fileToSignPath: Path,
+    privateKey: PrivateKey,
+    fileToSign: Buffer,
     options?: { hash?: Hash }
   ): Promise<Signature> {
-    const privateKey = await fsPromises.readFile(privateKeyPath);
-    const fileToSign = await fsPromises.readFile(fileToSignPath);
-
     const signer = new Signer(privateKey, fileToSign, options);
 
     return await signer.sign();
   }
 
   async signDigest(
-    privateKeyPath: Path,
-    fileToSignPath: Path,
+    privateKey: PrivateKey,
+    fileToSign: Buffer,
     options?: { hash?: Hash }
   ): Promise<Signature> {
-    const privateKey = await fsPromises.readFile(privateKeyPath);
-    const fileToSign = await fsPromises.readFile(fileToSignPath);
-
     const signer = new Signer(privateKey, fileToSign, options);
 
     return await signer.signDigest();
   }
 
   async verify(
-    publicKeyPath: Path,
-    signatureFilePath: Path,
-    originalFilePath: Path,
+    publicKey: PublicKey,
+    signature: Signature,
+    originalFile: Buffer,
     options?: { hash?: Hash }
   ): Promise<boolean> {
-    const publicKey = await fsPromises.readFile(publicKeyPath);
-    const signature = await fsPromises.readFile(signatureFilePath);
-    const originalFile = await fsPromises.readFile(originalFilePath);
-
     const verifier = new Verifier(publicKey, signature, originalFile, options);
 
     return await verifier.verify();
   }
 
   async verifyDigest(
-    publicKeyPath: Path,
-    signatureFilePath: Path,
-    digestFilePath: Path,
+    publicKey: PublicKey,
+    signature: Signature,
+    digestFile: Buffer,
     options?: { hash?: Hash }
   ): Promise<boolean> {
-    const publicKey = await fsPromises.readFile(publicKeyPath);
-    const signature = await fsPromises.readFile(signatureFilePath);
-    const digestFile = await fsPromises.readFile(digestFilePath);
-
     const verifier = new Verifier(publicKey, signature, digestFile, options);
 
     return await verifier.verifyDigest();

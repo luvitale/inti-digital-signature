@@ -1,6 +1,6 @@
-import { PrivateKey, PublicKey } from "./utils/types";
+import { PrivateKey, PublicKey } from "../../api/digital-signature/utils/types";
 import crypto from "crypto";
-import { keyFormat } from "./utils/key-options-getter";
+import { keyFormat } from "../../api/digital-signature/utils/key-options-getter";
 
 class PublicKeyGenerator {
   privateKey: PrivateKey;
