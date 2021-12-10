@@ -1,31 +1,9 @@
-import {
-  PublicKey,
-  Signature,
-  Path,
-  Hash,
-} from "../../api/digital-signature/utils/types";
+import AbstractVerifier from "../../api/digital-signature/verifier";
+import { Hash } from "../../api/digital-signature/utils/types";
 import asn1PrefixGetter from "../../api/digital-signature/utils/asn1-prefix-getter";
 import crypto from "crypto";
 
-class Verifier {
-  publicKey: PublicKey;
-  signature: Signature;
-  originalFile: Path;
-  options: { hash?: Hash | undefined } | undefined;
-  constructor(
-    publicKey: PublicKey,
-    signature: Signature,
-    originalFile: Path,
-    options?: {
-      hash?: Hash;
-    }
-  ) {
-    this.publicKey = publicKey;
-    this.signature = signature;
-    this.originalFile = originalFile;
-    this.options = options;
-  }
-
+class Verifier extends AbstractVerifier {
   verify(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const defaultHash: Hash = "SHA1";

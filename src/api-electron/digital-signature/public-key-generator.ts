@@ -1,13 +1,9 @@
-import { PrivateKey, PublicKey } from "../../api/digital-signature/utils/types";
+import AbstractPublicKeyGenerator from "../../api/digital-signature/public-key-generator";
+import { PublicKey } from "../../api/digital-signature/utils/types";
 import crypto from "crypto";
 import { keyFormat } from "../../api/digital-signature/utils/key-options-getter";
 
-class PublicKeyGenerator {
-  privateKey: PrivateKey;
-  constructor(privateKey: PrivateKey) {
-    this.privateKey = privateKey;
-  }
-
+class PublicKeyGenerator extends AbstractPublicKeyGenerator {
   async generate(): Promise<PublicKey> {
     return new Promise((resolve, reject) => {
       try {
