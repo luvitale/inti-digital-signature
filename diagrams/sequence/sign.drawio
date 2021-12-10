@@ -1,0 +1,400 @@
+<mxfile host="65bd71144e">
+    <diagram id="AcsD98q4Nu9SNGgWr66g" name="Sign file">
+        <mxGraphModel dx="3750" dy="1957" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Sign file" style="shape=umlFrame;whiteSpace=wrap;html=1;width=120;height=30;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="30" width="790" height="920" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Select Sign" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="24">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="330" y="160" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="160" y="160"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="Toggle off" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="21">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="240"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="Select private key file" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="22">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="Click Sign button" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="23">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="Define signature filename" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="26">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="800"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dUawb0zX_KD9EOnfgudC-39" value="Select original file to sign" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="dUawb0zX_KD9EOnfgudC-38">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="400"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dUawb0zX_KD9EOnfgudC-42" value="Select hash option" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="dUawb0zX_KD9EOnfgudC-41">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="80" width="20" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Load Digest switch" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="24" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="150" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="Load Private key file input button" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="21" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="280"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="Load original file input button" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="22" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="360"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="Sign file" style="edgeStyle=none;html=1;" edge="1" parent="1" source="20" target="28">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="Sign" style="edgeStyle=none;html=1;" edge="1" parent="1" source="28" target="33">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="510" y="325" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="Sign" style="edgeStyle=none;html=1;" edge="1" parent="1" source="33" target="36">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Return signature" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="36" target="34">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" value="Return signature" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="34" target="29">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Save generated signature" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="29" target="25">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Show menu to save signature&amp;nbsp;" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="25" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="130" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="Save signature file" style="edgeStyle=none;html=1;" edge="1" parent="1" source="26" target="31">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="View" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="80" width="100" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="240" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="320" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="560" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="160" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="720" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="800.4938271604938" width="10" height="39.50617283950618" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="350" y="80" width="100" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="395" y="580" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="395" y="700" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="Return signature file path" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="31" target="38">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="395" y="820.0038271604938" width="10" height="39.50617283950618" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="DigitalSignature" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="80" width="100" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="565" y="600" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="565" y="660" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="Signer" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="80" width="130" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="730" y="620" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="Show Signature generated toast" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="38" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="150" y="900"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="38" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="859.5138271604937" width="10" height="39.50617283950618" as="geometry"/>
+                </mxCell>
+                <mxCell id="dUawb0zX_KD9EOnfgudC-40" value="Load hash options" style="edgeStyle=none;html=1;" edge="1" parent="1" source="dUawb0zX_KD9EOnfgudC-38" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dUawb0zX_KD9EOnfgudC-38" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="400" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="dUawb0zX_KD9EOnfgudC-43" value="Show Sign button" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="dUawb0zX_KD9EOnfgudC-41" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="520"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dUawb0zX_KD9EOnfgudC-41" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="480" width="10" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="wnGSsc3Yp4W8fr8M0Vw1" name="Sign digest">
+        <mxGraphModel dx="2100" dy="1096" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="xUdNarCAWhdywDZpVSM4-0"/>
+                <mxCell id="xUdNarCAWhdywDZpVSM4-1" parent="xUdNarCAWhdywDZpVSM4-0"/>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-0" value="Sign digest" style="shape=umlFrame;whiteSpace=wrap;html=1;width=120;height=30;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="20" y="30" width="790" height="920" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-1" value="Select Sign" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-24">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="330" y="160" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="160" y="160"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-2" value="Toggle on" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-21">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="240"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-3" value="Select private key file" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-22">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-4" value="Click Sign button" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-23">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-5" value="Define signature filename" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-26">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="800"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-6" value="Select digest file to sign" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-40">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="400"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-7" value="Select hash option" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-8" target="A17DoaQITU11OLwVQ8BH-42">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-8" value="" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="30" y="80" width="20" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-9" value="Load Digest switch" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-24" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="150" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-10" value="Load Private key file input button" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-21" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="280"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-11" value="Load digest file input button" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-22" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="360"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-12" value="Sign digest" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-20" target="A17DoaQITU11OLwVQ8BH-28">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-13" value="Sign digest" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-28" target="A17DoaQITU11OLwVQ8BH-33">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="510" y="325" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-14" value="Sign digest" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-33" target="A17DoaQITU11OLwVQ8BH-36">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-15" value="Return signature" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-36" target="A17DoaQITU11OLwVQ8BH-34">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-16" value="Return signature" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-34" target="A17DoaQITU11OLwVQ8BH-29">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-17" value="Save generated signature" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-29" target="A17DoaQITU11OLwVQ8BH-25">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-18" value="Show menu to save signature&amp;nbsp;" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-25" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="130" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-19" value="Save signature file" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-26" target="A17DoaQITU11OLwVQ8BH-31">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-20" value="View" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="190" y="80" width="100" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-21" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="240" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-22" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="320" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-23" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="560" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-24" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="160" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-25" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="720" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-26" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="800.4938271604938" width="10" height="39.50617283950618" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-27" value="API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="350" y="80" width="100" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-28" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="395" y="580" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-29" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="395" y="700" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-30" value="Return signature file path" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-31" target="A17DoaQITU11OLwVQ8BH-38">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-31" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="395" y="820.0038271604938" width="10" height="39.50617283950618" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-32" value="DigitalSignature" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="520" y="80" width="100" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-33" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="565" y="600" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-34" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="565" y="660" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-35" value="Signer" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=none;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="670" y="80" width="130" height="840" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-36" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="730" y="620" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-37" value="Show Signature generated toast" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-38" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="150" y="900"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-38" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="859.5138271604937" width="10" height="39.50617283950618" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-39" value="Load hash options" style="edgeStyle=none;html=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-40" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-40" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="400" width="10" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-41" value="Show Sign button" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="xUdNarCAWhdywDZpVSM4-1" source="A17DoaQITU11OLwVQ8BH-42" target="A17DoaQITU11OLwVQ8BH-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="140" y="520"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A17DoaQITU11OLwVQ8BH-42" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="xUdNarCAWhdywDZpVSM4-1">
+                    <mxGeometry x="235" y="480" width="10" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
