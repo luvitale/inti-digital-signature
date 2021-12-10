@@ -1,23 +1,9 @@
-import { PrivateKey, Path, Hash, Signature } from "./utils/types";
-import asn1PrefixGetter from "./utils/asn1-prefix-getter";
+import AbstractSigner from "../../api/digital-signature/signer";
+import { Signature } from "../../api/digital-signature/utils/types";
+import asn1PrefixGetter from "../../api/digital-signature/utils/asn1-prefix-getter";
 import crypto from "crypto";
 
-class Signer {
-  privateKey: PrivateKey;
-  fileToSign: Path;
-  options: { hash?: Hash | undefined } | undefined;
-  constructor(
-    privateKey: PrivateKey,
-    fileToSign: Path,
-    options?: {
-      hash?: Hash;
-    }
-  ) {
-    this.privateKey = privateKey;
-    this.fileToSign = fileToSign;
-    this.options = options;
-  }
-
+class Signer extends AbstractSigner {
   async sign(): Promise<Signature> {
     return new Promise((resolve, reject) => {
       const defaultHash = "SHA1";

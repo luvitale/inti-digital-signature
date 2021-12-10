@@ -10,8 +10,13 @@ const savePEM = async (
     | Iterable<string | NodeJS.ArrayBufferView>
     | AsyncIterable<string | NodeJS.ArrayBufferView>
     | Stream,
-  defaultFilename: any
+  defaultFilename: any,
+  defaultSave?: boolean
 ) => {
+  if (defaultSave) {
+    return await fsPromises.writeFile(defaultFilename, data);
+  }
+
   const file = await dialog.showSaveDialog({
     title: i18n.t("crypto-file-dialog.select-file-location-to-save") as string,
     defaultPath: defaultFilename,
@@ -30,7 +35,7 @@ const savePEM = async (
 
   const dest = file.filePath.toString();
 
-  await fsPromises.writeFile(dest, data);
+  return await fsPromises.writeFile(dest, data);
 };
 
 const saveDigest = async (
@@ -40,8 +45,13 @@ const saveDigest = async (
     | Iterable<string | NodeJS.ArrayBufferView>
     | AsyncIterable<string | NodeJS.ArrayBufferView>
     | Stream,
-  defaultFilename: any
+  defaultFilename: any,
+  defaultSave?: boolean
 ) => {
+  if (defaultSave) {
+    return await fsPromises.writeFile(defaultFilename, data, "binary");
+  }
+
   const file = await dialog.showSaveDialog({
     title: i18n.t("crypto-file-dialog.select-file-location-to-save") as string,
     defaultPath: defaultFilename,
@@ -60,7 +70,7 @@ const saveDigest = async (
 
   const dest = file.filePath.toString();
 
-  await fsPromises.writeFile(dest, data, "binary");
+  return await fsPromises.writeFile(dest, data, "binary");
 };
 
 const saveSignature = async (
@@ -70,8 +80,13 @@ const saveSignature = async (
     | Iterable<string | NodeJS.ArrayBufferView>
     | AsyncIterable<string | NodeJS.ArrayBufferView>
     | Stream,
-  defaultFilename: any
+  defaultFilename: any,
+  defaultSave?: boolean
 ) => {
+  if (defaultSave) {
+    return await fsPromises.writeFile(defaultFilename, data, "binary");
+  }
+
   const file = await dialog.showSaveDialog({
     title: i18n.t("crypto-file-dialog.select-file-location-to-save") as string,
     defaultPath: defaultFilename,
