@@ -33,13 +33,10 @@
 </template>
 
 <script>
-import mixin from "./mixin";
 import HashSelector from "@/components/HashSelector";
 
 export default {
   name: "GenerateDigest",
-
-  mixins: [mixin],
 
   components: {
     HashSelector,

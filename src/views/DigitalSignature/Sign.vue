@@ -28,15 +28,12 @@
 </template>
 
 <script>
-import mixin from "./mixin";
 import DigestSwitch from "@/components/DigestSwitch";
 import SignFile from "@/components/DigitalSignature/SignFile.vue";
 import SignDigest from "@/components/DigitalSignature/SignDigest.vue";
 
 export default {
   name: "Sign",
-
-  mixins: [mixin],
 
   components: {
     DigestSwitch,

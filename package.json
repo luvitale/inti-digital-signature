@@ -1,6 +1,6 @@
 {
   "name": "inti-digital-signature",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "private": true,
   "description": "Programa para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado utilizando OpenSSL",
   "author": "Luciano Nahuel Vitale <lucianonahuelvitale@gmail.com>",
@@ -25,7 +25,8 @@
     "vue-i18n": "^8.22.3",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
@@ -40,6 +41,7 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-plugin-unit-mocha": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
@@ -74,11 +76,11 @@
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
+  "homepage": "https://github.com/luvitale/inti-digital-signature",
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "vue-cli-service lint",
       "git add"
     ]
-  },
-  "homepage": "https://github.com/luvitale/inti-digital-signature"
+  }
 }

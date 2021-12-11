@@ -7,7 +7,6 @@
     dense
     hide-details
     menu-props="offset-y"
-    @change="updateCypher"
   >
     <template slot="selection" slot-scope="data">
       {{ data.item.toUpperCase() }}
@@ -23,17 +22,22 @@
 export default {
   name: "CypherSelector",
 
+  computed: {
+    cypher: {
+      get() {
+        return this.$store.state.digitalSignature.type;
+      },
+
+      set(type) {
+        this.$store.dispatch("setType", type);
+      },
+    },
+  },
+
   data() {
     return {
       cyphers: ["rsa", "ec"],
-      cypher: "rsa",
     };
-  },
-
-  methods: {
-    updateCypher() {
-      this.$emit("input", this.cypher);
-    },
   },
 };
 </script>

@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import mixin from "./mixin";
 import CypherSelector from "@/components/CypherSelector.vue";
 import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
 
@@ -42,33 +41,54 @@ export default {
     ModulusLengthSelector,
   },
 
-  mixins: [mixin],
+  computed: {
+    type: {
+      get() {
+        return this.$store.state.digitalSignature.type;
+      },
 
-  data() {
-    return {
-      type: "rsa",
-      modulusLength: 2048,
-      namedCurve: "P-256",
-    };
+      set(type) {
+        this.$store.dispatch("setType", type);
+      },
+    },
+
+    modulusLength: {
+      get() {
+        return this.$store.state.digitalSignature.modulusLength;
+      },
+
+      set(modulusLength) {
+        this.$store.dispatch("setModulusLength", modulusLength);
+      },
+    },
+
+    namedCurve: {
+      get() {
+        return this.$store.state.digitalSignature.namedCurve;
+      },
+
+      set(namedCurve) {
+        this.$store.dispatch("setNamedCurve", namedCurve);
+      },
+    },
   },
+
+  mounted() {
+    window.ipcRenderer.receive("generate-private-key", (privateKeyFile) => {
+      this.$store.dispatch(
+        "showToast",
+        this.$t("toast.private-key.successfully-generated")
+      );
+      this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
+    });
+    window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", msg);
+    });
+  },
+
   methods: {
     generatePrivateKey() {
-      window.ipcRenderer.send("generate-private-key", {
-        type: this.type,
-        modulusLength: this.modulusLength,
-        namedCurve: this.namedCurve,
-      });
-      window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.private-key.successfully-generated"),
-        });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "warning",
-        });
-      });
+      this.$store.dispatch("generatePrivateKey");
     },
   },
 };

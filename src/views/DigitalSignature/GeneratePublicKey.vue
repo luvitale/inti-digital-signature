@@ -31,12 +31,8 @@
 </template>
 
 <script>
-import mixin from "./mixin";
-
 export default {
   name: "GeneratePublicKey",
-
-  mixins: [mixin],
 
   data: function () {
     return {
