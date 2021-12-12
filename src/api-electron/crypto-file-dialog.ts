@@ -14,7 +14,8 @@ const savePEM = async (
   defaultSave?: boolean
 ) => {
   if (defaultSave) {
-    return await fsPromises.writeFile(defaultFilename, data);
+    await fsPromises.writeFile(defaultFilename, data);
+    return defaultFilename;
   }
 
   const file = await dialog.showSaveDialog({
@@ -35,7 +36,9 @@ const savePEM = async (
 
   const dest = file.filePath.toString();
 
-  return await fsPromises.writeFile(dest, data);
+  await fsPromises.writeFile(dest, data);
+
+  return dest;
 };
 
 const saveDigest = async (
@@ -49,7 +52,8 @@ const saveDigest = async (
   defaultSave?: boolean
 ) => {
   if (defaultSave) {
-    return await fsPromises.writeFile(defaultFilename, data, "binary");
+    await fsPromises.writeFile(defaultFilename, data, "binary");
+    return defaultFilename;
   }
 
   const file = await dialog.showSaveDialog({
@@ -70,7 +74,9 @@ const saveDigest = async (
 
   const dest = file.filePath.toString();
 
-  return await fsPromises.writeFile(dest, data, "binary");
+  await fsPromises.writeFile(dest, data, "binary");
+
+  return dest;
 };
 
 const saveSignature = async (
@@ -84,7 +90,8 @@ const saveSignature = async (
   defaultSave?: boolean
 ) => {
   if (defaultSave) {
-    return await fsPromises.writeFile(defaultFilename, data, "binary");
+    await fsPromises.writeFile(defaultFilename, data, "binary");
+    return defaultFilename;
   }
 
   const file = await dialog.showSaveDialog({
@@ -106,6 +113,8 @@ const saveSignature = async (
   const dest = file.filePath.toString();
 
   await fsPromises.writeFile(dest, data, "binary");
+
+  return dest;
 };
 
 const cryptoFileDialog = {

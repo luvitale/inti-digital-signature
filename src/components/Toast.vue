@@ -14,22 +14,31 @@
 <script>
 export default {
   name: "Toast",
-  data() {
-    return {
-      showSnackbar: false,
-      message: "",
-      color: "success",
-      icon: "mdi-check",
-      timer: 4000,
-    };
-  },
-  methods: {
-    show(data) {
-      this.showSnackbar = true;
-      this.message = data.message || 'missing "message".';
-      this.color = data.color || "success";
-      this.timer = data.timer || 4000;
-      this.icon = data.icon || "mdi-check";
+
+  computed: {
+    showSnackbar: {
+      get() {
+        return this.$store.state.toast.show;
+      },
+      set(show) {
+        this.$store.commit("setShow", show);
+      },
+    },
+
+    message() {
+      return this.$store.state.toast.message;
+    },
+
+    color() {
+      return this.$store.state.toast.color;
+    },
+
+    icon() {
+      return this.$store.state.toast.icon;
+    },
+
+    timer() {
+      return this.$store.state.toast.timer;
     },
   },
 };

@@ -75,14 +75,22 @@ export default {
 
   mounted() {
     window.ipcRenderer.receive("generate-private-key", (privateKeyFile) => {
-      this.$store.dispatch(
-        "showToast",
-        this.$t("toast.private-key.successfully-generated")
-      );
-      this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
+      this.$store.dispatch("showToast", {
+        message: this.$t("toast.private-key.successfully-generated"),
+        color: "success",
+      });
+
+      this.$store.dispatch("setFileWithResult", {
+        dispatcher: "setPrivateKeyFile",
+        file: privateKeyFile,
+      });
     });
+
     window.ipcRenderer.receive("error", (msg) => {
-      this.$store.dispatch("showToast", msg);
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
+      });
     });
   },
 

@@ -34,29 +34,40 @@
 export default {
   name: "GeneratePublicKey",
 
-  data: function () {
-    return {
-      privateKeyFile: [],
-    };
+  computed: {
+    privateKeyFile: {
+      get() {
+        return this.$store.state.digitalSignature.privateKeyFile;
+      },
+      set(privateKeyFile) {
+        this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
+      },
+    },
   },
+
+  mounted() {
+    window.ipcRenderer.receive("generate-public-key", () => {
+      this.$store.dispatch("showToast", {
+        message: this.$t("toast.public-key.successfully-generated"),
+        color: "success",
+      });
+
+      this.$store.dispatch("setFileWithResult", {
+        dispatcher: "setPublicKeyFile",
+        file: this.publicKeyFile,
+      });
+    });
+    window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
+      });
+    });
+  },
+
   methods: {
     generatePublicKey() {
-      if (!this.privateKeyFile) return;
-
-      const privateKeyPath = this.privateKeyFile.path;
-      window.ipcRenderer.send("generate-public-key", privateKeyPath);
-      window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.public-key.successfully-generated"),
-          color: "success",
-        });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "warning",
-        });
-      });
+      this.$store.dispatch("generatePublicKey", this.privateKeyFile);
     },
   },
 };
