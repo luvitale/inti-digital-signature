@@ -16,7 +16,6 @@ ipcMain.on(
       );
       event.reply("generate-private-key", savedPrivateKeyPath);
     } catch (e) {
-      console.log(e);
       event.reply("error", i18n.t("toast.private-key.not-generated"));
     }
   }
@@ -30,7 +29,6 @@ ipcMain.on("generate-public-key", async (event, privateKeyPath) => {
 
     event.reply("generate-public-key", savedPublicKeyPath);
   } catch (e) {
-    console.log(e);
     event.reply("error", i18n.t("toast.public-key.not-generated"));
   }
 });
@@ -46,7 +44,6 @@ ipcMain.on("generate-digest", async (event, { fileToDigestPath, hash }) => {
 
     event.reply("generate-digest", savedDigestFilePath);
   } catch (e) {
-    console.log(e);
     event.reply("error", i18n.t("toast.digest.not-generated"));
   }
 });
@@ -63,7 +60,6 @@ ipcMain.on("sign", async (event, { privateKeyPath, fileToSignPath, hash }) => {
 
     event.reply("sign", savedSignatureFilePath);
   } catch (e) {
-    console.log(e);
     event.reply("error", i18n.t("toast.signature.not-signed"));
   }
 });
@@ -82,7 +78,6 @@ ipcMain.on(
 
       event.reply("sign-digest", savedSignatureFilePath);
     } catch (e) {
-      console.log(e);
       event.reply("error", i18n.t("toast.signature.not-signed"));
     }
   }
@@ -104,7 +99,6 @@ ipcMain.on(
 
       event.reply("verify", result);
     } catch (e) {
-      console.log(e);
       event.reply("error", i18n.t("toast.verification.wrong"));
     }
   }
@@ -123,7 +117,6 @@ ipcMain.on(
 
       event.reply("verify-digest", result);
     } catch (e) {
-      console.log(e);
       event.reply("error", i18n.t("toast.verification.wrong"));
     }
   }
