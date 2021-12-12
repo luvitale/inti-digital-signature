@@ -10,27 +10,23 @@
       <v-form class="digital-signature-form" id="verify-form">
         <DigestSwitch v-model="digest" />
 
-        <VerifyDigest v-if="digest" ref="verify_digest" />
-        <VerifyFile v-else ref="verify_file" />
+        <VerifyDigest v-if="digest" />
+        <VerifyFile v-else />
 
-        <v-btn
-          outlined
-          color="success"
-          depressed
-          class="text-none"
-          @click="verify"
-        >
-          {{ $t("app.verify") }}
-        </v-btn>
+        <HashSelector v-model="hash" />
+
+        <INTIButton :text="$t('app.verify')" @click="verify" />
       </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import DigestSwitch from "@/components/DigestSwitch";
-import VerifyFile from "@/components/DigitalSignature/VerifyFile";
-import VerifyDigest from "@/components/DigitalSignature/VerifyDigest";
+import DigestSwitch from "@/components/DigestSwitch.vue";
+import VerifyFile from "@/components/DigitalSignature/VerifyFile.vue";
+import VerifyDigest from "@/components/DigitalSignature/VerifyDigest.vue";
+import HashSelector from "@/components/HashSelector.vue";
+import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "Verify",
@@ -39,19 +35,36 @@ export default {
     DigestSwitch,
     VerifyFile,
     VerifyDigest,
+    HashSelector,
+    INTIButton,
   },
 
-  data: function () {
-    return {
-      digest: false,
-    };
+  computed: {
+    digest: {
+      get() {
+        return this.$store.state.digitalSignature.digest;
+      },
+      set(value) {
+        this.$store.dispatch("setDigest", value);
+      },
+    },
+
+    hash: {
+      get() {
+        return this.$store.state.digitalSignature.hash;
+      },
+      set(hash) {
+        this.$store.dispatch("setHash", hash);
+      },
+    },
   },
+
   methods: {
     verify() {
       if (this.digest) {
-        this.$refs.verify_digest.verify();
+        this.$store.dispatch("verifyDigest");
       } else {
-        this.$refs.verify_file.verify();
+        this.$store.dispatch("verifyFile");
       }
     },
   },

@@ -64,19 +64,26 @@
         </footer>
       </v-card-text>
       <v-card-actions class="justify-end">
-        <v-btn class="ta-0" text @click="closeDialog">{{
-          $t("app.dialog.close")
-        }}</v-btn>
+        <INTIButton :text="$t('app.dialog.close')" @click="closeDialog" />
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 <script>
+import INTIButton from "@/components/INTIButton.vue";
+
 export default {
   data: () => ({
     visible: false,
     version: "",
+    removeOpenAboutDialogListener: () => null,
+    removeGetVersionListener: () => null,
   }),
+
+  components: {
+    INTIButton,
+  },
+
   methods: {
     openDialog() {
       this.visible = true;
@@ -88,14 +95,28 @@ export default {
       return this.version;
     },
   },
+
   mounted() {
-    window.ipcRenderer.receive("open-about-dialog", () => {
-      this.openDialog();
-    });
+    this.removeOpenAboutDialogListener = window.ipcRenderer.receive(
+      "open-about-dialog",
+      () => {
+        this.openDialog();
+      }
+    );
+
+    this.removeGetVersionListener = window.ipcRenderer.receive(
+      "get-version",
+      (version) => {
+        this.version = version;
+      }
+    );
+
     window.ipcRenderer.send("get-version");
-    window.ipcRenderer.receive("get-version", (version) => {
-      this.version = version;
-    });
+  },
+
+  destroyed() {
+    this.removeOpenAboutDialogListener();
+    this.removeGetVersionListener();
   },
 };
 </script>

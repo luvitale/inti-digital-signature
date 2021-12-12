@@ -8,7 +8,6 @@
     hide-details
     menu-props="offset-y"
     @click="getValidLengths"
-    @change="updateLength"
   />
 </template>
 
@@ -16,26 +15,28 @@
 export default {
   name: "ModulusLengthSelector",
 
-  props: {
-    cypher: {
-      type: String,
-      default: "rsa",
-      required: true,
+  computed: {
+    cypher() {
+      return this.$store.state.digitalSignature.type;
+    },
+
+    modulusLength: {
+      get() {
+        return this.$store.state.digitalSignature.modulusLength;
+      },
+      set(modulusLength) {
+        this.$store.dispatch("setModulusLength", modulusLength);
+      },
     },
   },
 
   data() {
     return {
       validLengths: [1024, 2048, 4096],
-      modulusLength: 2048,
     };
   },
 
   methods: {
-    updateLength() {
-      this.$emit("input", this.modulusLength);
-    },
-
     getValidLengths() {
       if (this.cypher === "rsa") {
         this.validLengths = [1024, 2048, 4096];

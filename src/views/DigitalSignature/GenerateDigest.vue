@@ -9,71 +9,97 @@
 
       <v-form class="digital-signature-form" id="digest-form">
         <v-file-input
-          :label="$t('digital-signature.digest.select-file')"
           prepend-icon="mdi-message-text"
           outlined
-          v-model="fileToDigest"
           required
+          :label="$t('digital-signature.digest.select-file')"
+          v-model="fileToDigest"
         />
 
         <HashSelector v-model="hash" />
 
-        <v-btn
-          outlined
-          color="success"
-          depressed
-          class="text-none"
-          @click="generateDigest"
-        >
-          {{ $t("app.generate-digest") }}
-        </v-btn>
+        <INTIButton :text="$t('app.generate-digest')" @click="generateDigest" />
       </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import mixin from "./mixin";
-import HashSelector from "@/components/HashSelector";
+import HashSelector from "@/components/HashSelector.vue";
+import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "GenerateDigest",
 
-  mixins: [mixin],
-
   components: {
     HashSelector,
+    INTIButton,
   },
 
-  data: function () {
+  data() {
     return {
-      fileToDigest: [],
-      hash: "",
+      removeGenerateDigestListener: () => null,
+      removeErrorListener: () => null,
     };
   },
-  methods: {
-    generateDigest() {
-      if (!this.fileToDigest) return;
 
-      const fileToDigestPath = this.fileToDigest.path;
-      const hash = this.hash;
-      window.ipcRenderer.send("generate-digest", {
-        fileToDigestPath,
-        hash,
-      });
-      window.ipcRenderer.receive("generate-digest", (/* digest */) => {
-        this.$root.Toast.show({
+  computed: {
+    fileToDigest: {
+      get() {
+        if (!this.$store.state.digitalSignature.fileToDigest) return undefined;
+
+        return this.$store.state.digitalSignature.fileToDigest.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.fileToDigest;
+      },
+      set(value) {
+        this.$store.dispatch("setFileToDigest", value);
+      },
+    },
+
+    hash: {
+      get() {
+        return this.$store.state.digitalSignature.hash;
+      },
+      set(value) {
+        this.$store.dispatch("setHash", value);
+      },
+    },
+  },
+
+  mounted() {
+    this.removeGenerateDigestListener = window.ipcRenderer.receive(
+      "generate-digest",
+      (digestFile) => {
+        this.$store.dispatch("showToast", {
           message: this.$t("toast.digest.successfully-generated"),
           color: "success",
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
+
+        this.$store.dispatch("setFileWithResult", {
+          dispatcher: "setDigestFile",
+          file: digestFile,
         });
+      }
+    );
+
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
       });
+    });
+  },
+
+  methods: {
+    generateDigest() {
+      this.$store.dispatch("generateDigest");
     },
+  },
+
+  destroyed() {
+    this.removeGenerateDigestListener();
+    this.removeErrorListener();
   },
 };
 </script>

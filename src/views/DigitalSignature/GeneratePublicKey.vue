@@ -9,59 +9,88 @@
 
       <v-form class="digital-signature-form" id="public-key-form">
         <v-file-input
-          :label="$t('digital-signature.public-key.select-private-key')"
           prepend-icon="mdi-message-text"
           outlined
-          v-model="privateKeyFile"
           required
+          :label="$t('digital-signature.public-key.select-private-key')"
+          v-model="privateKeyFile"
         />
 
-        <v-btn
-          outlined
-          color="success"
-          class="text-none"
-          depressed
+        <INTIButton
+          :text="$t('app.generate-public-key')"
           @click="generatePublicKey"
-        >
-          {{ $t("app.generate-public-key") }}
-        </v-btn>
+        />
       </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import mixin from "./mixin";
+import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "GeneratePublicKey",
 
-  mixins: [mixin],
+  components: {
+    INTIButton,
+  },
 
-  data: function () {
+  data() {
     return {
-      privateKeyFile: [],
+      removeGeneratePublicKeyListener: () => null,
+      removeErrorListener: () => null,
     };
   },
-  methods: {
-    generatePublicKey() {
-      if (!this.privateKeyFile) return;
 
-      const privateKeyPath = this.privateKeyFile.path;
-      window.ipcRenderer.send("generate-public-key", privateKeyPath);
-      window.ipcRenderer.receive("generate-public-key", (/* publicKey */) => {
-        this.$root.Toast.show({
+  computed: {
+    privateKeyFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.privateKeyFile)
+          return undefined;
+
+        return this.$store.state.digitalSignature.privateKeyFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.privateKeyFile;
+      },
+      set(privateKeyFile) {
+        this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
+      },
+    },
+  },
+
+  mounted() {
+    this.removeGeneratePublicKeyListener = window.ipcRenderer.receive(
+      "generate-public-key",
+      (publicKeyFile) => {
+        this.$store.dispatch("showToast", {
           message: this.$t("toast.public-key.successfully-generated"),
           color: "success",
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "warning",
+
+        this.$store.dispatch("setFileWithResult", {
+          dispatcher: "setPublicKeyFile",
+          file: publicKeyFile,
         });
+      }
+    );
+
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
       });
+    });
+  },
+
+  methods: {
+    generatePublicKey() {
+      this.$store.dispatch("generatePublicKey", this.privateKeyFile);
     },
+  },
+
+  destroyed() {
+    this.removeGeneratePublicKeyListener();
+    this.removeErrorListener();
   },
 };
 </script>

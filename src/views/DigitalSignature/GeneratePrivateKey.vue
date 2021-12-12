@@ -15,24 +15,19 @@
           v-if="type !== 'ec'"
         />
 
-        <v-btn
-          outlined
-          color="success"
-          class="text-none"
-          depressed
+        <INTIButton
+          :text="$t('app.generate-private-key')"
           @click="generatePrivateKey"
-        >
-          {{ $t("app.generate-private-key") }}
-        </v-btn>
+        />
       </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import mixin from "./mixin";
 import CypherSelector from "@/components/CypherSelector.vue";
 import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
+import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "GeneratePrivateKey",
@@ -40,36 +35,81 @@ export default {
   components: {
     CypherSelector,
     ModulusLengthSelector,
+    INTIButton,
   },
-
-  mixins: [mixin],
 
   data() {
     return {
-      type: "rsa",
-      modulusLength: 2048,
-      namedCurve: "P-256",
+      removeGeneratePrivateKeyListener: () => null,
+      removeErrorListener: () => null,
     };
   },
+
+  computed: {
+    type: {
+      get() {
+        return this.$store.state.digitalSignature.type;
+      },
+
+      set(type) {
+        this.$store.dispatch("setType", type);
+      },
+    },
+
+    modulusLength: {
+      get() {
+        return this.$store.state.digitalSignature.modulusLength;
+      },
+
+      set(modulusLength) {
+        this.$store.dispatch("setModulusLength", modulusLength);
+      },
+    },
+
+    namedCurve: {
+      get() {
+        return this.$store.state.digitalSignature.namedCurve;
+      },
+
+      set(namedCurve) {
+        this.$store.dispatch("setNamedCurve", namedCurve);
+      },
+    },
+  },
+
+  mounted() {
+    this.removeGeneratePrivateKeyListener = window.ipcRenderer.receive(
+      "generate-private-key",
+      (privateKeyFile) => {
+        this.$store.dispatch("showToast", {
+          message: this.$t("toast.private-key.successfully-generated"),
+          color: "success",
+        });
+
+        this.$store.dispatch("setFileWithResult", {
+          dispatcher: "setPrivateKeyFile",
+          file: privateKeyFile,
+        });
+      }
+    );
+
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
+      });
+    });
+  },
+
   methods: {
     generatePrivateKey() {
-      window.ipcRenderer.send("generate-private-key", {
-        type: this.type,
-        modulusLength: this.modulusLength,
-        namedCurve: this.namedCurve,
-      });
-      window.ipcRenderer.receive("generate-private-key", (/* privateKey */) => {
-        this.$root.Toast.show({
-          message: this.$t("toast.private-key.successfully-generated"),
-        });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "warning",
-        });
-      });
+      this.$store.dispatch("generatePrivateKey");
     },
+  },
+
+  destroyed() {
+    this.removeGeneratePrivateKeyListener();
+    this.removeErrorListener();
   },
 };
 </script>
