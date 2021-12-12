@@ -7,4 +7,6 @@ module.exports = [
   "verify",
   "verify-digest",
   "get-version",
+  "get-language",
+  "get-version",
 ];

@@ -101,6 +101,10 @@ export default {
         this.$vuetify.theme.dark = theme === "dark";
       }
     );
+
+    window.ipcRenderer.send("get-language");
+
+    window.ipcRenderer.send("get-theme");
   },
   destroyed() {
     this.removeChangeLanguageListener();

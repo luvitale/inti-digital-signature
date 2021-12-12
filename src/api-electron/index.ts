@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { ipcMain, nativeTheme } from "electron";
 import digitalSignatureFS from "./digital-signature/fs";
 import "./version";
 import i18n from "@/i18n";
@@ -121,3 +121,11 @@ ipcMain.on(
     }
   }
 );
+
+ipcMain.on("get-language", (event) => {
+  event.reply("change-language", i18n.locale);
+});
+
+ipcMain.on("get-theme", (event) => {
+  event.reply("change-theme", nativeTheme.themeSource);
+});
