@@ -23,10 +23,17 @@
 export default {
   name: "HashSelector",
 
+  props: {
+    value: {
+      type: String,
+      default: "SHA1",
+    },
+  },
+
   data() {
     return {
       hashes: ["SHA1", "SHA256", "SHA384", "SHA512"],
-      hash: "SHA1",
+      hash: this.value,
     };
   },
 

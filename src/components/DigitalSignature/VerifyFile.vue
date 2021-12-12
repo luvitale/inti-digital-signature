@@ -1,88 +1,110 @@
 <template>
   <v-container fluid>
     <v-file-input
-      :label="$t('digital-signature.verify.select-public-key')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.verify.select-public-key')"
       v-model="publicKeyFile"
     />
 
     <v-file-input
-      :label="$t('digital-signature.verify.select-signature')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.verify.select-signature')"
       v-model="signatureFile"
     />
 
     <v-file-input
-      :label="$t('digital-signature.verify.select-original-file')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.verify.select-original-file')"
       v-model="originalFile"
     />
-
-    <HashSelector v-model="hash" />
   </v-container>
 </template>
 
 <script>
-import HashSelector from "@/components/HashSelector";
-
 export default {
   name: "Verify",
 
-  components: {
-    HashSelector,
-  },
-
-  data: () => {
+  data() {
     return {
-      publicKeyFile: [],
-      signatureFile: [],
-      originalFile: [],
-      hash: "",
+      removeVerifyListener: () => null,
+      removeErrorListener: () => null,
     };
   },
 
-  methods: {
-    verify() {
-      if (!this.publicKeyFile) return;
-      if (!this.signatureFile) return;
-      if (!this.originalFile) return;
+  computed: {
+    publicKeyFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.publicKeyFile) return undefined;
 
-      const publicKeyPath = this.publicKeyFile.path;
-      const signatureFilePath = this.signatureFile.path;
-      const originalFilePath = this.originalFile.path;
-      const hash = this.hash;
-      window.ipcRenderer.send("verify", {
-        publicKeyPath,
-        signatureFilePath,
-        originalFilePath,
-        hash,
-      });
-      window.ipcRenderer.receive("verify", (isVerified) => {
+        return this.$store.state.digitalSignature.publicKeyFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.publicKeyFile;
+      },
+      set(value) {
+        this.$store.dispatch("setPublicKeyFile", value);
+      },
+    },
+    signatureFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.signatureFile) return undefined;
+
+        return this.$store.state.digitalSignature.signatureFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.signatureFile;
+      },
+      set(value) {
+        this.$store.dispatch("setSignatureFile", value);
+      },
+    },
+    originalFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.originalFile) return undefined;
+
+        return this.$store.state.digitalSignature.originalFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.originalFile;
+      },
+      set(value) {
+        this.$store.dispatch("setOriginalFile", value);
+      },
+    },
+  },
+
+  mounted() {
+    this.removeVerifyListener = window.ipcRenderer.receive(
+      "verify",
+      (isVerified) => {
         if (isVerified) {
-          this.$root.Toast.show({
+          this.$store.dispatch("showToast", {
             message: this.$t("toast.verification.correct"),
             color: "success",
           });
         } else {
-          this.$root.Toast.show({
+          this.$store.dispatch("showToast", {
             message: this.$t("toast.verification.wrong"),
             color: "error",
           });
         }
+      }
+    );
+
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
       });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
-        });
-      });
-    },
+    });
+  },
+
+  destroyed() {
+    this.removeVerifyListener();
+    this.removeErrorListener();
   },
 };
 </script>

@@ -11,6 +11,8 @@ export const state = {
     namedCurve: defaultNamedCurve,
     privateKeyFile: {} as File,
     publicKeyFile: {} as File,
+    digest: false,
+    fileToDigest: {} as File,
     fileToSign: {} as File,
     digestToSign: {} as File,
     hash: "",

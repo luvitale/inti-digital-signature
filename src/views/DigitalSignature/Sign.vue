@@ -10,27 +10,23 @@
       <v-form class="digital-signature-form" id="sign-form">
         <DigestSwitch v-model="digest" />
 
-        <SignDigest v-if="digest" ref="sign_digest" />
-        <SignFile v-else ref="sign_file" />
+        <SignDigest v-if="digest" />
+        <SignFile v-else />
 
-        <v-btn
-          outlined
-          color="success"
-          depressed
-          class="text-none"
-          @click="sign"
-        >
-          {{ $t("app.sign") }}
-        </v-btn>
+        <HashSelector v-model="hash" />
+
+        <INTIButton :text="$t('app.sign')" @click="sign" />
       </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import DigestSwitch from "@/components/DigestSwitch";
+import DigestSwitch from "@/components/DigestSwitch.vue";
 import SignFile from "@/components/DigitalSignature/SignFile.vue";
 import SignDigest from "@/components/DigitalSignature/SignDigest.vue";
+import HashSelector from "@/components/HashSelector.vue";
+import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "Sign",
@@ -39,19 +35,36 @@ export default {
     DigestSwitch,
     SignFile,
     SignDigest,
+    HashSelector,
+    INTIButton,
   },
 
-  data: function () {
-    return {
-      digest: false,
-    };
+  computed: {
+    digest: {
+      get() {
+        return this.$store.state.digitalSignature.digest;
+      },
+      set(value) {
+        this.$store.dispatch("setDigest", value);
+      },
+    },
+
+    hash: {
+      get() {
+        return this.$store.state.digitalSignature.hash;
+      },
+      set(hash) {
+        this.$store.dispatch("setHash", hash);
+      },
+    },
   },
+
   methods: {
     sign() {
       if (this.digest) {
-        this.$refs.sign_digest.sign();
+        this.$store.dispatch("signDigest");
       } else {
-        this.$refs.sign_file.sign();
+        this.$store.dispatch("signFile");
       }
     },
   },

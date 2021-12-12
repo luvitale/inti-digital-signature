@@ -15,15 +15,10 @@
           v-if="type !== 'ec'"
         />
 
-        <v-btn
-          outlined
-          color="success"
-          class="text-none"
-          depressed
+        <INTIButton
+          :text="$t('app.generate-private-key')"
           @click="generatePrivateKey"
-        >
-          {{ $t("app.generate-private-key") }}
-        </v-btn>
+        />
       </v-form>
     </v-card>
   </v-container>
@@ -32,6 +27,7 @@
 <script>
 import CypherSelector from "@/components/CypherSelector.vue";
 import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
+import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "GeneratePrivateKey",
@@ -39,6 +35,14 @@ export default {
   components: {
     CypherSelector,
     ModulusLengthSelector,
+    INTIButton,
+  },
+
+  data() {
+    return {
+      removeGeneratePrivateKeyListener: () => null,
+      removeErrorListener: () => null,
+    };
   },
 
   computed: {
@@ -74,19 +78,22 @@ export default {
   },
 
   mounted() {
-    window.ipcRenderer.receive("generate-private-key", (privateKeyFile) => {
-      this.$store.dispatch("showToast", {
-        message: this.$t("toast.private-key.successfully-generated"),
-        color: "success",
-      });
+    this.removeGeneratePrivateKeyListener = window.ipcRenderer.receive(
+      "generate-private-key",
+      (privateKeyFile) => {
+        this.$store.dispatch("showToast", {
+          message: this.$t("toast.private-key.successfully-generated"),
+          color: "success",
+        });
 
-      this.$store.dispatch("setFileWithResult", {
-        dispatcher: "setPrivateKeyFile",
-        file: privateKeyFile,
-      });
-    });
+        this.$store.dispatch("setFileWithResult", {
+          dispatcher: "setPrivateKeyFile",
+          file: privateKeyFile,
+        });
+      }
+    );
 
-    window.ipcRenderer.receive("error", (msg) => {
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
       this.$store.dispatch("showToast", {
         message: msg,
         color: "error",
@@ -98,6 +105,11 @@ export default {
     generatePrivateKey() {
       this.$store.dispatch("generatePrivateKey");
     },
+  },
+
+  destroyed() {
+    this.removeGeneratePrivateKeyListener();
+    this.removeErrorListener();
   },
 };
 </script>

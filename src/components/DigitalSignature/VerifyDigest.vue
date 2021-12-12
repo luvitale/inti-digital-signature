@@ -1,88 +1,110 @@
 <template>
   <v-container fluid>
     <v-file-input
-      :label="$t('digital-signature.verify.select-public-key')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.verify.select-public-key')"
       v-model="publicKeyFile"
     />
 
     <v-file-input
-      :label="$t('digital-signature.verify.select-signature')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.verify.select-signature')"
       v-model="signatureFile"
     />
 
     <v-file-input
-      :label="$t('digital-signature.verify.select-digest-file')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.verify.select-digest-file')"
       v-model="digestFile"
     />
-
-    <HashSelector v-model="hash" />
   </v-container>
 </template>
 
 <script>
-import HashSelector from "@/components/HashSelector";
-
 export default {
-  name: "Verify",
+  name: "VerifyDigest",
 
-  components: {
-    HashSelector,
-  },
-
-  data: function () {
+  data() {
     return {
-      publicKeyFile: [],
-      signatureFile: [],
-      digestFile: [],
-      hash: "",
+      removeVerifyDigestListener: () => null,
+      removeErrorListener: () => null,
     };
   },
 
-  methods: {
-    verify() {
-      if (!this.publicKeyFile) return;
-      if (!this.signatureFile) return;
-      if (!this.digestFile) return;
+  computed: {
+    publicKeyFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.publicKeyFile) return undefined;
 
-      const publicKeyPath = this.publicKeyFile.path;
-      const signatureFilePath = this.signatureFile.path;
-      const digestFilePath = this.digestFile.path;
-      const hash = this.hash;
-      window.ipcRenderer.send("verify-digest", {
-        publicKeyPath,
-        signatureFilePath,
-        digestFilePath,
-        hash,
-      });
-      window.ipcRenderer.receive("verify-digest", (isVerified) => {
+        return this.$store.state.digitalSignature.publicKeyFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.publicKeyFile;
+      },
+      set(value) {
+        this.$store.dispatch("setPublicKeyFile", value);
+      },
+    },
+    signatureFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.signatureFile) return undefined;
+
+        return this.$store.state.digitalSignature.signatureFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.signatureFile;
+      },
+      set(value) {
+        this.$store.dispatch("setSignatureFile", value);
+      },
+    },
+    digestFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.digestFile) return undefined;
+
+        return this.$store.state.digitalSignature.digestFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.digestFile;
+      },
+      set(value) {
+        this.$store.dispatch("setDigestFile", value);
+      },
+    },
+  },
+
+  mounted() {
+    this.removeVerifyDigestListener = window.ipcRenderer.receive(
+      "verify-digest",
+      (isVerified) => {
         if (isVerified) {
-          this.$root.Toast.show({
+          this.$store.dispatch("showToast", {
             message: this.$t("toast.verification.correct"),
             color: "success",
           });
         } else {
-          this.$root.Toast.show({
+          this.$store.dispatch("showToast", {
             message: this.$t("toast.verification.wrong"),
             color: "error",
           });
         }
+      }
+    );
+
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
       });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
-        });
-      });
-    },
+    });
+  },
+
+  destroyed() {
+    this.removeVerifyDigestListener();
+    this.removeErrorListener();
   },
 };
 </script>

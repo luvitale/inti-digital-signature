@@ -28,4 +28,36 @@ export const mutations = {
   setPublicKeyFile(state: State, publicKeyFile: File) {
     state.digitalSignature.publicKeyFile = publicKeyFile;
   },
+
+  setDigest(state: State, digest: boolean) {
+    state.digitalSignature.digest = digest;
+  },
+
+  setFileToDigest(state: State, fileToDigest: File) {
+    state.digitalSignature.fileToDigest = fileToDigest;
+  },
+
+  setFileToSign(state: State, fileToSign: File) {
+    state.digitalSignature.fileToSign = fileToSign;
+  },
+
+  setDigestToSign(state: State, digestToSign: File) {
+    state.digitalSignature.digestToSign = digestToSign;
+  },
+
+  setHash(state: State, hash: string) {
+    state.digitalSignature.hash = hash;
+  },
+
+  setSignatureFile(state: State, signatureFile: File) {
+    state.digitalSignature.signatureFile = signatureFile;
+  },
+
+  setOriginalFile(state: State, originalFile: File) {
+    state.digitalSignature.originalFile = originalFile;
+  },
+
+  setDigestFile(state: State, digestFile: File) {
+    state.digitalSignature.digestFile = digestFile;
+  },
 };

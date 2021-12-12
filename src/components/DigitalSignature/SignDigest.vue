@@ -1,67 +1,89 @@
 <template>
   <v-container fluid>
     <v-file-input
-      :label="$t('digital-signature.sign.select-private-key')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.sign.select-private-key')"
       v-model="privateKeyFile"
     />
 
     <v-file-input
-      :label="$t('digital-signature.sign.select-digest-file')"
       prepend-icon="mdi-message-text"
       outlined
       required
+      :label="$t('digital-signature.sign.select-digest-file')"
       v-model="digestToSign"
     />
-
-    <HashSelector v-model="hash" />
   </v-container>
 </template>
 
 <script>
-import HashSelector from "@/components/HashSelector";
-
 export default {
-  name: "Sign",
+  name: "SignDigest",
 
-  components: {
-    HashSelector,
-  },
-  data: function () {
+  data() {
     return {
-      privateKeyFile: [],
-      digestToSign: [],
-      hash: "",
+      removeSignDigestListener: () => null,
+      removeErrorListener: () => null,
     };
   },
-  methods: {
-    sign() {
-      if (!this.privateKeyFile) return;
-      if (!this.digestToSign) return;
 
-      const privateKeyPath = this.privateKeyFile.path;
-      const digestToSignPath = this.digestToSign.path;
-      const hash = this.hash;
-      window.ipcRenderer.send("sign-digest", {
-        privateKeyPath,
-        digestToSignPath,
-        hash,
-      });
-      window.ipcRenderer.receive("sign-digest", (/* signature */) => {
-        this.$root.Toast.show({
+  computed: {
+    privateKeyFile: {
+      get() {
+        if (!this.$store.state.digitalSignature.privateKeyFile)
+          return undefined;
+
+        return this.$store.state.digitalSignature.privateKeyFile.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.privateKeyFile;
+      },
+      set(privateKeyFile) {
+        this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
+      },
+    },
+    digestToSign: {
+      get() {
+        if (!this.$store.state.digitalSignature.digestToSign) return undefined;
+
+        return this.$store.state.digitalSignature.digestToSign.__ob__
+          ? undefined
+          : this.$store.state.digitalSignature.digestToSign;
+      },
+      set(digestToSign) {
+        this.$store.dispatch("setDigestToSign", digestToSign);
+      },
+    },
+  },
+
+  mounted() {
+    this.removeSignDigestListener = window.ipcRenderer.receive(
+      "sign-digest",
+      (signatureFile) => {
+        this.$store.dispatch("showToast", {
           message: this.$t("toast.signature.successfully-signed-digest"),
           color: "success",
         });
-      });
-      window.ipcRenderer.receive("error", (msg) => {
-        this.$root.Toast.show({
-          message: msg,
-          color: "error",
+
+        this.$store.dispatch("setFileWithResult", {
+          dispatcher: "setSignatureFile",
+          file: signatureFile,
         });
+      }
+    );
+
+    this.removeErrorListener = window.ipcRenderer.receive("error", (msg) => {
+      this.$store.dispatch("showToast", {
+        message: msg,
+        color: "error",
       });
-    },
+    });
+  },
+
+  destroyed() {
+    this.removeSignDigestListener();
+    this.removeErrorListener();
   },
 };
 </script>

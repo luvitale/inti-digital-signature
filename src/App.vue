@@ -81,14 +81,30 @@ export default {
     Toast,
     AboutDialog,
   },
+  data() {
+    return {
+      removeChangeLanguageListener: () => null,
+      removeChangeThemeListener: () => null,
+    };
+  },
   mounted() {
-    window.ipcRenderer.receive("change-language", (lang) => {
-      this.$root.$i18n.locale = lang;
-    });
-    this.$root.Toast = this.$refs.Toast;
-    window.ipcRenderer.receive("change-theme", (theme) => {
-      this.$vuetify.theme.dark = theme === "dark";
-    });
+    this.removeChangeLanguageListener = window.ipcRenderer.receive(
+      "change-language",
+      (lang) => {
+        this.$root.$i18n.locale = lang;
+      }
+    );
+
+    this.removeChangeThemeListener = window.ipcRenderer.receive(
+      "change-theme",
+      (theme) => {
+        this.$vuetify.theme.dark = theme === "dark";
+      }
+    );
+  },
+  destroyed() {
+    this.removeChangeLanguageListener();
+    this.removeChangeThemeListener();
   },
 };
 </script>

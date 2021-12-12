@@ -11,7 +11,7 @@ declare global {
   interface Window {
     ipcRenderer: {
       send: (arg0: string, arg1: any) => void;
-      receive: (arg0: string, arg1: any) => void;
+      receive: (arg0: string, arg1: any) => () => void;
     };
   }
 }

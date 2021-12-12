@@ -11,13 +11,18 @@
     </v-flex>
   </v-layout>
 </template>
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
+<script>
+export default {
   name: "DigestSwitch",
+  props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      digest: false,
+      digest: this.value,
     };
   },
   methods: {
@@ -25,5 +30,5 @@ export default Vue.extend({
       this.$emit("input", this.digest);
     },
   },
-});
+};
 </script>
