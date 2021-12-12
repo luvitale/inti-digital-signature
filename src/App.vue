@@ -88,10 +88,39 @@ export default {
     };
   },
   mounted() {
+    if (window.localStorage.getItem("language")) {
+      const removeInitialChangeLanguageListener = window.ipcRenderer.receive(
+        "change-language",
+        (lang) => {
+          this.$root.$i18n.locale = lang;
+          removeInitialChangeLanguageListener();
+        }
+      );
+      window.ipcRenderer.send(
+        "change-language",
+        window.localStorage.getItem("language")
+      );
+    }
+    if (window.localStorage.getItem("theme")) {
+      console.log("theme", window.localStorage.getItem("theme"));
+      const removeInitialChangeThemeListener = window.ipcRenderer.receive(
+        "change-theme",
+        (theme) => {
+          this.$vuetify.theme.dark = theme === "dark";
+          removeInitialChangeThemeListener();
+        }
+      );
+      window.ipcRenderer.send(
+        "change-theme",
+        window.localStorage.getItem("theme")
+      );
+    }
+
     this.removeChangeLanguageListener = window.ipcRenderer.receive(
       "change-language",
       (lang) => {
         this.$root.$i18n.locale = lang;
+        window.localStorage.setItem("language", lang);
       }
     );
 
@@ -99,11 +128,11 @@ export default {
       "change-theme",
       (theme) => {
         this.$vuetify.theme.dark = theme === "dark";
+        window.localStorage.setItem("theme", theme);
       }
     );
 
     window.ipcRenderer.send("get-language");
-
     window.ipcRenderer.send("get-theme");
   },
   destroyed() {

@@ -18,7 +18,7 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow(dimensions: any) {
   // https://www.electronjs.org/docs/api/native-theme#nativethemethemesource
-  nativeTheme.themeSource = "light";
+  nativeTheme.themeSource = "system";
 
   // Create the browser window.
   const win = new BrowserWindow({
@@ -39,6 +39,7 @@ async function createWindow(dimensions: any) {
     },
   });
 
+  win.setTitle(i18n.t("app.title") as string);
   new menuFactoryService.buildMenu(app, win);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -50,6 +51,8 @@ async function createWindow(dimensions: any) {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+
+  new menuFactoryService.buildMenu(app, win);
 
   win.setTitle(i18n.t("app.title") as string);
   win.maximize();

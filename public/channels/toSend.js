@@ -8,5 +8,7 @@ module.exports = [
   "verify-digest",
   "get-version",
   "get-language",
-  "get-version",
+  "get-theme",
+  "change-language",
+  "change-theme",
 ];
