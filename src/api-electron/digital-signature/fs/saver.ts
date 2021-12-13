@@ -61,7 +61,7 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
   ) {
     const defaultPath = `${i18n.t(
       "crypto-file-dialog.default-filename.signature"
-    )}.sig`;
+    )}.bin`;
 
     const signature = await digitalSignatureLoader.sign(
       privateKeyPath,
@@ -79,7 +79,7 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
   ) {
     const defaultPath = `${i18n.t(
       "crypto-file-dialog.default-filename.signature"
-    )}.sig`;
+    )}.bin`;
 
     const signature = await digitalSignatureLoader.signDigest(
       privateKeyPath,
