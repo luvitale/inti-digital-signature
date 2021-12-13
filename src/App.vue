@@ -26,7 +26,7 @@
       max-height="300px"
     />
     <router-view />
-    <Toast ref="Toast" />
+    <Toast />
     <AboutDialog />
   </v-app>
 </template>

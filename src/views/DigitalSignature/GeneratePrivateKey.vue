@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import CypherSelector from "@/components/CypherSelector.vue";
-import ModulusLengthSelector from "@/components/ModulusLengthSelector.vue";
+import CypherSelector from "@/components/DigitalSignature/Utils/CypherSelector.vue";
+import ModulusLengthSelector from "@/components/DigitalSignature/Utils/ModulusLengthSelector.vue";
 import INTIButton from "@/components/INTIButton.vue";
 
 export default {

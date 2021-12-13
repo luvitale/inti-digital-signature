@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import DigestSwitch from "@/components/DigestSwitch.vue";
-import SignFile from "@/components/DigitalSignature/SignFile.vue";
-import SignDigest from "@/components/DigitalSignature/SignDigest.vue";
-import HashSelector from "@/components/HashSelector.vue";
+import DigestSwitch from "@/components/DigitalSignature/Utils/DigestSwitch.vue";
+import SignFile from "@/components/DigitalSignature/Sign/File.vue";
+import SignDigest from "@/components/DigitalSignature/Sign/Digest.vue";
+import HashSelector from "@/components/DigitalSignature/Utils/HashSelector.vue";
 import INTIButton from "@/components/INTIButton.vue";
 
 export default {

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import HashSelector from "@/components/HashSelector.vue";
+import HashSelector from "@/components/DigitalSignature/Utils/HashSelector.vue";
 import INTIButton from "@/components/INTIButton.vue";
 
 export default {

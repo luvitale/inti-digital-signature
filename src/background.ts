@@ -77,6 +77,42 @@ app.on("activate", () => {
   }
 });
 
+// Electron Updater
+import { autoUpdater } from "electron-updater";
+
+/*checking for updates*/
+autoUpdater.on("checking-for-update", () => {
+  console.log("Checking for update...");
+});
+
+/*No updates available*/
+autoUpdater.on("update-not-available", (info) => {
+  console.log("Update not available: " + info);
+});
+
+/*New Update Available*/
+autoUpdater.on("update-available", (info) => {
+  console.log("Update available: " + info);
+});
+
+/*Download Status Report*/
+autoUpdater.on("download-progress", (progressObj) => {
+  console.log("Download speed: " + progressObj.bytesPerSecond);
+  console.log("Downloaded: " + progressObj.percent + "%");
+  console.log("ETA: " + progressObj.eta + " seconds");
+});
+
+/*Download Completion Message*/
+autoUpdater.on("update-downloaded", (info) => {
+  console.log("Update downloaded: " + info);
+  // Wait 5 seconds, then quit and install
+  // In your application, you don't need to wait 5 seconds.
+  // You could call autoUpdater.quitAndInstall(); immediately
+  setTimeout(function () {
+    autoUpdater.quitAndInstall();
+  }, 5000);
+});
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -92,6 +128,7 @@ app.on("ready", async () => {
   const display = screen.getPrimaryDisplay();
   const dimensions = display.workAreaSize;
   createWindow(dimensions);
+  autoUpdater.checkForUpdatesAndNotify();
 });
 
 // Exit cleanly on request from parent process in development mode.

@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/electron": "^1.6.10",
     "core-js": "^3.6.5",
+    "electron-updater": "^4.6.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.22.3",
