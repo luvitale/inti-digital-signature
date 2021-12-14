@@ -4,10 +4,14 @@
     v-model="modulusLength"
     :items="validLengths"
     :label="$t('digital-signature.private-key.modulus-length')"
+    :rules="[
+      (v) =>
+        !!v || $t('digital-signature.utils.modulus-length.is-required-label'),
+    ]"
     dense
-    hide-details
     menu-props="offset-y"
     @click="getValidLengths"
+    required
   />
 </template>
 

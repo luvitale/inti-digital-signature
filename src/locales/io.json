@@ -70,6 +70,34 @@
     },
     "digest": {
       "select-file": "Selektez la archivo para genitar la dijesto"
+    },
+    "utils": {
+      "cypher-selector": {
+        "is-required-label": "Kriptografado esas necesa"
+      },
+      "modulus-length": {
+        "is-required-label": "Longeso de kriptografado esas necesa"
+      },
+      "hash-selector": {
+        "is-required-label": "Hash esas necesa"
+      },
+      "file-input": {
+        "private-key": {
+          "is-required-label": "Privata klavo esas necesa"
+        },
+        "public-key": {
+          "is-required-label": "Publika klavo esas necesa"
+        },
+        "original-file": {
+          "is-required-label": "Originala savaro esas necesa"
+        },
+        "digest-file": {
+          "is-required-label": "Dijesto esas necesa"
+        },
+        "signature-file": {
+          "is-required-label": "Archivo de signato esas necesa"
+        }
+      }
     }
   },
   "language": {

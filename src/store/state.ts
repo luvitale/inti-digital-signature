@@ -1,24 +1,22 @@
 const defaultTimeout = 2000; // 2 seconds
 const defaultIcon = "mdi-check";
-const defaultCypher = "rsa";
-const defaultModulusLength = 2048;
 const defaultNamedCurve = "P-256";
 
 export const state = {
   digitalSignature: {
-    type: defaultCypher,
-    modulusLength: defaultModulusLength,
-    namedCurve: defaultNamedCurve,
-    privateKeyFile: {} as File,
-    publicKeyFile: {} as File,
+    type: undefined as string | undefined,
+    modulusLength: undefined as number | undefined,
+    namedCurve: defaultNamedCurve as string | undefined,
+    privateKeyFile: undefined as File | undefined,
+    publicKeyFile: undefined as File | undefined,
     digest: false,
-    fileToDigest: {} as File,
-    fileToSign: {} as File,
-    digestToSign: {} as File,
-    hash: "",
-    signatureFile: {} as File,
-    originalFile: {} as File,
-    digestFile: {} as File,
+    fileToDigest: undefined as File | undefined,
+    fileToSign: undefined as File | undefined,
+    digestToSign: undefined as File | undefined,
+    hash: undefined as string | undefined,
+    signatureFile: undefined as File | undefined,
+    originalFile: undefined as File | undefined,
+    digestFile: undefined as File | undefined,
   },
   toast: {
     show: false,

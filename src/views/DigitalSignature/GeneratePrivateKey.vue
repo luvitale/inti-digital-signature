@@ -7,7 +7,13 @@
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="digital-signature-form" id="private-key-form">
+      <v-form
+        class="digital-signature-form"
+        id="private-key-form"
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
         <CypherSelector v-model="type" />
         <ModulusLengthSelector
           :cypher="type"
@@ -16,6 +22,7 @@
         />
 
         <INTIButton
+          :disabled="!valid"
           :text="$t('app.generate-private-key')"
           @click="generatePrivateKey"
         />
@@ -40,6 +47,7 @@ export default {
 
   data() {
     return {
+      valid: true,
       removeGeneratePrivateKeyListener: () => null,
       removeErrorListener: () => null,
     };
@@ -103,6 +111,8 @@ export default {
 
   methods: {
     generatePrivateKey() {
+      if (!this.$refs.form.validate()) return;
+
       this.$store.dispatch("generatePrivateKey");
     },
   },

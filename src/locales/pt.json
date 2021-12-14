@@ -70,6 +70,34 @@
     },
     "digest": {
       "select-file": "Selecione o arquivo para gerar o digesto"
+    },
+    "utils": {
+      "cypher-selector": {
+        "is-required-label": "A criptografia é necessária"
+      },
+      "modulus-length": {
+        "is-required-label": "O comprimento da criptografia é obrigatório"
+      },
+      "hash-selector": {
+        "is-required-label": "O hash é obrigatório"
+      },
+      "file-input": {
+        "private-key": {
+          "is-required-label": "A chave privada é necessária"
+        },
+        "public-key": {
+          "is-required-label": "A chave pública é necessária"
+        },
+        "original-file": {
+          "is-required-label": "O arquivo original é necessário"
+        },
+        "digest-file": {
+          "is-required-label": "O digesto é obrigatório"
+        },
+        "signature-file": {
+          "is-required-label": "O arquivo de assinatura é necessária"
+        }
+      }
     }
   },
   "language": {

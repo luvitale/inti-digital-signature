@@ -7,7 +7,7 @@
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="digital-signature-form" id="verify-form">
+      <v-form class="digital-signature-form" id="verify-form" ref="form">
         <DigestSwitch v-model="digest" />
 
         <VerifyDigest v-if="digest" />
@@ -15,7 +15,11 @@
 
         <HashSelector v-model="hash" />
 
-        <INTIButton :text="$t('app.verify')" @click="verify" />
+        <INTIButton
+          :disabled="!valid"
+          :text="$t('app.verify')"
+          @click="verify"
+        />
       </v-form>
     </v-card>
   </v-container>
@@ -49,6 +53,12 @@ export default {
       },
     },
 
+    data() {
+      return {
+        valid: true,
+      };
+    },
+
     hash: {
       get() {
         return this.$store.state.digitalSignature.hash;
@@ -61,6 +71,8 @@ export default {
 
   methods: {
     verify() {
+      if (!this.$refs.form.validate()) return;
+
       if (this.digest) {
         this.$store.dispatch("verifyDigest");
       } else {

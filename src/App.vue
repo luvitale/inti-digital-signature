@@ -102,7 +102,6 @@ export default {
       );
     }
     if (window.localStorage.getItem("theme")) {
-      console.log("theme", window.localStorage.getItem("theme"));
       const removeInitialChangeThemeListener = window.ipcRenderer.receive(
         "change-theme",
         (theme) => {

@@ -7,24 +7,31 @@
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="digital-signature-form" id="digest-form">
-        <v-file-input
-          prepend-icon="mdi-message-text"
-          outlined
-          required
+      <v-form class="digital-signature-form" id="digest-form" ref="form">
+        <FileInput
           :label="$t('digital-signature.digest.select-file')"
+          :required-label="
+            $t(
+              'digital-signature.utils.file-input.original-file.is-required-label'
+            )
+          "
           v-model="fileToDigest"
         />
 
         <HashSelector v-model="hash" />
 
-        <INTIButton :text="$t('app.generate-digest')" @click="generateDigest" />
+        <INTIButton
+          :disabled="!valid"
+          :text="$t('app.generate-digest')"
+          @click="generateDigest"
+        />
       </v-form>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import FileInput from "@/components/DigitalSignature/Utils/FileInput.vue";
 import HashSelector from "@/components/DigitalSignature/Utils/HashSelector.vue";
 import INTIButton from "@/components/INTIButton.vue";
 
@@ -32,12 +39,14 @@ export default {
   name: "GenerateDigest",
 
   components: {
+    FileInput,
     HashSelector,
     INTIButton,
   },
 
   data() {
     return {
+      valid: true,
       removeGenerateDigestListener: () => null,
       removeErrorListener: () => null,
     };
@@ -46,11 +55,7 @@ export default {
   computed: {
     fileToDigest: {
       get() {
-        if (!this.$store.state.digitalSignature.fileToDigest) return undefined;
-
-        return this.$store.state.digitalSignature.fileToDigest.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.fileToDigest;
+        return this.$store.state.digitalSignature.fileToDigest;
       },
       set(value) {
         this.$store.dispatch("setFileToDigest", value);
@@ -93,6 +98,8 @@ export default {
 
   methods: {
     generateDigest() {
+      if (!this.$refs.form.validate()) return;
+
       this.$store.dispatch("generateDigest");
     },
   },

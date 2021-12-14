@@ -70,6 +70,34 @@
     },
     "digest": {
       "select-file": "Elektu la dosieron por generi la digeston"
+    },
+    "utils": {
+      "cypher-selector": {
+        "is-required-label": "Ĉifrado estas postulata"
+      },
+      "modulus-length": {
+        "is-required-label": "Ĉifrada longo estas postulata"
+      },
+      "hash-selector": {
+        "is-required-label": "Haŝiŝo estas postulata"
+      },
+      "file-input": {
+        "private-key": {
+          "is-required-label": "Privata ŝlosilo estas postulata"
+        },
+        "public-key": {
+          "is-required-label": "Publika ŝlosilo estas postulata"
+        },
+        "original-file": {
+          "is-required-label": "Originala dosiero estas postulata"
+        },
+        "digest-file": {
+          "is-required-label": "Digesto estas postulata"
+        },
+        "signature-file": {
+          "is-required-label": "Subskriba dosiero estas postulata"
+        }
+      }
     }
   },
   "language": {

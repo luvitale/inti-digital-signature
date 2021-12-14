@@ -1,26 +1,32 @@
 <template>
   <v-container fluid>
-    <v-file-input
-      prepend-icon="mdi-message-text"
-      outlined
-      required
+    <FileInput
       :label="$t('digital-signature.sign.select-private-key')"
+      :required-label="
+        $t('digital-signature.utils.file-input.private-key.is-required-label')
+      "
       v-model="privateKeyFile"
     />
 
-    <v-file-input
-      prepend-icon="mdi-message-text"
-      outlined
-      required
+    <FileInput
       :label="$t('digital-signature.sign.select-file')"
+      :required-label="
+        $t('digital-signature.utils.file-input.original-file.is-required-label')
+      "
       v-model="fileToSign"
     />
   </v-container>
 </template>
 
 <script>
+import FileInput from "@/components/DigitalSignature/Utils/FileInput.vue";
+
 export default {
   name: "SignFile",
+
+  components: {
+    FileInput,
+  },
 
   data() {
     return {
@@ -32,12 +38,7 @@ export default {
   computed: {
     privateKeyFile: {
       get() {
-        if (!this.$store.state.digitalSignature.privateKeyFile)
-          return undefined;
-
-        return this.$store.state.digitalSignature.privateKeyFile.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.privateKeyFile;
+        return this.$store.state.digitalSignature.privateKeyFile;
       },
       set(privateKeyFile) {
         this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
@@ -45,11 +46,7 @@ export default {
     },
     fileToSign: {
       get() {
-        if (!this.$store.state.digitalSignature.fileToSign) return undefined;
-
-        return this.$store.state.digitalSignature.fileToSign.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.fileToSign;
+        return this.$store.state.digitalSignature.fileToSign;
       },
       set(fileToSign) {
         this.$store.dispatch("setFileToSign", fileToSign);

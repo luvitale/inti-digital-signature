@@ -7,7 +7,7 @@
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="digital-signature-form" id="sign-form">
+      <v-form class="digital-signature-form" id="sign-form" ref="form">
         <DigestSwitch v-model="digest" />
 
         <SignDigest v-if="digest" />
@@ -15,7 +15,7 @@
 
         <HashSelector v-model="hash" />
 
-        <INTIButton :text="$t('app.sign')" @click="sign" />
+        <INTIButton :disabled="!valid" :text="$t('app.sign')" @click="sign" />
       </v-form>
     </v-card>
   </v-container>
@@ -59,8 +59,16 @@ export default {
     },
   },
 
+  data() {
+    return {
+      valid: true,
+    };
+  },
+
   methods: {
     sign() {
+      if (!this.$refs.form.validate()) return;
+
       if (this.digest) {
         this.$store.dispatch("signDigest");
       } else {

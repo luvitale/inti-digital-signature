@@ -4,9 +4,13 @@
     v-model="cypher"
     :items="cyphers"
     :label="$t('digital-signature.private-key.cypher-type')"
+    :rules="[
+      (v) =>
+        !!v || $t('digital-signature.utils.cypher-selector.is-required-label'),
+    ]"
     dense
-    hide-details
     menu-props="offset-y"
+    required
   >
     <template slot="selection" slot-scope="data">
       {{ data.item.toUpperCase() }}

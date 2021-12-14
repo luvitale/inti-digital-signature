@@ -1,34 +1,42 @@
 <template>
   <v-container fluid>
-    <v-file-input
-      prepend-icon="mdi-message-text"
-      outlined
-      required
+    <FileInput
       :label="$t('digital-signature.verify.select-public-key')"
+      :required-label="
+        $t('digital-signature.utils.file-input.public-key.is-required-label')
+      "
       v-model="publicKeyFile"
     />
 
-    <v-file-input
-      prepend-icon="mdi-message-text"
-      outlined
-      required
+    <FileInput
       :label="$t('digital-signature.verify.select-signature')"
+      :required-label="
+        $t(
+          'digital-signature.utils.file-input.signature-file.is-required-label'
+        )
+      "
       v-model="signatureFile"
     />
 
-    <v-file-input
-      prepend-icon="mdi-message-text"
-      outlined
-      required
+    <FileInput
       :label="$t('digital-signature.verify.select-digest-file')"
+      :required-label="
+        $t('digital-signature.utils.file-input.digest-file.is-required-label')
+      "
       v-model="digestFile"
     />
   </v-container>
 </template>
 
 <script>
+import FileInput from "@/components/DigitalSignature/Utils/FileInput.vue";
+
 export default {
   name: "VerifyDigest",
+
+  components: {
+    FileInput,
+  },
 
   data() {
     return {
@@ -40,11 +48,7 @@ export default {
   computed: {
     publicKeyFile: {
       get() {
-        if (!this.$store.state.digitalSignature.publicKeyFile) return undefined;
-
-        return this.$store.state.digitalSignature.publicKeyFile.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.publicKeyFile;
+        return this.$store.state.digitalSignature.publicKeyFile;
       },
       set(value) {
         this.$store.dispatch("setPublicKeyFile", value);
@@ -52,11 +56,7 @@ export default {
     },
     signatureFile: {
       get() {
-        if (!this.$store.state.digitalSignature.signatureFile) return undefined;
-
-        return this.$store.state.digitalSignature.signatureFile.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.signatureFile;
+        return this.$store.state.digitalSignature.signatureFile;
       },
       set(value) {
         this.$store.dispatch("setSignatureFile", value);
@@ -64,11 +64,7 @@ export default {
     },
     digestFile: {
       get() {
-        if (!this.$store.state.digitalSignature.digestFile) return undefined;
-
-        return this.$store.state.digitalSignature.digestFile.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.digestFile;
+        return this.$store.state.digitalSignature.digestFile;
       },
       set(value) {
         this.$store.dispatch("setDigestFile", value);

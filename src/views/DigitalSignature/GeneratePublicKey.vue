@@ -7,17 +7,20 @@
         }}</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="digital-signature-form" id="public-key-form">
-        <v-file-input
-          prepend-icon="mdi-message-text"
-          outlined
-          required
+      <v-form class="digital-signature-form" id="public-key-form" ref="form">
+        <FileInput
           :label="$t('digital-signature.public-key.select-private-key')"
+          :required-label="
+            $t(
+              'digital-signature.utils.file-input.private-key.is-required-label'
+            )
+          "
           v-model="privateKeyFile"
         />
 
         <INTIButton
           :text="$t('app.generate-public-key')"
+          :disabled="!valid"
           @click="generatePublicKey"
         />
       </v-form>
@@ -26,17 +29,20 @@
 </template>
 
 <script>
+import FileInput from "@/components/DigitalSignature/Utils/FileInput.vue";
 import INTIButton from "@/components/INTIButton.vue";
 
 export default {
   name: "GeneratePublicKey",
 
   components: {
+    FileInput,
     INTIButton,
   },
 
   data() {
     return {
+      valid: true,
       removeGeneratePublicKeyListener: () => null,
       removeErrorListener: () => null,
     };
@@ -45,12 +51,7 @@ export default {
   computed: {
     privateKeyFile: {
       get() {
-        if (!this.$store.state.digitalSignature.privateKeyFile)
-          return undefined;
-
-        return this.$store.state.digitalSignature.privateKeyFile.__ob__
-          ? undefined
-          : this.$store.state.digitalSignature.privateKeyFile;
+        return this.$store.state.digitalSignature.privateKeyFile;
       },
       set(privateKeyFile) {
         this.$store.dispatch("setPrivateKeyFile", privateKeyFile);
@@ -84,6 +85,8 @@ export default {
 
   methods: {
     generatePublicKey() {
+      if (!this.$refs.form.validate()) return;
+
       this.$store.dispatch("generatePublicKey", this.privateKeyFile);
     },
   },

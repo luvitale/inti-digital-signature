@@ -4,6 +4,7 @@
     color="success"
     depressed
     class="text-none"
+    :disabled="disabled"
     @click="emitClick"
   >
     {{ text }}
@@ -16,6 +17,7 @@ export default {
 
   props: {
     text: String,
+    disabled: Boolean,
   },
 
   data: () => ({}),

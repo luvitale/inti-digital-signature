@@ -70,6 +70,34 @@
     },
     "digest": {
       "select-file": "Select file to generate digest"
+    },
+    "utils": {
+      "cypher-selector": {
+        "is-required-label": "Cypher type is required"
+      },
+      "modulus-length": {
+        "is-required-label": "Cypher length is required"
+      },
+      "hash-selector": {
+        "is-required-label": "The hash is required"
+      },
+      "file-input": {
+        "private-key": {
+          "is-required-label": "Private key is required"
+        },
+        "public-key": {
+          "is-required-label": "Public key is required"
+        },
+        "original-file": {
+          "is-required-label": "Original file is required"
+        },
+        "digest-file": {
+          "is-required-label": "Digest is required"
+        },
+        "signature-file": {
+          "is-required-label": "Signature file is required"
+        }
+      }
     }
   },
   "language": {

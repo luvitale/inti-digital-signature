@@ -4,8 +4,11 @@
     v-model="hash"
     :items="hashes"
     :label="$t('digital-signature.hash')"
+    :rules="[
+      (v) =>
+        !!v || $t('digital-signature.utils.hash-selector.is-required-label'),
+    ]"
     dense
-    hide-details
     menu-props="offset-y"
     @change="updateHash"
   >
@@ -26,7 +29,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: "SHA1",
+      default: "",
     },
   },
 
