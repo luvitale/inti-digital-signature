@@ -1,6 +1,6 @@
 {
   "app": {
-    "description": "Tu uzez OpenSSL por krear privata klavo, obtenar la para publika klavo, signatar savaro e verigar la signatita savaro",
+    "description": "Kreez privata klavo, obtenez la para publika klavo, signatez savaro e verigez la signatita savaro",
     "generate-private-key": "Genitar privata klavo",
     "generate-public-key": "Genitar publika klavo",
     "home": "Komenco",

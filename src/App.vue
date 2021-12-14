@@ -22,8 +22,8 @@
       id="inti-logo"
       :alt="$t('app.logo')"
       src="@/assets/logo.png"
-      max-width="300px"
-      max-height="300px"
+      max-width="15rem"
+      max-height="15rem"
     />
     <router-view />
     <Toast />
@@ -38,6 +38,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  max-width: 90vw;
+  margin: 0 auto;
 }
 
 #nav {

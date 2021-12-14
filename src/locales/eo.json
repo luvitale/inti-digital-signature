@@ -1,6 +1,6 @@
 {
   "app": {
-    "description": "Uzu OpenSSL por krei privatajn ŝlosilojn, akiri la parigitan publikan ŝlosilon, subskribi dosierojn kaj kontroli la subskribitan dosieron",
+    "description": "Kreu privatajn ŝlosilojn, akiru la parigitan publikan ŝlosilon, subskribu dosierojn kaj kontrolu la subskribitan dosieron",
     "generate-private-key": "Generi privatan ŝlosilon",
     "generate-public-key": "Generi publikan ŝlosilon",
     "home": "Komencu",

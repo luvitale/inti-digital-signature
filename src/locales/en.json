@@ -1,6 +1,6 @@
 {
   "app": {
-    "description": "Generate private keys, obtain the paired public key, sign files and verify the signed file with INTI Digital Signature, powered by OpenSSL",
+    "description": "Software to generate private keys, obtain the paired public key, sign files and verify signature file",
     "generate-private-key": "Generate private key",
     "generate-public-key": "Generate public key",
     "home": "Home",

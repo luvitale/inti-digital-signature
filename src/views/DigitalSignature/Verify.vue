@@ -53,12 +53,6 @@ export default {
       },
     },
 
-    data() {
-      return {
-        valid: true,
-      };
-    },
-
     hash: {
       get() {
         return this.$store.state.digitalSignature.hash;
@@ -67,6 +61,12 @@ export default {
         this.$store.dispatch("setHash", hash);
       },
     },
+  },
+
+  data() {
+    return {
+      valid: true,
+    };
   },
 
   methods: {

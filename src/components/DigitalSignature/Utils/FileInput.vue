@@ -35,7 +35,12 @@ export default {
         return this.value;
       },
       set(file) {
-        this.$emit("input", file);
+        if (file === undefined && this.value) {
+          // If file input was canceled and there was a file, keep it
+          this.$emit("input", new File([this.value], this.value.name));
+        } else {
+          this.$emit("input", file);
+        }
       },
     },
   },

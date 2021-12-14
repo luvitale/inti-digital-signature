@@ -1,6 +1,6 @@
 {
   "app": {
-    "description": "Usá OpenSSL para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado",
+    "description": "Software para crear claves privadas, obtener la clave pública emparejada, firmar archivos y verificar el archivo firmado",
     "generate-private-key": "Generar clave privada",
     "generate-public-key": "Generar clave pública",
     "home": "Inicio",
