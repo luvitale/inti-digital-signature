@@ -40,7 +40,7 @@
       "downloaded-message": "Actualización descargada",
       "installing-message": "Instalando y cerrando",
       "checking-message": "Comprobación de actualización...",
-      "not-available-message": "Actualización no disponible"
+      "not-available-message": "No hay actualizaciones disponibles"
     }
   },
   "crypto-file-dialog": {

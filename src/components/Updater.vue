@@ -25,7 +25,7 @@
         color="white"
         text
         v-bind="attrs"
-        @click="snackbar = false"
+        @click="showSnackbar = false"
       >
         {{ $t("app.updater.close-label") }}
       </v-btn>
