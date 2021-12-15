@@ -21,7 +21,7 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow(dimensions: any) {
   // https://www.electronjs.org/docs/api/native-theme#nativethemethemesource
-  nativeTheme.themeSource = "system";
+  nativeTheme.themeSource = "light";
 
   // Create the browser window.
   const win = new BrowserWindow({
