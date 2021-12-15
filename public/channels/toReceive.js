@@ -11,4 +11,5 @@ module.exports = [
   "open-about-dialog",
   "get-version",
   "change-theme",
+  "updater",
 ];

@@ -29,7 +29,19 @@
     "dialog": {
       "close": "Close"
     },
-    "version": "Version"
+    "version": "Version",
+    "updater": {
+      "update-label": "Update",
+      "close-label": "Close",
+      "percent-message": "Downloading update",
+      "speed-message": "Speed",
+      "downloaded-message": "Update downloaded",
+      "installing-message": "Installing and closing",
+      "available-message": "Update available",
+      "remaining-time-message": "ETA",
+      "checking-message": "Checking for update...",
+      "not-available-message": "Update not available"
+    }
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Save canceled",
@@ -139,7 +151,8 @@
     },
     "help": {
       "about-app": "About…",
-      "label": "&Help"
+      "label": "&Help",
+      "check-for-updates": "Check for updates"
     },
     "main": {
       "about-app-description": "About INTI Digital Signature",

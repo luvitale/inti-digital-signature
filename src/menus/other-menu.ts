@@ -1,6 +1,7 @@
 import i18n from "@/i18n";
 import menuFactory from "@/services/menu-factory";
 import { App, BrowserWindow, nativeTheme } from "electron";
+import { autoUpdater } from "electron";
 
 export default (app: App, mainWindow: BrowserWindow) => {
   mainWindow.setTitle(i18n.t("app.title") as string);
@@ -28,12 +29,27 @@ export default (app: App, mainWindow: BrowserWindow) => {
     },
   ];
 
-  const helpMenu = [
-    {
-      label: i18n.t("window.help.about-app"),
-      click: () => openAboutDialog(),
-    },
-  ];
+  const helpMenu =
+    process.platform === "win32"
+      ? [
+          {
+            label: i18n.t("window.help.check-for-updates"),
+            click: () => autoUpdater.checkForUpdates(),
+          },
+          {
+            type: "separator",
+          },
+          {
+            label: i18n.t("window.help.about-app"),
+            click: () => openAboutDialog(),
+          },
+        ]
+      : [
+          {
+            label: i18n.t("window.help.about-app"),
+            click: () => openAboutDialog(),
+          },
+        ];
 
   const languageMenu = i18n.availableLocales.map((languageCode) => {
     return {

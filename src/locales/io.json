@@ -29,7 +29,19 @@
     "dialog": {
       "close": "Klozar"
     },
-    "version": "Versiono"
+    "version": "Versiono",
+    "updater": {
+      "percent-message": "Descharjanto aktualigo",
+      "speed-message": "Rapideso",
+      "remaining-time-message": "Tempo restanta",
+      "downloaded-message": "Aktualigo descharjinta",
+      "installing-message": "Konstruktanto e klozanto",
+      "available-message": "Aktualigo disponebla",
+      "close-label": "Klozar",
+      "update-label": "Aktualigar",
+      "checking-message": "Chekanto aktualigi",
+      "not-available-message": "Aktualigo no disponebla"
+    }
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Gardito cesato",
@@ -139,7 +151,8 @@
     },
     "help": {
       "about-app": "Pri…",
-      "label": "&Helpo"
+      "label": "&Helpo",
+      "check-for-updates": "Chekar aktualigi"
     },
     "main": {
       "about-app-description": "Pri INTI Komputerala Signato",

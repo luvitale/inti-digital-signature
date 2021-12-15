@@ -11,4 +11,5 @@ module.exports = [
   "get-theme",
   "change-language",
   "change-theme",
+  "updater",
 ];

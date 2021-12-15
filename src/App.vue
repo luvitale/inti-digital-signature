@@ -27,6 +27,9 @@
     />
     <router-view />
     <Toast />
+
+    <Updater />
+
     <AboutDialog />
   </v-app>
 </template>
@@ -74,13 +77,15 @@
 </style>
 
 <script>
-import Toast from "@/components/Toast";
-import AboutDialog from "@/components/AboutDialog";
+import Toast from "@/components/Toast.vue";
+import Updater from "@/components/Updater.vue";
+import AboutDialog from "@/components/AboutDialog.vue";
 
 export default {
   name: "App",
   components: {
     Toast,
+    Updater,
     AboutDialog,
   },
   data() {

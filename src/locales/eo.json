@@ -29,7 +29,19 @@
     "dialog": {
       "close": "Fermi"
     },
-    "version": "Versio"
+    "version": "Versio",
+    "updater": {
+      "update-label": "Ĝisdatigi",
+      "close-label": "Fermi",
+      "percent-message": "Elŝutante ĝisdatigon",
+      "speed-message": "Rapido",
+      "available-message": "Ĝisdatigo disponebla",
+      "remaining-time-message": "Restanta tempo",
+      "downloaded-message": "Ĝisdatigo elŝutita",
+      "installing-message": "Instalado kaj fermo",
+      "checking-message": "Kontrolante ĝisdatigon...",
+      "not-available-message": "Ĝisdatigo ne disponebla"
+    }
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Konservu nuligita",
@@ -139,7 +151,8 @@
     },
     "help": {
       "about-app": "Pri…",
-      "label": "&Helpo"
+      "label": "&Helpo",
+      "check-for-updates": "Kontroli ĝisdatigojn"
     },
     "main": {
       "about-app-description": "Pri INTI Cifereca Subskribo",

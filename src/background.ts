@@ -9,6 +9,9 @@ import "@/api-electron";
 import i18n from "@/i18n";
 import menuFactoryService from "@/services/menu-factory";
 
+import { autoUpdater } from "electron-updater";
+import logger from "electron-log";
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -56,6 +59,53 @@ async function createWindow(dimensions: any) {
 
   win.setTitle(i18n.t("app.title") as string);
   win.maximize();
+
+  // Electron Updater
+
+  let show = false;
+
+  /* Checking for updates */
+  autoUpdater.on("checking-for-update", () => {
+    console.log(i18n.t("app.updater.checking-message"));
+    win.webContents.send("updater", "checking-for-update");
+  });
+
+  /* No updates available */
+  autoUpdater.on("update-not-available", (info) => {
+    console.log(info);
+    win.webContents.send("updater", "update-available", { show });
+    if (!show) show = true;
+  });
+
+  /* New Update Available */
+  autoUpdater.on("update-available", (info) => {
+    console.log(info);
+    win.webContents.send("updater", "update-not-available");
+  });
+
+  /* Download Status Report */
+  autoUpdater.on("download-progress", (progressObj) => {
+    console.log(
+      `${i18n.t("app.updater.percent-message")}:  ${progressObj.percent}%`
+    );
+    console.log(
+      `${i18n.t("app.updater.speed-message")}: ${progressObj.bytesPerSecond}`
+    );
+    console.log(
+      `${i18n.t("app.updater.remaining-time-message")}: ${progressObj.eta}`
+    );
+    win.webContents.send("updater", "download-progress", progressObj);
+  });
+
+  /* Download Completion Message */
+  autoUpdater.on("update-downloaded", (info) => {
+    console.log("Update downloaded: " + info);
+    win.webContents.send("updater", "update-downloaded");
+    // Wait 10 seconds, then quit and install
+    setTimeout(() => {
+      autoUpdater.quitAndInstall();
+    }, 10000);
+  });
 }
 
 // Quit when all windows are closed.
@@ -77,42 +127,6 @@ app.on("activate", () => {
   }
 });
 
-// Electron Updater
-import { autoUpdater } from "electron-updater";
-
-/*checking for updates*/
-autoUpdater.on("checking-for-update", () => {
-  console.log("Checking for update...");
-});
-
-/*No updates available*/
-autoUpdater.on("update-not-available", (info) => {
-  console.log("Update not available: " + info);
-});
-
-/*New Update Available*/
-autoUpdater.on("update-available", (info) => {
-  console.log("Update available: " + info);
-});
-
-/*Download Status Report*/
-autoUpdater.on("download-progress", (progressObj) => {
-  console.log("Download speed: " + progressObj.bytesPerSecond);
-  console.log("Downloaded: " + progressObj.percent + "%");
-  console.log("ETA: " + progressObj.eta + " seconds");
-});
-
-/*Download Completion Message*/
-autoUpdater.on("update-downloaded", (info) => {
-  console.log("Update downloaded: " + info);
-  // Wait 5 seconds, then quit and install
-  // In your application, you don't need to wait 5 seconds.
-  // You could call autoUpdater.quitAndInstall(); immediately
-  setTimeout(function () {
-    autoUpdater.quitAndInstall();
-  }, 5000);
-});
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -128,7 +142,14 @@ app.on("ready", async () => {
   const display = screen.getPrimaryDisplay();
   const dimensions = display.workAreaSize;
   createWindow(dimensions);
-  autoUpdater.checkForUpdatesAndNotify();
+
+  if (process.platform === "win32") {
+    autoUpdater.autoDownload = false;
+    autoUpdater.checkForUpdates();
+
+    logger.transports.file.level = "info";
+    autoUpdater.logger = logger;
+  }
 });
 
 // Exit cleanly on request from parent process in development mode.

@@ -1,6 +1,7 @@
 import { app, ipcMain, nativeTheme } from "electron";
 import i18n from "@/i18n";
 
+import "./updater";
 import "./inti";
 
 ipcMain.on("get-version", (event) => {

@@ -29,7 +29,19 @@
     "dialog": {
       "close": "Fechar"
     },
-    "version": "Versão"
+    "version": "Versão",
+    "updater": {
+      "update-label": "Atualizar",
+      "close-label": "Fechar",
+      "percent-message": "Download da atualização",
+      "speed-message": "Velocidade",
+      "remaining-time-message": "Tempo restante",
+      "available-message": "Atualização disponível",
+      "downloaded-message": "Atualização baixada",
+      "installing-message": "Instalando e fechando",
+      "checking-message": "Verificando atualizações...",
+      "not-available-message": "Atualização não disponível"
+    }
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Salvar cancelado",
@@ -139,7 +151,8 @@
     },
     "help": {
       "about-app": "Sobre…",
-      "label": "A&juda"
+      "label": "A&juda",
+      "check-for-updates": "Verifique se há atualizações"
     },
     "main": {
       "about-app-description": "Sobre INTI Assinatura Digital",

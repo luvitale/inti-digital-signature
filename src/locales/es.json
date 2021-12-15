@@ -29,7 +29,19 @@
         "name": "Luciano Nahuel Vitale"
       }
     },
-    "version": "Versión"
+    "version": "Versión",
+    "updater": {
+      "update-label": "Actualizar",
+      "close-label": "Cerrar",
+      "percent-message": "Descargando actualización",
+      "speed-message": "Velocidad",
+      "remaining-time-message": "Tiempo restante",
+      "available-message": "Actualización disponible",
+      "downloaded-message": "Actualización descargada",
+      "installing-message": "Instalando y cerrando",
+      "checking-message": "Comprobación de actualización...",
+      "not-available-message": "Actualización no disponible"
+    }
   },
   "crypto-file-dialog": {
     "canceled-save-file": "Guardado cancelado",
@@ -139,7 +151,8 @@
     },
     "help": {
       "about-app": "Acerca de…",
-      "label": "A&yuda"
+      "label": "A&yuda",
+      "check-for-updates": "Buscar actualizaciones"
     },
     "main": {
       "about-app-description": "Acerca de Firma Digital INTI",
