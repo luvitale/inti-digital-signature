@@ -1,7 +1,7 @@
 import i18n from "@/i18n";
 import menuFactory from "@/services/menu-factory";
 import { App, BrowserWindow, nativeTheme } from "electron";
-import { autoUpdater } from "electron";
+import { autoUpdater } from "electron-updater";
 
 export default (app: App, mainWindow: BrowserWindow) => {
   mainWindow.setTitle(i18n.t("app.title") as string);
@@ -34,7 +34,10 @@ export default (app: App, mainWindow: BrowserWindow) => {
       ? [
           {
             label: i18n.t("window.help.check-for-updates"),
-            click: () => autoUpdater.checkForUpdates(),
+            click: () => {
+              autoUpdater.autoDownload = false;
+              autoUpdater.checkForUpdates();
+            },
           },
           {
             type: "separator",

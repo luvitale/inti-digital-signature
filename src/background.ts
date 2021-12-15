@@ -62,8 +62,6 @@ async function createWindow(dimensions: any) {
 
   // Electron Updater
 
-  let show = false;
-
   /* Checking for updates */
   autoUpdater.on("checking-for-update", () => {
     console.log(i18n.t("app.updater.checking-message"));
@@ -73,14 +71,13 @@ async function createWindow(dimensions: any) {
   /* No updates available */
   autoUpdater.on("update-not-available", (info) => {
     console.log(info);
-    win.webContents.send("updater", "update-available", { show });
-    if (!show) show = true;
+    win.webContents.send("updater", "update-not-available");
   });
 
   /* New Update Available */
   autoUpdater.on("update-available", (info) => {
     console.log(info);
-    win.webContents.send("updater", "update-not-available");
+    win.webContents.send("updater", "update-available");
   });
 
   /* Download Status Report */
@@ -144,9 +141,6 @@ app.on("ready", async () => {
   createWindow(dimensions);
 
   if (process.platform === "win32") {
-    autoUpdater.autoDownload = false;
-    autoUpdater.checkForUpdates();
-
     logger.transports.file.level = "info";
     autoUpdater.logger = logger;
   }

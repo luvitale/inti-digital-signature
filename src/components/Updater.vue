@@ -54,7 +54,7 @@ export default {
         this.show(`${this.$t("app.updater.available-message")}`, "success", -1);
       }
 
-      if (info == "update-not-available" && obj && obj.show) {
+      if (info == "update-not-available") {
         this.updateButtonDisabled = true;
         this.show(
           `${this.$t("app.updater.not-available-message")}`,
