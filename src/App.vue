@@ -41,7 +41,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  max-width: 90vw;
   margin: 0 auto;
 }
 
@@ -95,37 +94,32 @@ export default {
     };
   },
   mounted() {
-    let initialLanguage = window.localStorage.getItem("language");
-    let initialTheme = window.localStorage.getItem("theme");
-
     this.removeChangeLanguageListener = window.ipcRenderer.receive(
       "change-language",
       (lang) => {
-        const languageToDefine = initialLanguage || lang;
-
-        this.$root.$i18n.locale = languageToDefine;
-        window.localStorage.setItem("language", languageToDefine);
-
-        if (initialLanguage) {
-          window.ipcRenderer.send("change-language", languageToDefine);
-          initialLanguage = undefined;
-        }
+        this.$root.$i18n.locale = lang;
+        window.localStorage.setItem("language", lang);
+        window.ipcRenderer.send("change-language", lang);
       }
     );
     this.removeChangeThemeListener = window.ipcRenderer.receive(
       "change-theme",
       (theme) => {
-        const themeToDefine = initialTheme || theme;
-
-        this.$vuetify.theme.dark = themeToDefine === "dark";
-        window.localStorage.setItem("theme", themeToDefine);
-
-        if (initialTheme) {
-          window.ipcRenderer.send("change-theme", themeToDefine);
-          initialTheme = undefined;
-        }
+        this.$vuetify.theme.dark =
+          theme === "dark" ||
+          (theme === "system" &&
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        window.localStorage.setItem("theme", theme);
+        window.ipcRenderer.send("change-theme", theme);
       }
     );
+
+    window.ipcRenderer.send(
+      "get-language",
+      window.localStorage.getItem("language")
+    );
+    window.ipcRenderer.send("get-theme", window.localStorage.getItem("theme"));
   },
   destroyed() {
     this.removeChangeLanguageListener();

@@ -58,9 +58,6 @@ async function createWindow(dimensions: any) {
   win.setTitle(i18n.t("app.title") as string);
   win.maximize();
 
-  win.webContents.send("change-language", i18n.locale);
-  win.webContents.send("change-theme", nativeTheme.themeSource);
-
   // Electron Updater
 
   /* Checking for updates */

@@ -5,6 +5,17 @@ import { App, BrowserWindow, nativeTheme, ipcMain } from "electron";
 export default (app: App, mainWindow: BrowserWindow) => {
   mainWindow.setTitle(i18n.t("app.title") as string);
 
+  ipcMain.on("get-language", (_event, locale) => {
+    mainWindow.webContents.send("change-language", locale || i18n.locale);
+  });
+
+  ipcMain.on("get-theme", (_event, theme) => {
+    mainWindow.webContents.send(
+      "change-theme",
+      theme || nativeTheme.themeSource
+    );
+  });
+
   ipcMain.on("change-language", (_event, locale) => {
     new menuFactory.buildMenu(app, mainWindow);
     i18n.locale = locale;
