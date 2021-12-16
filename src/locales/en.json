@@ -169,7 +169,8 @@
         "label": "Theme",
         "mode": {
           "dark": "Dark",
-          "light": "Light"
+          "light": "Light",
+          "system": "System"
         }
       }
     }

@@ -21,7 +21,7 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow(dimensions: any) {
   // https://www.electronjs.org/docs/api/native-theme#nativethemethemesource
-  nativeTheme.themeSource = "light";
+  nativeTheme.themeSource = "system";
 
   // Create the browser window.
   const win = new BrowserWindow({
@@ -55,10 +55,11 @@ async function createWindow(dimensions: any) {
     win.loadURL("app://./index.html");
   }
 
-  new menuFactoryService.buildMenu(app, win);
-
   win.setTitle(i18n.t("app.title") as string);
   win.maximize();
+
+  win.webContents.send("change-language", i18n.locale);
+  win.webContents.send("change-theme", nativeTheme.themeSource);
 
   // Electron Updater
 

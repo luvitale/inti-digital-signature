@@ -1,10 +1,20 @@
 import i18n from "@/i18n";
 import menuFactory from "@/services/menu-factory";
-import { App, BrowserWindow, nativeTheme } from "electron";
+import { App, BrowserWindow, nativeTheme, ipcMain } from "electron";
 import { autoUpdater } from "electron-updater";
 
 export default (app: App, mainWindow: BrowserWindow) => {
   mainWindow.setTitle(i18n.t("app.title") as string);
+
+  ipcMain.on("change-language", (_event, locale) => {
+    new menuFactory.buildMenu(app, mainWindow);
+    i18n.locale = locale;
+  });
+
+  ipcMain.on("change-theme", (_event, theme) => {
+    new menuFactory.buildMenu(app, mainWindow);
+    nativeTheme.themeSource = theme;
+  });
 
   const openAboutDialog = () => {
     mainWindow.webContents.send("open-about-dialog");
@@ -59,7 +69,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
       label: languageCode + " - " + i18n.t(`language.${languageCode}`),
       type: "radio",
       checked: i18n.locale === languageCode,
-      click: function () {
+      click: () => {
         i18n.locale = languageCode;
         new menuFactory.buildMenu(app, mainWindow);
         mainWindow.webContents.send("change-language", languageCode);
@@ -67,12 +77,12 @@ export default (app: App, mainWindow: BrowserWindow) => {
     };
   });
 
-  const themeMenu = ["light", "dark"].map((style) => {
+  const themeMenu = ["system", "dark", "light"].map((style) => {
     return {
       label: i18n.t(`window.view.theme.mode.${style}`),
       type: "radio",
       checked: nativeTheme.themeSource === style,
-      click: function () {
+      click: () => {
         nativeTheme.themeSource = style as any;
         mainWindow.webContents.send("change-theme", style);
       },

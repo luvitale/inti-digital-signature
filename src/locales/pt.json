@@ -169,7 +169,8 @@
         "label": "Tema",
         "mode": {
           "dark": "Escuro",
-          "light": "Claro"
+          "light": "Claro",
+          "system": "Sistema"
         }
       }
     }

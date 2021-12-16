@@ -1,9 +1,19 @@
 import i18n from "@/i18n";
 import menuFactory from "@/services/menu-factory";
-import { App, BrowserWindow, nativeTheme } from "electron";
+import { App, BrowserWindow, nativeTheme, ipcMain } from "electron";
 
 export default (app: App, mainWindow: BrowserWindow) => {
   mainWindow.setTitle(i18n.t("app.title") as string);
+
+  ipcMain.on("change-language", (_event, locale) => {
+    new menuFactory.buildMenu(app, mainWindow);
+    i18n.locale = locale;
+  });
+
+  ipcMain.on("change-theme", (_event, theme) => {
+    new menuFactory.buildMenu(app, mainWindow);
+    nativeTheme.themeSource = theme;
+  });
 
   const openAboutDialog = () => {
     mainWindow.webContents.send("open-about-dialog");
@@ -65,7 +75,7 @@ export default (app: App, mainWindow: BrowserWindow) => {
     };
   });
 
-  const themeMenu = ["light", "dark"].map((style) => {
+  const themeMenu = ["system", "dark", "light"].map((style) => {
     return {
       label: i18n.t(`window.view.theme.mode.${style}`),
       type: "radio",

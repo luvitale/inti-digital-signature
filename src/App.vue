@@ -95,51 +95,37 @@ export default {
     };
   },
   mounted() {
-    if (window.localStorage.getItem("language")) {
-      const removeInitialChangeLanguageListener = window.ipcRenderer.receive(
-        "change-language",
-        (lang) => {
-          this.$root.$i18n.locale = lang;
-          removeInitialChangeLanguageListener();
-        }
-      );
-      window.ipcRenderer.send(
-        "change-language",
-        window.localStorage.getItem("language")
-      );
-    }
-    if (window.localStorage.getItem("theme")) {
-      const removeInitialChangeThemeListener = window.ipcRenderer.receive(
-        "change-theme",
-        (theme) => {
-          this.$vuetify.theme.dark = theme === "dark";
-          removeInitialChangeThemeListener();
-        }
-      );
-      window.ipcRenderer.send(
-        "change-theme",
-        window.localStorage.getItem("theme")
-      );
-    }
+    let initialLanguage = window.localStorage.getItem("language");
+    let initialTheme = window.localStorage.getItem("theme");
 
     this.removeChangeLanguageListener = window.ipcRenderer.receive(
       "change-language",
       (lang) => {
-        this.$root.$i18n.locale = lang;
-        window.localStorage.setItem("language", lang);
+        const languageToDefine = initialLanguage || lang;
+
+        this.$root.$i18n.locale = languageToDefine;
+        window.localStorage.setItem("language", languageToDefine);
+
+        if (initialLanguage) {
+          window.ipcRenderer.send("change-language", languageToDefine);
+          initialLanguage = undefined;
+        }
       }
     );
-
     this.removeChangeThemeListener = window.ipcRenderer.receive(
       "change-theme",
       (theme) => {
-        this.$vuetify.theme.dark = theme === "dark";
-        window.localStorage.setItem("theme", theme);
+        const themeToDefine = initialTheme || theme;
+
+        this.$vuetify.theme.dark = themeToDefine === "dark";
+        window.localStorage.setItem("theme", themeToDefine);
+
+        if (initialTheme) {
+          window.ipcRenderer.send("change-theme", themeToDefine);
+          initialTheme = undefined;
+        }
       }
     );
-
-    window.ipcRenderer.send("get-language");
-    window.ipcRenderer.send("get-theme");
   },
   destroyed() {
     this.removeChangeLanguageListener();

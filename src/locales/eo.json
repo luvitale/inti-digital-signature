@@ -169,7 +169,8 @@
         "label": "Temo",
         "mode": {
           "dark": "Malhela",
-          "light": "Lumo"
+          "light": "Lumo",
+          "system": "Sistemo"
         }
       }
     }

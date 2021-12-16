@@ -7,9 +7,9 @@ module.exports = [
   "verify",
   "verify-digest",
   "error",
-  "change-language",
   "open-about-dialog",
   "get-version",
+  "change-language",
   "change-theme",
   "updater",
 ];
