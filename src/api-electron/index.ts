@@ -1,4 +1,4 @@
-import { app, ipcMain, nativeTheme } from "electron";
+import { app, ipcMain } from "electron";
 
 import "./updater";
 import "./inti";

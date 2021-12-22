@@ -18,7 +18,7 @@
         <ModulusLengthSelector
           :cypher="type"
           v-model="modulusLength"
-          v-if="type !== 'ec'"
+          v-if="type === 'rsa'"
         />
 
         <INTIButton

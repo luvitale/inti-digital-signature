@@ -13,16 +13,26 @@ class DigitalSignatureFS extends AbstractDigitalSignatureFS {
     options?: {
       modulusLength?: ModulusLength;
       namedCurve?: string;
+      defaultSave?: boolean;
     }
   ) {
     return await digitalSignatureSaver.generatePrivateKey(type, options);
   }
 
-  async generatePublicKey(privateKeyPath: Path) {
-    return await digitalSignatureSaver.generatePublicKey(privateKeyPath);
+  async generatePublicKey(
+    privateKeyPath: Path,
+    options?: { defaultSave?: boolean }
+  ) {
+    return await digitalSignatureSaver.generatePublicKey(
+      privateKeyPath,
+      options
+    );
   }
 
-  async generateDigest(fileToDigestPath: Path, options?: { hash?: Hash }) {
+  async generateDigest(
+    fileToDigestPath: Path,
+    options?: { hash?: Hash; defaultSave?: boolean }
+  ) {
     return await digitalSignatureSaver.generateDigest(
       fileToDigestPath,
       options
@@ -32,7 +42,7 @@ class DigitalSignatureFS extends AbstractDigitalSignatureFS {
   async sign(
     privateKeyPath: Path,
     fileToSignPath: Path,
-    options?: { hash?: Hash }
+    options?: { hash?: Hash; defaultSave?: boolean }
   ) {
     return await digitalSignatureSaver.sign(
       privateKeyPath,
@@ -44,7 +54,7 @@ class DigitalSignatureFS extends AbstractDigitalSignatureFS {
   async signDigest(
     privateKeyPath: Path,
     fileToSignPath: Path,
-    options?: { hash?: Hash }
+    options?: { hash?: Hash; defaultSave?: boolean }
   ) {
     return await digitalSignatureSaver.signDigest(
       privateKeyPath,

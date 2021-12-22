@@ -15,6 +15,7 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
     options?: {
       modulusLength?: ModulusLength;
       namedCurve?: string;
+      defaultSave?: boolean;
     }
   ) {
     const defaultPath = `${i18n.t(
@@ -26,10 +27,17 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
       options
     );
 
-    return await cryptoFileDialog.savePEM(privateKey as string, defaultPath);
+    return await cryptoFileDialog.savePEM(
+      privateKey as string,
+      defaultPath,
+      options ? options.defaultSave : false
+    );
   }
 
-  async generatePublicKey(privateKeyPath: Path) {
+  async generatePublicKey(
+    privateKeyPath: Path,
+    options?: { defaultSave?: boolean }
+  ) {
     const defaultPath = `${i18n.t(
       "crypto-file-dialog.default-filename.public-key"
     )}.pem`;
@@ -38,7 +46,11 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
       privateKeyPath
     );
 
-    return await cryptoFileDialog.savePEM(publicKey as string, defaultPath);
+    return await cryptoFileDialog.savePEM(
+      publicKey as string,
+      defaultPath,
+      options ? options.defaultSave : false
+    );
   }
 
   async generateDigest(fileToDigestPath: Path, options?: { hash?: Hash }) {
@@ -75,7 +87,7 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
   async signDigest(
     privateKeyPath: Path,
     fileToSignPath: Path,
-    options?: { hash?: Hash }
+    options?: { hash?: Hash; defaultSave?: boolean }
   ) {
     const defaultPath = `${i18n.t(
       "crypto-file-dialog.default-filename.signature"
@@ -87,7 +99,11 @@ class DigitalSignatureSaver extends AbstractDigitalSignatureSaver {
       options
     );
 
-    return await cryptoFileDialog.saveSignature(signature, defaultPath);
+    return await cryptoFileDialog.saveSignature(
+      signature,
+      defaultPath,
+      options ? options.defaultSave : false
+    );
   }
 
   async verify(
